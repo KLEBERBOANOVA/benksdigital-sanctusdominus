@@ -142,6 +142,78 @@ function HomePage() {
         </div>
       </section>
 
+      {/* FOUNDER */}
+      <section className="py-28 px-5 lg:px-8 bg-gradient-to-b from-background to-muted/40 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-30">
+          <div
+            className="absolute -top-32 -left-32 w-[420px] h-[420px] rounded-full"
+            style={{ background: "radial-gradient(circle, oklch(0.78 0.14 80 / 0.35), transparent 70%)" }}
+          />
+          <div
+            className="absolute -bottom-32 -right-32 w-[420px] h-[420px] rounded-full"
+            style={{ background: "radial-gradient(circle, oklch(0.35 0.08 25 / 0.35), transparent 70%)" }}
+          />
+        </div>
+        <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-center relative">
+          <Reveal>
+            <div className="relative">
+              <div className="rounded-lg shadow-elegant bg-gradient-to-br from-navy-deep/5 to-bordeaux/5 p-5 ring-1 ring-gold/30">
+                <img
+                  src={founderImg}
+                  alt="Carlos Kleber — fundador da Sanctus Dominus"
+                  loading="lazy"
+                  className="w-full h-auto max-h-[720px] object-contain rounded-md mx-auto"
+                />
+              </div>
+              <div className="absolute -bottom-6 -left-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
+                <p className="font-display text-2xl leading-tight">Carlos Kleber</p>
+                <p className="text-xs tracking-wider uppercase">Fundador & Designer</p>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={150}>
+            <p className="text-xs tracking-[0.4em] uppercase text-gold mb-5">O Fundador</p>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-foreground">
+              Fé, arte e propósito em{" "}
+              <span className="italic text-bordeaux">cada criação</span>.
+            </h2>
+            <p className="mt-6 text-foreground/80 text-lg leading-relaxed">
+              Há mais de <strong className="text-bordeaux">25 anos</strong>, Carlos Kleber transforma fé em
+              expressão visual. Da criação de artes para Igrejas, Movimentos e Pastorais à
+              concepção da <strong className="text-bordeaux">Sanctus Dominus</strong>, sua trajetória une
+              criatividade, oração e missão.
+            </p>
+            <p className="mt-4 text-foreground/75 leading-relaxed">
+              Cada camisa, boné ou moletom carrega mais do que estampas — carrega uma
+              mensagem de esperança, propósito e evangelização.
+            </p>
+
+            <div className="mt-8 grid grid-cols-3 gap-4 max-w-md">
+              <div className="text-center p-4 rounded-lg bg-card border border-border">
+                <p className="font-display text-3xl text-bordeaux">+25</p>
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Anos de arte sacra</p>
+              </div>
+              <div className="text-center p-4 rounded-lg bg-card border border-border">
+                <p className="font-display text-3xl text-bordeaux">100%</p>
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Identidade católica</p>
+              </div>
+              <div className="text-center p-4 rounded-lg bg-card border border-border">
+                <p className="font-display text-3xl text-bordeaux">∞</p>
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Fé & propósito</p>
+              </div>
+            </div>
+
+            <Link
+              to="/sobre"
+              className="mt-10 inline-flex items-center gap-3 bg-navy-deep text-cream px-8 py-4 rounded-full text-sm uppercase tracking-wider font-semibold hover:bg-bordeaux transition-colors"
+            >
+              Conheça a história <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       {/* STUDIO */}
       <section className="py-28 px-5 lg:px-8 bg-navy-deep text-cream relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
