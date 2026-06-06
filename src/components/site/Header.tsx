@@ -102,22 +102,3 @@ export function Header() {
     </header>
   );
 }
-          <nav className="px-5 py-6 flex flex-col gap-4">
-            {NAV.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="text-base font-display tracking-wide text-cream hover:text-gold"
-                activeProps={{ className: "text-gold" }}
-                activeOptions={{ exact: item.to === "/" }}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
-    </header>
-  );
-}
