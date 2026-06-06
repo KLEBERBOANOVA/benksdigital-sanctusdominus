@@ -119,15 +119,15 @@ function SobrePage() {
       </section>
 
       <section className="py-24 px-5 lg:px-8 bg-navy-deep text-cream">
-        <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-14 items-center">
+        <div className="mx-auto max-w-6xl grid lg:grid-cols-[5fr_7fr] gap-14 items-center">
           <Reveal>
             <div>
-              <div className="relative rounded-lg shadow-elegant bg-gradient-to-br from-cream/10 to-cream/5 p-5 ring-1 ring-gold/30">
+              <div className="relative rounded-lg shadow-elegant bg-gradient-to-br from-cream/10 to-cream/5 p-5 ring-1 ring-gold/30 max-w-[460px] mx-auto">
                 <img
                   src={founderImg}
                   alt="Carlos Kleber, fundador da Sanctus Dominus"
                   loading="lazy"
-                  className="w-full h-auto max-h-[820px] object-contain rounded-md mx-auto"
+                  className="w-full h-auto max-h-[560px] object-contain rounded-md mx-auto"
                 />
                 <div className="absolute -bottom-6 -right-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
                   <p className="font-display text-2xl leading-tight">+25 anos</p>

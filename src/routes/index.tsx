@@ -156,13 +156,13 @@ function HomePage() {
         </div>
         <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-center relative">
           <Reveal>
-            <div className="relative">
+            <div className="relative max-w-[460px] mx-auto">
               <div className="rounded-lg shadow-elegant bg-gradient-to-br from-navy-deep/5 to-bordeaux/5 p-5 ring-1 ring-gold/30">
                 <img
                   src={founderImg}
                   alt="Carlos Kleber — fundador da Sanctus Dominus"
                   loading="lazy"
-                  className="w-full h-auto max-h-[720px] object-contain rounded-md mx-auto"
+                  className="w-full h-auto max-h-[520px] object-contain rounded-md mx-auto"
                 />
               </div>
               <div className="absolute -bottom-6 -left-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
