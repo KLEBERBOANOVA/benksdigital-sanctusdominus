@@ -29,7 +29,6 @@ export function ProductCard({ product }: { product: Product }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/85 via-navy-deep/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        {/* Top badges */}
         <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
           <span className="text-[10px] tracking-[0.2em] uppercase bg-navy-deep/90 text-gold px-3 py-1 rounded-full backdrop-blur">
             {product.collection}
@@ -39,27 +38,40 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
 
-        {/* Tagline on hover */}
-        <p className="absolute bottom-4 left-4 right-4 translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 text-sm text-cream font-display italic">
+        <div className="absolute bottom-3 left-3 z-10">
+          <div className="rounded-xl bg-gradient-gold px-4 py-2 text-navy-deep shadow-gold ring-1 ring-gold/40 backdrop-blur">
+            <p className="text-[9px] uppercase tracking-[0.24em] font-semibold opacity-75">Preço</p>
+            <p className="font-display text-2xl leading-none font-bold">{product.price}</p>
+          </div>
+        </div>
+
+        <p className="absolute bottom-4 right-4 max-w-[55%] translate-y-3 text-right text-sm text-cream font-display italic opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
           “{product.tagline}”
         </p>
       </Link>
 
-      {/* CONTENT */}
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <h3 className="font-display text-xl text-foreground group-hover:text-bordeaux transition-colors truncate">
-              {product.name}
-            </h3>
-            <p className="text-xs text-muted-foreground mt-1 tracking-wide">
-              {product.audience} · {product.color}
-            </p>
-          </div>
-          <p className="font-display text-lg text-gold whitespace-nowrap">{product.price}</p>
+        <div className="min-w-0">
+          <h3 className="font-display text-xl text-foreground group-hover:text-bordeaux transition-colors truncate">
+            {product.name}
+          </h3>
+          <p className="mt-1 text-xs tracking-wide text-muted-foreground">
+            {product.audience} · {product.color}
+          </p>
         </div>
 
-        {/* ACTIONS */}
+        <div className="mt-4 flex items-end justify-between gap-3 border-t border-dashed border-border/70 pt-4">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Investimento</p>
+            <p className="font-display text-3xl leading-none text-bordeaux font-bold">{product.price}</p>
+          </div>
+          <p className="text-right text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+            peça
+            <br />
+            exclusiva
+          </p>
+        </div>
+
         <div className="mt-5 grid grid-cols-2 gap-2">
           <a
             href={buyHref}
