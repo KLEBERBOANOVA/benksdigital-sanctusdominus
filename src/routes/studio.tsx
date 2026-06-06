@@ -293,6 +293,8 @@ function StudioPage() {
                       <img
                         src={estampaProduct.image}
                         alt={estampaProduct.name}
+                        loading="lazy"
+                        decoding="async"
                         className="h-28 w-28 rounded-lg object-cover border border-border"
                       />
                     )}
