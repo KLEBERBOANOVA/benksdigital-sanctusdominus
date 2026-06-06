@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "Sanctus Dominus" },
       { name: "theme-color", content: "#0A192F" },
-      { property: "og:title", content: "Sanctus Dominus | Arte Católica que Evangeliza" },
+      { property: "og:title", content: "Sanctus Dominus | Moda e Arte Católica que Evangeliza" },
       {
         property: "og:description",
         content:
@@ -90,6 +90,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Sanctus Dominus" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Sanctus Dominus | Moda e Arte Católica que Evangeliza" },
+      { name: "description", content: "Fé para vestir. Arte para evangelizar.
+Peças exclusivas e criações com propósito que transformam sua devoção em testemunho vivo." },
+      { property: "og:description", content: "Fé para vestir. Arte para evangelizar.
+Peças exclusivas e criações com propósito que transformam sua devoção em testemunho vivo." },
+      { name: "twitter:description", content: "Fé para vestir. Arte para evangelizar.
+Peças exclusivas e criações com propósito que transformam sua devoção em testemunho vivo." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/ivkbMxHpPrN0pxNgSbru32LoCUN2/social-images/social-1780714181953-Captura_de_tela_2026-06-05_234833.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/ivkbMxHpPrN0pxNgSbru32LoCUN2/social-images/social-1780714181953-Captura_de_tela_2026-06-05_234833.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
