@@ -52,6 +52,7 @@ function SobrePage() {
                 src={brandLogo}
                 alt="Sanctus Dominus — Dominus Select"
                 loading="lazy"
+                decoding="async"
                 className="w-full max-w-[260px] mx-auto h-auto object-contain"
               />
               <div className="space-y-6 text-lg leading-relaxed text-foreground/85">
@@ -127,6 +128,7 @@ function SobrePage() {
                   src={founderImg}
                   alt="Carlos Kleber, fundador da Sanctus Dominus"
                   loading="lazy"
+                decoding="async"
                   className="w-full h-auto max-h-[560px] object-contain rounded-md mx-auto"
                 />
                 <div className="absolute -bottom-6 -right-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
