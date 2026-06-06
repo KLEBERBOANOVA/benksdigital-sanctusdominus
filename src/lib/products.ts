@@ -19,6 +19,9 @@ import sanctusBordoVinhoAsset from "@/assets/product-sanctus-bordo-vinho.png.ass
 import eisCoracaoMarromAsset from "@/assets/product-eis-coracao-marrom.png.asset.json";
 import daimeCoracaoPretoAsset from "@/assets/product-daime-coracao-preto.png.asset.json";
 import daimeCoracaoBegeAsset from "@/assets/product-daime-coracao-bege.png.asset.json";
+import padrePioPretaAsset from "@/assets/product-padre-pio-preta.png.asset.json";
+import jesusCaminhoPretaAsset from "@/assets/product-jesus-caminho-preta.png.asset.json";
+import euNaoSouPretaAsset from "@/assets/product-eu-nao-sou-preta.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -38,6 +41,9 @@ const sanctusBordoVinho = sanctusBordoVinhoAsset.url;
 const eisCoracaoMarrom = eisCoracaoMarromAsset.url;
 const daimeCoracaoPreto = daimeCoracaoPretoAsset.url;
 const daimeCoracaoBege = daimeCoracaoBegeAsset.url;
+const padrePioPreta = padrePioPretaAsset.url;
+const jesusCaminhoPreta = jesusCaminhoPretaAsset.url;
+const euNaoSouPreta = euNaoSouPretaAsset.url;
 
 export type Product = {
   slug: string;
@@ -368,6 +374,51 @@ export const products: Product[] = [
       "Camiseta 100% algodão fio 30.1 penteado em bege. Assinatura Sanctus Dominus à frente e arte vibrante do coração com faixa nas costas: ‘Dai-me um coração semelhante ao Teu’.",
     inspiration:
       "A mesma oração de conversão em uma versão luminosa — para vestir leveza, fé e o desejo de um coração novo.",
+  },
+  {
+    slug: "padre-pio-reze-espere-e-nao-se-preocupe",
+    name: "Padre Pio — Reze, Espere e Não se Preocupe",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Preto",
+    price: "R$ 89,90",
+    image: padrePioPreta,
+    tagline: "A preocupação é inútil. Deus é misericordioso.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em preto. Assinatura Sanctus Dominus à frente e composição exclusiva de São Padre Pio nas costas com sua mensagem mais conhecida de confiança em Deus.",
+    inspiration:
+      "Inspirada na espiritualidade de Padre Pio, feita para quem deseja vestir abandono, oração perseverante e confiança total na misericórdia divina.",
+  },
+  {
+    slug: "jesus-cristo-e-o-caminho-a-verdade-e-a-vida",
+    name: "Jesus Cristo é o Caminho, a Verdade e a Vida",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Preto",
+    price: "R$ 89,90",
+    image: jesusCaminhoPreta,
+    tagline: "João 14,6 — Ele transforma vidas.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em preto. Frente minimalista com assinatura Sanctus Dominus e estampa marcante nas costas com Cristo, cruz e a declaração ‘o Caminho, a Verdade e a Vida’.",
+    inspiration:
+      "Uma peça-manifesto centrada em João 14,6 para lembrar, em todo ambiente, que Cristo é o único caminho e permanece o mesmo hoje, amanhã e para sempre.",
+  },
+  {
+    slug: "eu-nao-sou-deste-mundo-mas-meu-rei-e-soberano",
+    name: "Eu Não Sou Deste Mundo, mas Meu Rei é Soberano",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Preto",
+    price: "R$ 89,90",
+    image: euNaoSouPreta,
+    tagline: "João 18,36 — Meu Reino não é deste mundo.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em preto. Assinatura Sanctus Dominus à frente e arte impactante nas costas com cruz, leão e a mensagem ‘Eu não sou deste mundo, mas meu Rei é soberano’.",
+    inspiration:
+      "Inspirada na realeza de Cristo e no desprendimento do espírito do mundo, para homens que desejam vestir identidade, coragem e pertencimento ao Reino eterno.",
   },
 ];
 
