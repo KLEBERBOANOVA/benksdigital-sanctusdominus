@@ -10,6 +10,12 @@ import mariaPassaFrenteAsset from "@/assets/product-maria-passa-frente.png.asset
 import santaTerezinhaFofaAsset from "@/assets/product-santa-terezinha-fofa.png.asset.json";
 import santaTerezinhaAsset from "@/assets/product-santa-terezinha.png.asset.json";
 import fiatAsset from "@/assets/product-fiat.png.asset.json";
+import tudoPossoAsset from "@/assets/product-tudo-posso.png.asset.json";
+import feInabalavelAsset from "@/assets/product-fe-inabalavel.png.asset.json";
+import eleViveAsset from "@/assets/product-ele-vive.png.asset.json";
+import virgemMariaMantoAsset from "@/assets/product-virgem-maria-manto.png.asset.json";
+import virgemMariaFeAsset from "@/assets/product-virgem-maria-fe.png.asset.json";
+import sanctusBordoVinhoAsset from "@/assets/product-sanctus-bordo-vinho.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -20,6 +26,12 @@ const mariaPassaFrente = mariaPassaFrenteAsset.url;
 const santaTerezinhaFofa = santaTerezinhaFofaAsset.url;
 const santaTerezinha = santaTerezinhaAsset.url;
 const fiat = fiatAsset.url;
+const tudoPosso = tudoPossoAsset.url;
+const feInabalavel = feInabalavelAsset.url;
+const eleVive = eleViveAsset.url;
+const virgemMariaManto = virgemMariaMantoAsset.url;
+const virgemMariaFe = virgemMariaFeAsset.url;
+const sanctusBordoVinho = sanctusBordoVinhoAsset.url;
 
 export type Product = {
   slug: string;
