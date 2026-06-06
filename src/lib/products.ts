@@ -1,6 +1,13 @@
 import foiPorVoce from "@/assets/product-foi-por-voce.png";
 import rasoNaoServe from "@/assets/product-raso-nao-serve.png";
 import criaiEmMim from "@/assets/product-criai-em-mim.png";
+import euEscolhiVocesAsset from "@/assets/product-eu-escolhi-voces.png.asset.json";
+import feMaiorMedoAsset from "@/assets/product-fe-maior-medo.png.asset.json";
+import bomPerfumeAsset from "@/assets/product-bom-perfume.png.asset.json";
+
+const euEscolhiVoces = euEscolhiVocesAsset.url;
+const feMaiorMedo = feMaiorMedoAsset.url;
+const bomPerfume = bomPerfumeAsset.url;
 
 export type Product = {
   slug: string;
@@ -61,6 +68,51 @@ export const products: Product[] = [
       "Camiseta 100% algodão fio 30.1 penteado em bordô vinho. Estampa de coração mergulhando em águas profundas — manifesto para quem busca mais.",
     inspiration:
       "Para a alma que já não se contenta com o superficial. Um chamado ao profundo, ao verdadeiro, ao eterno.",
+  },
+  {
+    slug: "eu-escolhi-voces",
+    name: "Eu Escolhi Vocês",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Azul Petróleo",
+    price: "R$ 89,90",
+    image: euEscolhiVoces,
+    tagline: "João 15,16 — A escolha foi d'Ele.",
+    description:
+      "Baby look 100% algodão penteado, modelagem feminina. Estampa exclusiva com a face de Cristo coroado e a passagem de João 15,16.",
+    inspiration:
+      "‘Não foram vocês que me escolheram, Eu escolhi vocês.’ Um lembrete de que somos chamados pelo próprio Cristo — escolhidos, enviados, amados.",
+  },
+  {
+    slug: "fe-maior-que-o-medo",
+    name: "Fé Maior que o Medo",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Azul Marinho",
+    price: "R$ 89,90",
+    image: feMaiorMedo,
+    tagline: "O Leão e o Cordeiro habitam em quem crê.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em azul marinho. Estampa exclusiva com o Leão de Judá e o Cordeiro de Deus diante da Cruz.",
+    inspiration:
+      "A força do Leão e a mansidão do Cordeiro. Para o apóstolo dos tempos modernos — aquele que vive pela fé, não pelo medo.",
+  },
+  {
+    slug: "somos-o-bom-perfume-de-cristo",
+    name: "Somos o Bom Perfume de Cristo",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Infantil",
+    color: "Bege",
+    price: "R$ 69,90",
+    image: bomPerfume,
+    tagline: "2 Coríntios 2,15 — Exalar Cristo por onde passar.",
+    description:
+      "Camiseta infantil 100% algodão penteado em bege. Estampa exclusiva com o brasão Sanctus Dominus à frente e o ‘Bom Perfume de Cristo’ nas costas.",
+    inspiration:
+      "Inspirada em 2 Coríntios 2,15. Para que os pequenos apóstolos cresçam exalando amor, perdão, salvação e graça por onde passarem.",
   },
 ];
 
