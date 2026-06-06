@@ -22,6 +22,9 @@ import daimeCoracaoBegeAsset from "@/assets/product-daime-coracao-bege.png.asset
 import padrePioPretaAsset from "@/assets/product-padre-pio-preta.png.asset.json";
 import jesusCaminhoPretaAsset from "@/assets/product-jesus-caminho-preta.png.asset.json";
 import euNaoSouPretaAsset from "@/assets/product-eu-nao-sou-preta.png.asset.json";
+import buscaiAoSenhorAsset from "@/assets/product-buscai-ao-senhor.png.asset.json";
+import saoJoaoBatistaAsset from "@/assets/product-sao-joao-batista.png.asset.json";
+import jesusMeuSenhorAsset from "@/assets/product-jesus-meu-senhor.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -44,6 +47,9 @@ const daimeCoracaoBege = daimeCoracaoBegeAsset.url;
 const padrePioPreta = padrePioPretaAsset.url;
 const jesusCaminhoPreta = jesusCaminhoPretaAsset.url;
 const euNaoSouPreta = euNaoSouPretaAsset.url;
+const buscaiAoSenhor = buscaiAoSenhorAsset.url;
+const saoJoaoBatista = saoJoaoBatistaAsset.url;
+const jesusMeuSenhor = jesusMeuSenhorAsset.url;
 
 export type Product = {
   slug: string;
@@ -419,6 +425,51 @@ export const products: Product[] = [
       "Camiseta 100% algodão fio 30.1 penteado em preto. Assinatura Sanctus Dominus à frente e arte impactante nas costas com cruz, leão e a mensagem ‘Eu não sou deste mundo, mas meu Rei é soberano’.",
     inspiration:
       "Inspirada na realeza de Cristo e no desprendimento do espírito do mundo, para homens que desejam vestir identidade, coragem e pertencimento ao Reino eterno.",
+  },
+  {
+    slug: "buscai-ao-senhor",
+    name: "Buscai ao Senhor",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Branco",
+    price: "R$ 89,90",
+    image: buscaiAoSenhor,
+    tagline: "Isaías 55,6 — enquanto se pode achar.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em branco. Assinatura Sanctus Dominus à frente e estampa exclusiva nas costas com a porta aberta da graça e o chamado profético de Isaías 55,6.",
+    inspiration:
+      "Inspirada no convite urgente de Isaías: buscar o Senhor enquanto Ele se deixa encontrar e invocá-Lo enquanto está perto.",
+  },
+  {
+    slug: "sao-joao-batista",
+    name: "São João Batista — Ecce Agnus Dei",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Marrom",
+    price: "R$ 89,90",
+    image: saoJoaoBatista,
+    tagline: "Eis o Cordeiro de Deus. Rogai por nós!",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em marrom. Estampa exclusiva à frente de São João Batista apontando para o Cordeiro, com assinatura Sanctus Dominus nas costas.",
+    inspiration:
+      "Inspirada no precursor de Cristo, voz que clama no deserto e aponta para o Cordeiro de Deus — coragem profética para os dias de hoje.",
+  },
+  {
+    slug: "jesus-meu-senhor-e-salvador",
+    name: "Jesus, meu Senhor e Salvador",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Azul Marinho",
+    price: "R$ 89,90",
+    image: jesusMeuSenhor,
+    tagline: "Cristo crucificado, esperança que ressuscita.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em azul marinho. Estampa exclusiva à frente de Cristo crucificado em composição radiante, com assinatura Sanctus Dominus nas costas.",
+    inspiration:
+      "Inspirada na confissão de fé que reconhece Jesus como Senhor e Salvador — a Cruz como trono e a Ressurreição como vitória definitiva.",
   },
 ];
 
