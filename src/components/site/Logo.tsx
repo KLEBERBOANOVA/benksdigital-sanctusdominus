@@ -12,7 +12,7 @@ export function Logo({ className = "h-10 w-auto" }: { className?: string }) {
   );
 }
 
-export function BrandMark({ className = "h-12 md:h-14 w-auto" }: { className?: string }) {
+export function BrandMark({ className = "h-20 md:h-24 lg:h-28 w-auto" }: { className?: string }) {
   return (
     <img
       src={logoAsset.url}
