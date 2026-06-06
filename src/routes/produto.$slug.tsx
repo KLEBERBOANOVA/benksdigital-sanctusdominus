@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, MessageCircle, Truck, ShieldCheck, Scissors } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, MessageCircle, Truck, ShieldCheck, Scissors, X, ZoomIn } from "lucide-react";
+import { useEffect, useState } from "react";
 import { getProduct, products } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
 
@@ -34,11 +34,24 @@ export const Route = createFileRoute("/produto/$slug")({
 function ProductPage() {
   const { product } = Route.useLoaderData();
   const [size, setSize] = useState("M");
+  const [zoomed, setZoomed] = useState(false);
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
   const whatsappMsg = encodeURIComponent(
     `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}). Pode me ajudar?`
   );
+
+  useEffect(() => {
+    if (!zoomed) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setZoomed(false);
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [zoomed]);
 
   return (
     <>
@@ -49,12 +62,20 @@ function ProductPage() {
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-muted shadow-elegant">
-              <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
+            <button
+              type="button"
+              onClick={() => setZoomed(true)}
+              aria-label="Ampliar imagem do produto"
+              className="group relative aspect-[4/5] overflow-hidden rounded-lg bg-muted shadow-elegant cursor-zoom-in"
+            >
+              <img src={product.image} alt={product.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               <span className="absolute top-5 left-5 text-[10px] tracking-[0.2em] uppercase bg-navy-deep/85 text-gold px-3 py-1 rounded-full">
                 Coleção {product.collection}
               </span>
-            </div>
+              <span className="absolute bottom-4 right-4 inline-flex items-center gap-2 bg-navy-deep/85 text-cream text-xs px-3 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                <ZoomIn className="h-3.5 w-3.5" /> Ampliar
+              </span>
+            </button>
 
             <div className="flex flex-col">
               <p className="text-xs tracking-[0.3em] uppercase text-gold">{product.category} · {product.audience}</p>

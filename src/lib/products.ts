@@ -16,6 +16,9 @@ import eleViveAsset from "@/assets/product-ele-vive.png.asset.json";
 import virgemMariaMantoAsset from "@/assets/product-virgem-maria-manto.png.asset.json";
 import virgemMariaFeAsset from "@/assets/product-virgem-maria-fe.png.asset.json";
 import sanctusBordoVinhoAsset from "@/assets/product-sanctus-bordo-vinho.png.asset.json";
+import eisCoracaoMarromAsset from "@/assets/product-eis-coracao-marrom.png.asset.json";
+import daimeCoracaoPretoAsset from "@/assets/product-daime-coracao-preto.png.asset.json";
+import daimeCoracaoBegeAsset from "@/assets/product-daime-coracao-bege.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -32,6 +35,9 @@ const eleVive = eleViveAsset.url;
 const virgemMariaManto = virgemMariaMantoAsset.url;
 const virgemMariaFe = virgemMariaFeAsset.url;
 const sanctusBordoVinho = sanctusBordoVinhoAsset.url;
+const eisCoracaoMarrom = eisCoracaoMarromAsset.url;
+const daimeCoracaoPreto = daimeCoracaoPretoAsset.url;
+const daimeCoracaoBege = daimeCoracaoBegeAsset.url;
 
 export type Product = {
   slug: string;
@@ -317,6 +323,51 @@ export const products: Product[] = [
       "Camiseta masculina bordô vinho com assinatura Sanctus Dominus centralizada no peito e brasão discreto nas costas.",
     inspiration:
       "Para quem prefere uma estética mais sóbria, elegante e versátil sem abrir mão da identidade da marca e da fé.",
+  },
+  {
+    slug: "eis-o-coracao-que-tanto-amou",
+    name: "Eis o Coração que Tanto Amou",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Marrom",
+    price: "R$ 89,90",
+    image: eisCoracaoMarrom,
+    tagline: "‘Não poupou nada’ — Sagrado Coração.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em marrom. Assinatura Sanctus Dominus à frente e estampa flamejante do Sagrado Coração nas costas com a frase ‘Eis o Coração que tanto amou os homens, que não poupou nada’.",
+    inspiration:
+      "Inspirada na revelação do Sagrado Coração de Jesus a Santa Margarida Maria — um manifesto do amor que se entrega sem reservas.",
+  },
+  {
+    slug: "dai-me-um-coracao-semelhante-ao-teu-preto",
+    name: "Dai-me um Coração Semelhante ao Teu — Preto",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Preto",
+    price: "R$ 89,90",
+    image: daimeCoracaoPreto,
+    tagline: "Oração de transformação interior.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em preto. Assinatura Sanctus Dominus à frente e arte tatuada do coração com faixa nas costas: ‘Dai-me um coração semelhante ao Teu’.",
+    inspiration:
+      "Para quem deseja que o próprio coração seja moldado segundo o Coração de Cristo — manso, humilde e ardente em amor.",
+  },
+  {
+    slug: "dai-me-um-coracao-semelhante-ao-teu-bege",
+    name: "Dai-me um Coração Semelhante ao Teu — Bege",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Bege",
+    price: "R$ 89,90",
+    image: daimeCoracaoBege,
+    tagline: "Versão clara da oração que transforma.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em bege. Assinatura Sanctus Dominus à frente e arte vibrante do coração com faixa nas costas: ‘Dai-me um coração semelhante ao Teu’.",
+    inspiration:
+      "A mesma oração de conversão em uma versão luminosa — para vestir leveza, fé e o desejo de um coração novo.",
   },
 ];
 
