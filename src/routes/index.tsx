@@ -120,19 +120,29 @@ function HomePage() {
       </section>
 
       {/* MANIFESTO */}
-      <section className="py-28 px-5 lg:px-8 bg-background">
-        <div className="mx-auto max-w-4xl text-center">
+      <section className="py-28 px-5 lg:px-8 bg-navy-deep text-cream relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div
+            className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full"
+            style={{ background: "radial-gradient(circle, oklch(0.78 0.14 80 / 0.5), transparent 70%)" }}
+          />
+          <div
+            className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full"
+            style={{ background: "radial-gradient(circle, oklch(0.78 0.14 80 / 0.4), transparent 70%)" }}
+          />
+        </div>
+        <div className="mx-auto max-w-4xl text-center relative">
           <Reveal>
             <p className="text-xs tracking-[0.4em] uppercase text-gold mb-6">Manifesto</p>
-            <h2 className="font-display text-4xl md:text-6xl leading-tight">
+            <h2 className="font-display text-4xl md:text-6xl leading-tight text-cream">
               Não seguimos tendências.
               <br />
-              <span className="italic text-bordeaux">Resgatamos símbolos eternos.</span>
+              <span className="italic text-gold">Resgatamos símbolos eternos.</span>
             </h2>
             <div className="ornament-divider my-10 max-w-md mx-auto">
               <span className="text-gold text-xl">✦</span>
             </div>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+            <p className="text-lg md:text-xl text-cream/85 leading-relaxed">
               Nasce a Sanctus Dominus, uma marca criada para aqueles que carregam sua fé não
               apenas no coração, mas também na forma como se apresentam ao mundo. Cada arte,
               cada detalhe, cada peça é pensada para expressar a beleza da tradição católica
