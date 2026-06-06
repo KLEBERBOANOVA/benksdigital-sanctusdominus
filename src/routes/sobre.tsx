@@ -136,7 +136,7 @@ function SobrePage() {
               </div>
             </div>
           </Reveal>
-          <Reveal delay={150} className="lg:col-span-3">
+          <Reveal delay={150}>
             <p className="text-xs tracking-[0.4em] uppercase text-gold">O Fundador</p>
             <h2 className="font-display text-4xl md:text-5xl mt-3">Carlos Kleber</h2>
             <p className="font-display italic text-gold/90 mt-1">+25 anos transformando fé em expressão visual.</p>
