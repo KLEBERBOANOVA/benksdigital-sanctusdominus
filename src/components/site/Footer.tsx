@@ -55,7 +55,8 @@ export function Footer() {
                   href="mailto:sanctusdominusoficial@gmail.com"
                   className="flex items-center gap-2 hover:text-gold transition break-all"
                 >
-                  <Mail className="h-4 w-4 shrink-0" /> sanctusdominusoficial@gmail.com
+                  <Mail className="h-4 w-4 shrink-0" />
+                  <span>sanctusdominusoficial@gmail.com</span>
                 </a>
               </li>
               <li>
