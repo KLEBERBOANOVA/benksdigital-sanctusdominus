@@ -27,6 +27,7 @@ import saoJoaoBatistaAsset from "@/assets/product-sao-joao-batista.png.asset.jso
 import jesusMeuSenhorAsset from "@/assets/product-jesus-meu-senhor.png.asset.json";
 import feMaiorQueOMedoOffwhiteAsset from "@/assets/product-fe-maior-que-o-medo-offwhite.png.asset.json";
 import euEncontreiJesusBrancaAsset from "@/assets/product-eu-encontrei-jesus-branca.png.asset.json";
+import euEncontreiJesusRoxaAsset from "@/assets/product-eu-encontrei-jesus-roxa.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -54,6 +55,7 @@ const saoJoaoBatista = saoJoaoBatistaAsset.url;
 const jesusMeuSenhor = jesusMeuSenhorAsset.url;
 const feMaiorQueOMedoOffwhite = feMaiorQueOMedoOffwhiteAsset.url;
 const euEncontreiJesusBranca = euEncontreiJesusBrancaAsset.url;
+const euEncontreiJesusRoxa = euEncontreiJesusRoxaAsset.url;
 
 export type Product = {
   slug: string;
@@ -504,6 +506,21 @@ export const products: Product[] = [
       "Camiseta infantil 100% algodão penteado em branco. Frente com assinatura Sanctus Dominus e estampa colorida exclusiva nas costas com a mensagem 'Eu encontrei Jesus'.",
     inspiration:
       "Inspirada no encontro transformador com Cristo, feita para vestir os pequenos apóstolos com alegria, cor e identidade de fé.",
+  },
+  {
+    slug: "eu-encontrei-jesus-adulto-roxa",
+    name: "Eu Encontrei Jesus — Adulto Roxa",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Roxo",
+    price: "R$ 89,90",
+    image: euEncontreiJesusRoxa,
+    tagline: "Atos 22,9 — encontro que muda tudo.",
+    description:
+      "Camiseta adulto 100% algodão fio 30.1 penteado em roxo. Frente com assinatura Sanctus Dominus e estampa colorida exclusiva nas costas com a mensagem 'Eu encontrei Jesus'.",
+    inspiration:
+      "Inspirada no encontro transformador com Cristo — uma peça vibrante para anunciar com cor e ousadia a alegria de quem encontrou o Senhor.",
   },
 ];
 
