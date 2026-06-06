@@ -4,10 +4,16 @@ import criaiEmMim from "@/assets/product-criai-em-mim.png";
 import euEscolhiVocesAsset from "@/assets/product-eu-escolhi-voces.png.asset.json";
 import feMaiorMedoAsset from "@/assets/product-fe-maior-medo.png.asset.json";
 import bomPerfumeAsset from "@/assets/product-bom-perfume.png.asset.json";
+import naoFoiVocesAsset from "@/assets/product-nao-foi-voces.png.asset.json";
+import poderEspiritoAsset from "@/assets/product-poder-espirito-santo.png.asset.json";
+import mariaPassaFrenteAsset from "@/assets/product-maria-passa-frente.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
 const bomPerfume = bomPerfumeAsset.url;
+const naoFoiVoces = naoFoiVocesAsset.url;
+const poderEspirito = poderEspiritoAsset.url;
+const mariaPassaFrente = mariaPassaFrenteAsset.url;
 
 export type Product = {
   slug: string;
@@ -113,6 +119,51 @@ export const products: Product[] = [
       "Camiseta infantil 100% algodão penteado em bege. Estampa exclusiva com o brasão Sanctus Dominus à frente e o ‘Bom Perfume de Cristo’ nas costas.",
     inspiration:
       "Inspirada em 2 Coríntios 2,15. Para que os pequenos apóstolos cresçam exalando amor, perdão, salvação e graça por onde passarem.",
+  },
+  {
+    slug: "nao-foi-voces-que-me-escolheram",
+    name: "Não Foi Vocês que Me Escolheram",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Verde Militar",
+    price: "R$ 89,90",
+    image: naoFoiVoces,
+    tagline: "João 15,16 — Eu escolhi vocês.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em verde militar. Brasão Sanctus Dominus à frente e a face de Cristo coroado nas costas, com a passagem de João 15,16.",
+    inspiration:
+      "‘Não foram vocês que me escolheram, Eu escolhi vocês.’ Um manifesto silencioso para apóstolos modernos — chamados, escolhidos, enviados.",
+  },
+  {
+    slug: "recebereis-o-poder-do-espirito-santo",
+    name: "Recebereis o Poder do Espírito Santo",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Off-White",
+    price: "R$ 89,90",
+    image: poderEspirito,
+    tagline: "Atos 1,8 — O fogo do Espírito.",
+    description:
+      "Baby look 100% algodão penteado em off-white, modelagem feminina. Brasão Sanctus Dominus à frente; nas costas, a pomba envolta em chamas e a promessa de Atos 1,8.",
+    inspiration:
+      "Pentecostes vivo. Para a apóstola que carrega o fogo do Espírito em cada gesto, palavra e missão do dia a dia.",
+  },
+  {
+    slug: "maria-passa-a-frente",
+    name: "Maria Passa à Frente",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Azul Marinho",
+    price: "R$ 89,90",
+    image: mariaPassaFrente,
+    tagline: "Aos pés da Mãe — sempre.",
+    description:
+      "Baby look 100% algodão penteado em azul marinho, modelagem feminina. Estampa exclusiva de Nossa Senhora em oração à frente e brasão Sanctus Dominus nas costas.",
+    inspiration:
+      "Quando a vida parece pesada, Maria passa à frente. Uma peça-oração para quem confia tudo às mãos da Mãe.",
   },
 ];
 
