@@ -1,4 +1,4 @@
-import logoAsset from "@/assets/dominus-select-logo.png.asset.json";
+import logoAsset from "@/assets/sanctus-dominus-logo.png.asset.json";
 
 export function Logo({ className = "h-10 w-auto" }: { className?: string }) {
   return (
