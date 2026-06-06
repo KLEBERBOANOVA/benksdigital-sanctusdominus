@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Sparkles, Heart, Crown, Palette, MessageCircle } from "lucide-react";
 import heroImg from "@/assets/hero-church.jpg";
+import founderAsset from "@/assets/founder-carlos.png.asset.json";
+const founderImg = founderAsset.url;
 import studioImg from "@/assets/studio-art.jpg";
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
