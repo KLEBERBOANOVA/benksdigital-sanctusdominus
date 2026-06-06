@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import founderAsset from "@/assets/founder-carlos.png.asset.json";
-import logoAsset from "@/assets/dominus-select-logo.png.asset.json";
+import logoAsset from "@/assets/sanctus-dominus-logo.png.asset.json";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Reveal } from "@/components/site/Reveal";
 
