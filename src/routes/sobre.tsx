@@ -138,17 +138,25 @@ function SobrePage() {
             <p className="font-display italic text-gold/90 mt-1">+25 anos transformando fé em expressão visual.</p>
             <div className="mt-6 space-y-4 text-cream/85 leading-relaxed">
               <p>
-                Designer gráfico há mais de 25 anos, com uma trajetória marcada pela
-                criatividade, fé e propósito. Durante décadas, dedicou seu talento à criação
-                de artes para Igrejas, Grupos de Oração, Movimentos e Pastorais da Igreja
-                Católica.
+                Carlos Kleber é designer gráfico há mais de 25 anos, com uma trajetória
+                marcada pela criatividade, fé e propósito. Durante décadas, dedicou seu
+                talento à criação de artes para Igrejas, Grupos de Oração, Movimentos e
+                Pastorais da Igreja Católica, além de desenvolver estampas para camisas
+                Gospel, peças publicitárias, folders e identidades visuais.
               </p>
               <p>
                 Movido pela experiência profissional e por uma profunda vida de oração, deu
-                início ao seu projeto solo: a marca Sanctus Dominus — uma camisaria católica
-                que une moda, evangelização e identidade cristã.
+                início ao seu projeto solo: a marca <strong className="text-gold">Sanctus Dominus</strong>. Uma
+                camisaria católica que une moda, evangelização e identidade cristã em
+                coleções voltadas para jovens, adultos e crianças, trazendo um estilo teen,
+                street e espiritual.
               </p>
-              <p className="text-gold font-display italic text-xl">
+              <p>
+                Em cada criação, Carlos Kleber transforma fé em expressão visual, levando
+                mensagens de esperança, propósito e evangelização através de camisas, bonés
+                e moletons que carregam mais do que estampas: carregam missão.
+              </p>
+              <p className="text-gold font-display italic text-xl pt-2">
                 "Cada criação carrega mais do que estampas — carrega missão."
               </p>
             </div>
