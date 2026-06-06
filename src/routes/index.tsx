@@ -24,8 +24,12 @@ export const Route = createFileRoute("/")({
         content: "Fé para vestir. Arte para evangelizar.",
       },
       { property: "og:url", content: "/" },
+      { property: "og:image", content: heroImg },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "/" },
+      { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" },
+    ],
   }),
   component: HomePage,
 });
