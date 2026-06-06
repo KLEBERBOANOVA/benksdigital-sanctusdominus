@@ -64,6 +64,25 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <a
+            href="https://instagram.com/sanctusdominus"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bordeaux text-cream text-xs uppercase tracking-wider hover:bg-bordeaux/90 transition-colors"
+            aria-label="Instagram Sanctus Dominus"
+          >
+            <Instagram className="h-4 w-4" />
+            <span>Instagram</span>
+          </a>
+          <a
+            href="https://instagram.com/sanctusdominus"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sm:hidden p-2 rounded-full hover:bg-navy-deep/5 text-navy-deep"
+            aria-label="Instagram Sanctus Dominus"
+          >
+            <Instagram className="h-5 w-5" />
+          </a>
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-navy-deep/5 transition-colors"
