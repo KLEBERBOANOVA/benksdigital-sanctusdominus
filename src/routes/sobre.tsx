@@ -75,6 +75,10 @@ function SobrePage() {
           </Reveal>
         </div>
       </section>
+
+      <section className="py-20 px-5 lg:px-8 bg-muted/40">
+        <div className="mx-auto max-w-6xl grid md:grid-cols-2 gap-12">
+          <Reveal>
             <div className="p-10 rounded-lg bg-card border border-border h-full">
               <p className="text-xs tracking-[0.3em] uppercase text-gold">Missão</p>
               <p className="mt-4 leading-relaxed text-foreground/85">
