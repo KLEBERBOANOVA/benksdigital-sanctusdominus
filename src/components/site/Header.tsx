@@ -39,10 +39,8 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
-        scrolled
-          ? "bg-background/85 backdrop-blur-md border-b border-border shadow-sm"
-          : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 bg-navy-deep text-cream ${
+        scrolled ? "shadow-elegant border-b border-cream/10" : "border-b border-transparent"
       }`}
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-8 h-20 flex items-center justify-between">
@@ -55,7 +53,7 @@ export function Header() {
             <Link
               key={item.to}
               to={item.to}
-              className="text-sm tracking-wide uppercase text-foreground/80 hover:text-gold transition-colors relative group"
+              className="text-sm tracking-wide uppercase text-cream/80 hover:text-gold transition-colors relative group"
               activeProps={{ className: "text-gold" }}
               activeOptions={{ exact: item.to === "/" }}
             >
@@ -68,14 +66,14 @@ export function Header() {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-muted transition-colors"
+            className="p-2 rounded-full hover:bg-cream/10 transition-colors"
             aria-label="Alternar tema"
           >
-            {dark ? <Sun className="h-5 w-5 text-gold" /> : <Moon className="h-5 w-5" />}
+            {dark ? <Sun className="h-5 w-5 text-gold" /> : <Moon className="h-5 w-5 text-cream" />}
           </button>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden p-2 rounded-full hover:bg-muted"
+            className="lg:hidden p-2 rounded-full hover:bg-cream/10 text-cream"
             aria-label="Abrir menu"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -84,14 +82,14 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-md animate-fade-in">
+        <div className="lg:hidden border-t border-cream/10 bg-navy-deep animate-fade-in">
           <nav className="px-5 py-6 flex flex-col gap-4">
             {NAV.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="text-base font-display tracking-wide text-foreground hover:text-gold"
+                className="text-base font-display tracking-wide text-cream hover:text-gold"
                 activeProps={{ className: "text-gold" }}
                 activeOptions={{ exact: item.to === "/" }}
               >
