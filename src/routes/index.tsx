@@ -24,8 +24,12 @@ export const Route = createFileRoute("/")({
         content: "Fé para vestir. Arte para evangelizar.",
       },
       { property: "og:url", content: "/" },
+      { property: "og:image", content: heroImg },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "/" },
+      { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" },
+    ],
   }),
   component: HomePage,
 });
@@ -46,6 +50,11 @@ function HomePage() {
           <img
             src={heroImg}
             alt="Jovem católico vestindo Sanctus Dominus em igreja barroca"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            width={1920}
+            height={1280}
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/95 via-navy-deep/75 to-navy-deep/40" />

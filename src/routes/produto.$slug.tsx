@@ -68,7 +68,7 @@ function ProductPage() {
               aria-label="Ampliar imagem do produto"
               className="group relative aspect-[4/5] overflow-hidden rounded-lg bg-muted shadow-elegant cursor-zoom-in"
             >
-              <img src={product.image} alt={product.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <img src={product.image} alt={product.name} loading="eager" decoding="async" fetchPriority="high" width={800} height={1000} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               <span className="absolute top-5 left-5 text-[10px] tracking-[0.2em] uppercase bg-navy-deep/85 text-gold px-3 py-1 rounded-full">
                 Coleção {product.collection}
               </span>
@@ -172,6 +172,8 @@ function ProductPage() {
           <img
             src={product.image}
             alt={product.name}
+            loading="lazy"
+            decoding="async"
             onClick={(e) => e.stopPropagation()}
             className="max-h-full max-w-full object-contain rounded-md shadow-elegant"
           />
