@@ -43,7 +43,7 @@ export function Header() {
         scrolled ? "shadow-elegant border-b border-cream/10" : "border-b border-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 h-20 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8 h-28 md:h-32 flex items-center justify-between">
         <Link to="/" className="flex items-center" aria-label="Sanctus Dominus — Home">
           <BrandMark />
         </Link>
