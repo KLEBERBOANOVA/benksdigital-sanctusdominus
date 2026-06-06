@@ -39,8 +39,8 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 bg-navy-deep text-cream ${
-        scrolled ? "shadow-elegant border-b border-cream/10" : "border-b border-transparent"
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 bg-white text-navy-deep ${
+        scrolled ? "shadow-elegant border-b border-navy-deep/10" : "border-b border-navy-deep/5"
       }`}
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-8 h-28 md:h-32 flex items-center justify-between">
@@ -53,12 +53,12 @@ export function Header() {
             <Link
               key={item.to}
               to={item.to}
-              className="text-sm tracking-wide uppercase text-cream/80 hover:text-gold transition-colors relative group"
-              activeProps={{ className: "text-gold" }}
+              className="text-sm tracking-wide uppercase text-navy-deep/75 hover:text-bordeaux transition-colors relative group"
+              activeProps={{ className: "text-bordeaux" }}
               activeOptions={{ exact: item.to === "/" }}
             >
               {item.label}
-              <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+              <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-bordeaux transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </nav>
@@ -66,14 +66,14 @@ export function Header() {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-cream/10 transition-colors"
+            className="p-2 rounded-full hover:bg-navy-deep/5 transition-colors"
             aria-label="Alternar tema"
           >
-            {dark ? <Sun className="h-5 w-5 text-gold" /> : <Moon className="h-5 w-5 text-cream" />}
+            {dark ? <Sun className="h-5 w-5 text-gold" /> : <Moon className="h-5 w-5 text-navy-deep" />}
           </button>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden p-2 rounded-full hover:bg-cream/10 text-cream"
+            className="lg:hidden p-2 rounded-full hover:bg-navy-deep/5 text-navy-deep"
             aria-label="Abrir menu"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -82,15 +82,15 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-cream/10 bg-navy-deep animate-fade-in">
+        <div className="lg:hidden border-t border-navy-deep/10 bg-white animate-fade-in">
           <nav className="px-5 py-6 flex flex-col gap-4">
             {NAV.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="text-base font-display tracking-wide text-cream hover:text-gold"
-                activeProps={{ className: "text-gold" }}
+                className="text-base font-display tracking-wide text-navy-deep hover:text-bordeaux"
+                activeProps={{ className: "text-bordeaux" }}
                 activeOptions={{ exact: item.to === "/" }}
               >
                 {item.label}
