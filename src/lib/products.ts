@@ -10,6 +10,12 @@ import mariaPassaFrenteAsset from "@/assets/product-maria-passa-frente.png.asset
 import santaTerezinhaFofaAsset from "@/assets/product-santa-terezinha-fofa.png.asset.json";
 import santaTerezinhaAsset from "@/assets/product-santa-terezinha.png.asset.json";
 import fiatAsset from "@/assets/product-fiat.png.asset.json";
+import tudoPossoAsset from "@/assets/product-tudo-posso.png.asset.json";
+import feInabalavelAsset from "@/assets/product-fe-inabalavel.png.asset.json";
+import eleViveAsset from "@/assets/product-ele-vive.png.asset.json";
+import virgemMariaMantoAsset from "@/assets/product-virgem-maria-manto.png.asset.json";
+import virgemMariaFeAsset from "@/assets/product-virgem-maria-fe.png.asset.json";
+import sanctusBordoVinhoAsset from "@/assets/product-sanctus-bordo-vinho.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -20,6 +26,12 @@ const mariaPassaFrente = mariaPassaFrenteAsset.url;
 const santaTerezinhaFofa = santaTerezinhaFofaAsset.url;
 const santaTerezinha = santaTerezinhaAsset.url;
 const fiat = fiatAsset.url;
+const tudoPosso = tudoPossoAsset.url;
+const feInabalavel = feInabalavelAsset.url;
+const eleVive = eleViveAsset.url;
+const virgemMariaManto = virgemMariaMantoAsset.url;
+const virgemMariaFe = virgemMariaFeAsset.url;
+const sanctusBordoVinho = sanctusBordoVinhoAsset.url;
 
 export type Product = {
   slug: string;
@@ -215,6 +227,96 @@ export const products: Product[] = [
       "Baby look branca com cruz dourada radiante e a mensagem 'FIAT — Sua vontade seja feita', com assinatura Sanctus Dominus nas costas.",
     inspiration:
       "Inspirada no sim de Maria, esta peça traduz obediência, confiança e disponibilidade total à vontade de Deus.",
+  },
+  {
+    slug: "tudo-posso-naquele-que-me-fortalece",
+    name: "Tudo Posso Naquele que Me Fortalece",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Off-White",
+    price: "R$ 89,90",
+    image: tudoPosso,
+    tagline: "Filipenses 4,13 — força que vem do Alto.",
+    description:
+      "Baby look off-white com assinatura Sanctus Dominus à frente e estampa impactante nas costas com a mensagem 'Tudo posso naquele que me fortalece'.",
+    inspiration:
+      "Uma peça para lembrar diariamente que a força do cristão vem de Cristo, mesmo nos dias mais difíceis.",
+  },
+  {
+    slug: "fe-inabalavel-nossa-senhora-aparecida",
+    name: "Fé Inabalável — N. Sra. Aparecida",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Branco",
+    price: "R$ 89,90",
+    image: feInabalavel,
+    tagline: "Ela nunca falha.",
+    description:
+      "Baby look branca com assinatura Sanctus Dominus à frente e arte exclusiva de Nossa Senhora Aparecida em azul e dourado nas costas.",
+    inspiration:
+      "Pensada para devotas que carregam no peito a confiança filial na intercessão da Mãe Aparecida.",
+  },
+  {
+    slug: "ele-vive",
+    name: "Ele Vive",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Off-White",
+    price: "R$ 89,90",
+    image: eleVive,
+    tagline: "Cristo ressuscitado vive em nós.",
+    description:
+      "Baby look off-white com ilustração dourada de Cristo e a mensagem 'Ele Vive' em composição frontal elegante.",
+    inspiration:
+      "Uma peça-testemunho para anunciar com beleza a vitória da ressurreição e a presença viva de Jesus.",
+  },
+  {
+    slug: "virgem-maria-sob-o-teu-manto",
+    name: "Virgem Maria — Sob o Teu Manto",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Off-White",
+    price: "R$ 89,90",
+    image: virgemMariaManto,
+    tagline: "Mãe de Jesus, rogai por nós.",
+    description:
+      "Baby look off-white com assinatura frontal Sanctus Dominus e arte devocional nas costas dedicada à Virgem Maria, com a frase 'Sob o teu manto, não há alma que se perca'.",
+    inspiration:
+      "Inspirada na proteção maternal de Maria para mulheres que desejam vestir fé, ternura e intercessão.",
+  },
+  {
+    slug: "virgem-maria-nada-e-impossivel",
+    name: "Virgem Maria — Nada é Impossível",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Off-White",
+    price: "R$ 89,90",
+    image: virgemMariaFe,
+    tagline: "Lucas 1,37 — para quem tem fé.",
+    description:
+      "Baby look off-white com composição frontal mariana em azul e dourado e a mensagem 'Nada é impossível para aquele que tem fé'.",
+    inspiration:
+      "Uma criação voltada para quem deseja carregar no vestuário a esperança e a confiança no impossível de Deus.",
+  },
+  {
+    slug: "sanctus-dominus-bordo-vinho",
+    name: "Sanctus Dominus Bordô Vinho",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Bordô Vinho",
+    price: "R$ 89,90",
+    image: sanctusBordoVinho,
+    tagline: "Minimalismo com identidade cristã.",
+    description:
+      "Camiseta masculina bordô vinho com assinatura Sanctus Dominus centralizada no peito e brasão discreto nas costas.",
+    inspiration:
+      "Para quem prefere uma estética mais sóbria, elegante e versátil sem abrir mão da identidade da marca e da fé.",
   },
 ];
 
