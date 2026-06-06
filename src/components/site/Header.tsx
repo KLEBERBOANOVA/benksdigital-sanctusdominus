@@ -70,13 +70,6 @@ export function Header() {
             <Instagram className="h-5 w-5" />
           </a>
           <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-navy-deep/5 transition-colors"
-            aria-label="Alternar tema"
-          >
-            {dark ? <Sun className="h-5 w-5 text-gold" /> : <Moon className="h-5 w-5 text-navy-deep" />}
-          </button>
-          <button
             onClick={() => setOpen((v) => !v)}
             className="lg:hidden p-2 rounded-full hover:bg-navy-deep/5 text-navy-deep"
             aria-label="Abrir menu"
