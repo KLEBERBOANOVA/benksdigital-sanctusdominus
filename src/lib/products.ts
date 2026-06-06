@@ -27,6 +27,7 @@ import saoJoaoBatistaAsset from "@/assets/product-sao-joao-batista.png.asset.jso
 import jesusMeuSenhorAsset from "@/assets/product-jesus-meu-senhor.png.asset.json";
 import feMaiorQueOMedoOffwhiteAsset from "@/assets/product-fe-maior-que-o-medo-offwhite.png.asset.json";
 import euEncontreiJesusBrancaAsset from "@/assets/product-eu-encontrei-jesus-branca.png.asset.json";
+import euEncontreiJesusRoxaAsset from "@/assets/product-eu-encontrei-jesus-roxa.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
