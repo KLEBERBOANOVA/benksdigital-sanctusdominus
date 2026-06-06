@@ -25,6 +25,8 @@ import euNaoSouPretaAsset from "@/assets/product-eu-nao-sou-preta.png.asset.json
 import buscaiAoSenhorAsset from "@/assets/product-buscai-ao-senhor.png.asset.json";
 import saoJoaoBatistaAsset from "@/assets/product-sao-joao-batista.png.asset.json";
 import jesusMeuSenhorAsset from "@/assets/product-jesus-meu-senhor.png.asset.json";
+import feMaiorQueOMedoOffwhiteAsset from "@/assets/product-fe-maior-que-o-medo-offwhite.png.asset.json";
+import euEncontreiJesusBrancaAsset from "@/assets/product-eu-encontrei-jesus-branca.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -50,6 +52,8 @@ const euNaoSouPreta = euNaoSouPretaAsset.url;
 const buscaiAoSenhor = buscaiAoSenhorAsset.url;
 const saoJoaoBatista = saoJoaoBatistaAsset.url;
 const jesusMeuSenhor = jesusMeuSenhorAsset.url;
+const feMaiorQueOMedoOffwhite = feMaiorQueOMedoOffwhiteAsset.url;
+const euEncontreiJesusBranca = euEncontreiJesusBrancaAsset.url;
 
 export type Product = {
   slug: string;
@@ -470,6 +474,36 @@ export const products: Product[] = [
       "Camiseta 100% algodão fio 30.1 penteado em azul marinho. Estampa exclusiva à frente de Cristo crucificado em composição radiante, com assinatura Sanctus Dominus nas costas.",
     inspiration:
       "Inspirada na confissão de fé que reconhece Jesus como Senhor e Salvador — a Cruz como trono e a Ressurreição como vitória definitiva.",
+  },
+  {
+    slug: "fe-maior-que-o-medo-offwhite",
+    name: "Fé Maior que o Medo — Off-White",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Masculino",
+    color: "Off-White",
+    price: "R$ 89,90",
+    image: feMaiorQueOMedoOffwhite,
+    tagline: "2 Timóteo 1,7 — a fé vence o medo.",
+    description:
+      "Camiseta 100% algodão fio 30.1 penteado em off-white. Frente com assinatura Sanctus Dominus e arte exclusiva nas costas com cruz luminosa e a declaração 'Fé maior que o medo'.",
+    inspiration:
+      "Inspirada em 2 Timóteo 1,7, para lembrar que Deus não nos deu um espírito de covardia, mas de fortaleza, amor e moderação.",
+  },
+  {
+    slug: "eu-encontrei-jesus",
+    name: "Eu Encontrei Jesus",
+    collection: "Apóstolos",
+    category: "Camiseta",
+    audience: "Infantil",
+    color: "Branco",
+    price: "R$ 69,90",
+    image: euEncontreiJesusBranca,
+    tagline: "Atos 22,9 — encontro que muda tudo.",
+    description:
+      "Camiseta infantil 100% algodão penteado em branco. Frente com assinatura Sanctus Dominus e estampa colorida exclusiva nas costas com a mensagem 'Eu encontrei Jesus'.",
+    inspiration:
+      "Inspirada no encontro transformador com Cristo, feita para vestir os pequenos apóstolos com alegria, cor e identidade de fé.",
   },
 ];
 
