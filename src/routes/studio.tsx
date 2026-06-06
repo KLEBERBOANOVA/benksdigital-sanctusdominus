@@ -1,17 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Palette, Shirt, Sparkles, Church, ArrowRight, CheckCircle2 } from "lucide-react";
-import studioImg from "@/assets/studio-art.jpg";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { Reveal } from "@/components/site/Reveal";
+import { useMemo, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, CheckCircle2, ShoppingBag } from "lucide-react";
+import { products } from "@/lib/products";
+import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
 
 export const Route = createFileRoute("/studio")({
   head: () => ({
     meta: [
-      { title: "Studio de Criação | Sanctus Dominus" },
-      { name: "description", content: "Design gráfico católico: identidade visual, estampas exclusivas e arte para paróquias, festas de padroeiros e movimentos." },
-      { property: "og:title", content: "Studio de Criação — Sanctus Dominus" },
-      { property: "og:description", content: "Transformamos sua missão em arte." },
+      { title: "Dominus Select | Studio de Criação — Sanctus Dominus" },
+      { name: "description", content: "Personalize sua camisa católica: escolha estampa, cor, modelo e tamanho. Criada por você. Inspirada por Deus." },
+      { property: "og:title", content: "Dominus Select — Personalize sua camisa" },
+      { property: "og:description", content: "Criada por você. Inspirada por Deus." },
       { property: "og:url", content: "/studio" },
     ],
     links: [{ rel: "canonical", href: "/studio" }],
@@ -19,164 +18,449 @@ export const Route = createFileRoute("/studio")({
   component: StudioPage,
 });
 
+type StepKey = "estampa" | "cor" | "modelo" | "tamanho" | "pedido";
+
+const STEPS: { key: StepKey; n: string; t: string; sub: string }[] = [
+  { key: "estampa", n: "01", t: "Escolha a Estampa", sub: "Diversas estampas católicas para expressar sua fé." },
+  { key: "cor", n: "02", t: "Escolha a Cor", sub: "Cores que combinam com você e com sua missão." },
+  { key: "modelo", n: "03", t: "Escolha o Modelo", sub: "Modelos modernos e tradicionais para todos os estilos." },
+  { key: "tamanho", n: "04", t: "Escolha o Tamanho", sub: "Do PP ao 4G. Conforto que veste bem em todos." },
+  { key: "pedido", n: "05", t: "Confira e Finalize", sub: "Revise sua criação e receba onde estiver." },
+];
+
+const COLORS: { name: string; hex: string }[] = [
+  { name: "Azul Marinho", hex: "#0f1b3d" },
+  { name: "Bordô Vinho", hex: "#5b1622" },
+  { name: "Preto", hex: "#0d0d0d" },
+  { name: "Branco", hex: "#f7f5ef" },
+  { name: "Off-White", hex: "#ece5d5" },
+  { name: "Bege", hex: "#cdb89a" },
+  { name: "Marrom", hex: "#5a3a1f" },
+  { name: "Verde Militar", hex: "#3d4a2a" },
+  { name: "Roxo", hex: "#5a2ea6" },
+];
+
+const MODELS: { key: string; label: string; desc: string; priceAdd: number }[] = [
+  { key: "camiseta", label: "Camiseta", desc: "Algodão fio 30.1 penteado.", priceAdd: 0 },
+  { key: "baby-look", label: "Baby Look", desc: "Modelagem feminina acinturada.", priceAdd: 0 },
+  { key: "polo", label: "Polo", desc: "Acabamento clássico com colarinho.", priceAdd: 20 },
+  { key: "moletom", label: "Moletom", desc: "Felpado, ideal para dias frios.", priceAdd: 60 },
+];
+
+const SIZES = ["PP", "P", "M", "G", "GG", "XG", "3G", "4G"];
+
+const WHATSAPP_NUMBER = "5581982202007";
+
 function StudioPage() {
-  const services = [
-    { icon: Church, title: "Identidade Visual", text: "Logos, identidades e padrões visuais para paróquias, eventos e movimentos." },
-    { icon: Shirt, title: "Estampas Exclusivas", text: "Arte autoral para camisas de grupos, pastorais e festas." },
-    { icon: Palette, title: "Material Gráfico", text: "Folders, banners, redes sociais e materiais de divulgação." },
-    { icon: Sparkles, title: "Festas de Padroeiros", text: "Conceito completo: arte, peças e materiais alinhados ao tema da festa." },
-  ];
-
-  const steps = [
-    { n: "01", t: "Briefing", d: "Conversamos sobre sua missão, identidade e necessidade." },
-    { n: "02", t: "Criação", d: "Desenvolvemos propostas alinhadas ao seu carisma." },
-    { n: "03", t: "Aprovação", d: "Refinamos juntos até chegar ao resultado perfeito." },
-    { n: "04", t: "Entrega", d: "Arquivos finais prontos para impressão e divulgação." },
-  ];
-
-  return (
-    <>
-      <section className="relative py-28 px-5 lg:px-8 bg-gradient-hero text-cream overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <img src={studioImg} alt="" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-overlay" />
-        </div>
-        <div className="relative mx-auto max-w-5xl text-center">
-          <p className="text-xs tracking-[0.4em] uppercase text-gold mb-5">Studio de Criação</p>
-          <h1 className="font-display text-5xl md:text-7xl leading-tight">
-            Transformamos sua missão
-            <br />
-            <span className="italic text-gradient-gold">em arte.</span>
-          </h1>
-          <p className="mt-6 max-w-2xl mx-auto text-cream/85 text-lg">
-            Serviços de design gráfico especializado para a Igreja Católica — com mais de 25
-            anos de experiência criando para paróquias, grupos e movimentos.
-          </p>
-        </div>
-      </section>
-
-      <section className="py-24 px-5 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <Reveal>
-            <SectionHeading eyebrow="O que criamos" title={<>Serviços <span className="italic text-bordeaux">do Studio</span></>} />
-          </Reveal>
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((s, i) => (
-              <Reveal key={s.title} delay={i * 100}>
-                <div className="h-full p-8 rounded-lg border border-border bg-card hover-lift group">
-                  <div className="h-12 w-12 rounded-full bg-gradient-gold grid place-items-center mb-5 group-hover:scale-110 transition-transform">
-                    <s.icon className="h-6 w-6 text-navy-deep" />
-                  </div>
-                  <h3 className="font-display text-xl text-foreground">{s.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 px-5 lg:px-8 bg-navy-deep text-cream">
-        <div className="mx-auto max-w-7xl">
-          <Reveal>
-            <div className="text-center">
-              <p className="text-xs tracking-[0.4em] uppercase text-gold mb-4">Processo</p>
-              <h2 className="font-display text-4xl md:text-5xl">Como funciona</h2>
-            </div>
-          </Reveal>
-          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s, i) => (
-              <Reveal key={s.n} delay={i * 120}>
-                <div className="relative">
-                  <p className="font-display text-7xl text-gold/30">{s.n}</p>
-                  <h3 className="font-display text-2xl text-cream mt-2">{s.t}</h3>
-                  <p className="text-sm text-cream/70 mt-2 leading-relaxed">{s.d}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <BriefingForm />
-    </>
-  );
-}
-
-function BriefingForm() {
+  const [step, setStep] = useState(0);
+  const [estampa, setEstampa] = useState<string | null>(null);
+  const [cor, setCor] = useState<string | null>(null);
+  const [modelo, setModelo] = useState<string | null>(null);
+  const [tamanho, setTamanho] = useState<string | null>(null);
+  const [pedido, setPedido] = useState({ nome: "", whatsapp: "", endereco: "", obs: "" });
   const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({
-    nome: "", email: "", whatsapp: "", paroquia: "", tipo: "", mensagem: "",
-  });
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const body = encodeURIComponent(
-      `Nome: ${form.nome}\nEmail: ${form.email}\nWhatsApp: ${form.whatsapp}\nParóquia/Grupo: ${form.paroquia}\nTipo de Projeto: ${form.tipo}\n\nMensagem:\n${form.mensagem}`
-    );
-    window.location.href = `mailto:sanctusdominusoficial@gmail.com?subject=Briefing Studio — ${form.nome}&body=${body}`;
+  const estampaProduct = useMemo(() => products.find((p) => p.slug === estampa) ?? null, [estampa]);
+  const modeloItem = useMemo(() => MODELS.find((m) => m.key === modelo) ?? null, [modelo]);
+
+  const basePrice = 89.9;
+  const totalPrice = basePrice + (modeloItem?.priceAdd ?? 0);
+
+  const canAdvance = [
+    () => !!estampa,
+    () => !!cor,
+    () => !!modelo,
+    () => !!tamanho,
+    () => pedido.nome.trim() && pedido.whatsapp.trim() && pedido.endereco.trim(),
+  ][step]();
+
+  const goNext = () => canAdvance && setStep((s) => Math.min(s + 1, STEPS.length - 1));
+  const goPrev = () => setStep((s) => Math.max(s - 1, 0));
+
+  const submitOrder = () => {
+    const body = [
+      "*PEDIDO DOMINUS SELECT*",
+      "",
+      `Estampa: ${estampaProduct?.name}`,
+      `Cor: ${cor}`,
+      `Modelo: ${modeloItem?.label}`,
+      `Tamanho: ${tamanho}`,
+      `Valor: R$ ${totalPrice.toFixed(2).replace(".", ",")}`,
+      "",
+      `Nome: ${pedido.nome}`,
+      `WhatsApp: ${pedido.whatsapp}`,
+      `Endereço: ${pedido.endereco}`,
+      pedido.obs ? `Observações: ${pedido.obs}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(body)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
     setSent(true);
   };
 
   return (
-    <section id="orcamento" className="py-24 px-5 lg:px-8 bg-muted/40">
-      <div className="mx-auto max-w-3xl">
-        <SectionHeading
-          eyebrow="Solicite seu Orçamento"
-          title={<>Conte sobre seu <span className="italic text-bordeaux">projeto</span></>}
-          description="Respondemos em até 24h. Quanto mais detalhes você compartilhar, mais precisa será nossa proposta."
-        />
+    <>
+      {/* HERO */}
+      <section className="relative pt-36 pb-16 px-5 lg:px-8 bg-navy-deep text-cream overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.35_0.08_265)_0%,transparent_60%)]" />
+        <div className="relative mx-auto max-w-5xl text-center">
+          <img
+            src={dominusSelectLogo.url}
+            alt="Dominus Select — Criada por você. Inspirada por Deus."
+            className="mx-auto h-32 md:h-44 w-auto drop-shadow-2xl"
+            loading="eager"
+          />
+          <p className="mt-6 text-xs md:text-sm tracking-[0.4em] uppercase text-gold">
+            Camisaria Católica Personalizada
+          </p>
+          <h1 className="mt-4 font-display text-3xl md:text-5xl leading-tight">
+            Sua fé. <span className="italic text-gradient-gold">Seu estilo.</span> Sua escolha.
+          </h1>
+          <p className="mt-4 max-w-xl mx-auto text-cream/80">
+            No Dominus Select, você personaliza cada detalhe da sua camisa católica do seu jeito.
+          </p>
+        </div>
+      </section>
 
-        {sent ? (
-          <div className="mt-12 p-10 rounded-lg border border-gold bg-card text-center">
-            <CheckCircle2 className="h-12 w-12 text-gold mx-auto" />
-            <h3 className="font-display text-2xl mt-4">Quase lá!</h3>
-            <p className="text-muted-foreground mt-2">Seu cliente de email foi aberto. Envie a mensagem para concluirmos o briefing.</p>
+      {/* WIZARD */}
+      <section className="py-16 px-5 lg:px-8 bg-background">
+        <div className="mx-auto max-w-6xl">
+          {/* Step indicator */}
+          <ol className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 mb-12">
+            {STEPS.map((s, i) => {
+              const done = i < step;
+              const active = i === step;
+              return (
+                <li key={s.key} className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => i <= step && setStep(i)}
+                    disabled={i > step}
+                    className={`h-10 w-10 rounded-full grid place-items-center text-sm font-display border transition-all ${
+                      done
+                        ? "bg-gold border-gold text-navy-deep"
+                        : active
+                        ? "bg-bordeaux border-bordeaux text-cream scale-110"
+                        : "bg-transparent border-border text-muted-foreground"
+                    }`}
+                  >
+                    {done ? <Check className="h-4 w-4" /> : i + 1}
+                  </button>
+                  <span
+                    className={`text-[11px] tracking-[0.25em] uppercase hidden md:inline ${
+                      active ? "text-bordeaux font-semibold" : "text-muted-foreground"
+                    }`}
+                  >
+                    {s.t}
+                  </span>
+                  {i < STEPS.length - 1 && <span className="hidden md:inline h-px w-8 bg-border" />}
+                </li>
+              );
+            })}
+          </ol>
+
+          {/* Header current step */}
+          <div className="text-center mb-10">
+            <p className="text-xs tracking-[0.4em] uppercase text-gold">{STEPS[step].n}</p>
+            <h2 className="mt-2 font-display text-3xl md:text-4xl text-foreground">
+              {STEPS[step].t}
+            </h2>
+            <p className="mt-2 text-muted-foreground max-w-xl mx-auto">{STEPS[step].sub}</p>
           </div>
-        ) : (
-          <form onSubmit={submit} className="mt-12 grid gap-5">
-            <div className="grid sm:grid-cols-2 gap-5">
-              <Field label="Nome completo" value={form.nome} onChange={(v) => setForm({ ...form, nome: v })} required />
-              <Field label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required />
+
+          {/* Step content */}
+          <div className="min-h-[320px]">
+            {step === 0 && (
+              <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {products.map((p) => {
+                  const selected = estampa === p.slug;
+                  return (
+                    <button
+                      key={p.slug}
+                      type="button"
+                      onClick={() => setEstampa(p.slug)}
+                      className={`group text-left rounded-xl overflow-hidden border-2 transition-all bg-card ${
+                        selected
+                          ? "border-bordeaux shadow-elegant scale-[1.02]"
+                          : "border-border hover:border-gold/60"
+                      }`}
+                    >
+                      <div className="aspect-square overflow-hidden bg-muted">
+                        <img
+                          src={p.image}
+                          alt={p.name}
+                          className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="p-3">
+                        <p className="font-display text-sm text-foreground line-clamp-2">{p.name}</p>
+                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mt-1">
+                          {p.collection}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {step === 1 && (
+              <div className="grid gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 max-w-4xl mx-auto">
+                {COLORS.map((c) => {
+                  const selected = cor === c.name;
+                  return (
+                    <button
+                      key={c.name}
+                      type="button"
+                      onClick={() => setCor(c.name)}
+                      className={`rounded-xl p-4 border-2 transition-all bg-card ${
+                        selected
+                          ? "border-bordeaux shadow-elegant"
+                          : "border-border hover:border-gold/60"
+                      }`}
+                    >
+                      <div
+                        className="h-20 w-full rounded-lg border border-black/10"
+                        style={{ backgroundColor: c.hex }}
+                      />
+                      <p className="mt-3 text-sm font-display text-foreground text-center">
+                        {c.name}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {step === 2 && (
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+                {MODELS.map((m) => {
+                  const selected = modelo === m.key;
+                  return (
+                    <button
+                      key={m.key}
+                      type="button"
+                      onClick={() => setModelo(m.key)}
+                      className={`rounded-xl p-6 border-2 text-left transition-all bg-card ${
+                        selected
+                          ? "border-bordeaux shadow-elegant"
+                          : "border-border hover:border-gold/60"
+                      }`}
+                    >
+                      <h3 className="font-display text-xl text-foreground">{m.label}</h3>
+                      <p className="mt-2 text-sm text-muted-foreground">{m.desc}</p>
+                      <p className="mt-4 text-xs tracking-[0.2em] uppercase text-gold">
+                        {m.priceAdd > 0 ? `+ R$ ${m.priceAdd.toFixed(2).replace(".", ",")}` : "Sem acréscimo"}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {step === 3 && (
+              <div className="grid gap-3 grid-cols-4 sm:grid-cols-8 max-w-3xl mx-auto">
+                {SIZES.map((sz) => {
+                  const selected = tamanho === sz;
+                  return (
+                    <button
+                      key={sz}
+                      type="button"
+                      onClick={() => setTamanho(sz)}
+                      className={`h-16 rounded-lg border-2 font-display text-lg transition-all ${
+                        selected
+                          ? "border-bordeaux bg-bordeaux text-cream shadow-elegant"
+                          : "border-border bg-card text-foreground hover:border-gold/60"
+                      }`}
+                    >
+                      {sz}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {step === 4 && (
+              <div className="grid gap-10 lg:grid-cols-[1fr_380px] max-w-5xl mx-auto">
+                {/* Summary */}
+                <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+                  <h3 className="font-display text-2xl text-foreground">Resumo da sua criação</h3>
+                  <div className="mt-6 grid grid-cols-[120px_1fr] gap-4 items-center">
+                    {estampaProduct && (
+                      <img
+                        src={estampaProduct.image}
+                        alt={estampaProduct.name}
+                        className="h-28 w-28 rounded-lg object-cover border border-border"
+                      />
+                    )}
+                    <div>
+                      <p className="font-display text-lg">{estampaProduct?.name}</p>
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground mt-1">
+                        {estampaProduct?.collection}
+                      </p>
+                    </div>
+                  </div>
+                  <dl className="mt-6 divide-y divide-border text-sm">
+                    <SummaryRow label="Cor" value={cor} swatch={COLORS.find((c) => c.name === cor)?.hex} />
+                    <SummaryRow label="Modelo" value={modeloItem?.label} />
+                    <SummaryRow label="Tamanho" value={tamanho} />
+                    <SummaryRow
+                      label="Valor"
+                      value={`R$ ${totalPrice.toFixed(2).replace(".", ",")}`}
+                      strong
+                    />
+                  </dl>
+                </div>
+
+                {/* Customer + checkout */}
+                <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+                  {sent ? (
+                    <div className="text-center py-6">
+                      <CheckCircle2 className="h-12 w-12 text-gold mx-auto" />
+                      <h3 className="font-display text-2xl mt-4">Pedido enviado!</h3>
+                      <p className="text-muted-foreground mt-2 text-sm">
+                        Abrimos o WhatsApp com os detalhes do seu pedido. Confirme o envio da
+                        mensagem para finalizarmos o pagamento e a produção.
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      <h3 className="font-display text-xl text-foreground">Dados do pedido</h3>
+                      <div className="mt-5 grid gap-4">
+                        <Field
+                          label="Nome completo"
+                          value={pedido.nome}
+                          onChange={(v) => setPedido({ ...pedido, nome: v })}
+                          required
+                        />
+                        <Field
+                          label="WhatsApp"
+                          value={pedido.whatsapp}
+                          onChange={(v) => setPedido({ ...pedido, whatsapp: v })}
+                          required
+                        />
+                        <Field
+                          label="Endereço de entrega"
+                          value={pedido.endereco}
+                          onChange={(v) => setPedido({ ...pedido, endereco: v })}
+                          required
+                        />
+                        <div>
+                          <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">
+                            Observações
+                          </label>
+                          <textarea
+                            rows={3}
+                            value={pedido.obs}
+                            onChange={(e) => setPedido({ ...pedido, obs: e.target.value })}
+                            className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 outline-none focus:border-gold transition-colors text-sm"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={submitOrder}
+                          disabled={!canAdvance}
+                          className="mt-2 inline-flex items-center justify-center gap-3 bg-bordeaux text-cream px-6 py-4 rounded-full text-sm uppercase tracking-wider font-semibold hover:bg-navy-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <ShoppingBag className="h-4 w-4" />
+                          Finalizar pedido
+                        </button>
+                        <p className="text-[11px] text-muted-foreground text-center">
+                          O pagamento será combinado via WhatsApp (Pix, cartão ou boleto).
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Nav buttons */}
+          {!sent && (
+            <div className="mt-12 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={goPrev}
+                disabled={step === 0}
+                className="inline-flex items-center gap-2 text-sm uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <ArrowLeft className="h-4 w-4" /> Voltar
+              </button>
+              {step < STEPS.length - 1 && (
+                <button
+                  type="button"
+                  onClick={goNext}
+                  disabled={!canAdvance}
+                  className="inline-flex items-center gap-3 bg-primary text-primary-foreground px-7 py-3.5 rounded-full text-sm uppercase tracking-wider font-semibold hover:bg-bordeaux transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Avançar <ArrowRight className="h-4 w-4" />
+                </button>
+              )}
             </div>
-            <div className="grid sm:grid-cols-2 gap-5">
-              <Field label="WhatsApp" value={form.whatsapp} onChange={(v) => setForm({ ...form, whatsapp: v })} required />
-              <Field label="Paróquia / Grupo / Movimento" value={form.paroquia} onChange={(v) => setForm({ ...form, paroquia: v })} />
-            </div>
-            <Field label="Tipo de projeto (estampa, identidade, festa de padroeiro...)" value={form.tipo} onChange={(v) => setForm({ ...form, tipo: v })} />
-            <div>
-              <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Detalhes do projeto *</label>
-              <textarea
-                required
-                rows={5}
-                value={form.mensagem}
-                onChange={(e) => setForm({ ...form, mensagem: e.target.value })}
-                className="mt-2 w-full rounded-lg border border-border bg-card px-4 py-3 outline-none focus:border-gold transition-colors"
-              />
-            </div>
-            <button
-              type="submit"
-              className="mt-2 inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-8 py-4 rounded-full text-sm uppercase tracking-wider font-semibold hover:bg-bordeaux transition-colors"
-            >
-              Enviar briefing <ArrowRight className="h-4 w-4" />
-            </button>
-          </form>
-        )}
-      </div>
-    </section>
+          )}
+        </div>
+      </section>
+
+      {/* Closing */}
+      <section className="py-16 px-5 lg:px-8 bg-navy-deep text-cream text-center">
+        <p className="font-display text-2xl md:text-3xl italic">
+          Vista sua fé. <span className="text-gold">Viva sua missão.</span>
+        </p>
+        <p className="mt-3 text-xs tracking-[0.4em] uppercase text-cream/70">Dominus Select</p>
+      </section>
+    </>
   );
 }
 
-function Field({ label, value, onChange, type = "text", required }: { label: string; value: string; onChange: (v: string) => void; type?: string; required?: boolean }) {
+function SummaryRow({
+  label,
+  value,
+  swatch,
+  strong,
+}: {
+  label: string;
+  value?: string | null;
+  swatch?: string;
+  strong?: boolean;
+}) {
+  return (
+    <div className="flex items-center justify-between py-3">
+      <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{label}</dt>
+      <dd className={`flex items-center gap-2 ${strong ? "font-display text-lg text-bordeaux" : "text-foreground"}`}>
+        {swatch && <span className="h-4 w-4 rounded-full border border-black/10" style={{ backgroundColor: swatch }} />}
+        {value ?? "—"}
+      </dd>
+    </div>
+  );
+}
+
+function Field({
+  label,
+  value,
+  onChange,
+  type = "text",
+  required,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  required?: boolean;
+}) {
   return (
     <div>
-      <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">{label}{required && " *"}</label>
+      <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">
+        {label}
+        {required && " *"}
+      </label>
       <input
         type={type}
         required={required}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-2 w-full rounded-lg border border-border bg-card px-4 py-3 outline-none focus:border-gold transition-colors"
+        className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 outline-none focus:border-gold transition-colors text-sm"
       />
     </div>
   );
