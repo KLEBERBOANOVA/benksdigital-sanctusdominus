@@ -122,8 +122,13 @@ function SobrePage() {
         <div className="mx-auto max-w-6xl grid lg:grid-cols-5 gap-12 items-center">
           <Reveal>
             <div className="lg:col-span-2">
-              <div className="aspect-[4/5] overflow-hidden rounded-lg shadow-elegant">
-                <img src={founderImg} alt="Carlos Kleber, fundador da Sanctus Dominus" loading="lazy" className="h-full w-full object-cover" />
+              <div className="rounded-lg shadow-elegant bg-cream/5 p-4 flex items-center justify-center">
+                <img
+                  src={founderImg}
+                  alt="Carlos Kleber, fundador da Sanctus Dominus"
+                  loading="lazy"
+                  className="w-full h-auto max-h-[640px] object-contain rounded-md"
+                />
               </div>
             </div>
           </Reveal>
