@@ -7,6 +7,9 @@ import bomPerfumeAsset from "@/assets/product-bom-perfume.png.asset.json";
 import naoFoiVocesAsset from "@/assets/product-nao-foi-voces.png.asset.json";
 import poderEspiritoAsset from "@/assets/product-poder-espirito-santo.png.asset.json";
 import mariaPassaFrenteAsset from "@/assets/product-maria-passa-frente.png.asset.json";
+import santaTerezinhaFofaAsset from "@/assets/product-santa-terezinha-fofa.png.asset.json";
+import santaTerezinhaAsset from "@/assets/product-santa-terezinha.png.asset.json";
+import fiatAsset from "@/assets/product-fiat.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -14,6 +17,9 @@ const bomPerfume = bomPerfumeAsset.url;
 const naoFoiVoces = naoFoiVocesAsset.url;
 const poderEspirito = poderEspiritoAsset.url;
 const mariaPassaFrente = mariaPassaFrenteAsset.url;
+const santaTerezinhaFofa = santaTerezinhaFofaAsset.url;
+const santaTerezinha = santaTerezinhaAsset.url;
+const fiat = fiatAsset.url;
 
 export type Product = {
   slug: string;
@@ -164,6 +170,51 @@ export const products: Product[] = [
       "Baby look 100% algodão penteado em azul marinho, modelagem feminina. Estampa exclusiva de Nossa Senhora em oração à frente e brasão Sanctus Dominus nas costas.",
     inspiration:
       "Quando a vida parece pesada, Maria passa à frente. Uma peça-oração para quem confia tudo às mãos da Mãe.",
+  },
+  {
+    slug: "santa-terezinha-do-menino-jesus-ilustrada",
+    name: "Santa Terezinha do Menino Jesus",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Areia",
+    price: "R$ 89,90",
+    image: santaTerezinhaFofa,
+    tagline: "Do pequeno caminho nasce a santidade.",
+    description:
+      "Baby look em tom areia com ilustração delicada de Santa Terezinha do Menino Jesus e assinatura Sanctus Dominus nas costas.",
+    inspiration:
+      "Inspirada na pequena via de Santa Terezinha: amor nas pequenas coisas, confiança total em Deus e doçura como testemunho.",
+  },
+  {
+    slug: "santa-terezinha-do-menino-jesus",
+    name: "Santa Terezinha do Menino Jesus Classic",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Areia",
+    price: "R$ 89,90",
+    image: santaTerezinha,
+    tagline: "Flores, entrega e pequeno caminho.",
+    description:
+      "Baby look em tom areia com arte clássica de Santa Terezinha do Menino Jesus à frente e assinatura discreta da marca nas costas.",
+    inspiration:
+      "Uma peça devocional inspirada na santa das rosas, feita para quem deseja vestir ternura, entrega e vida interior.",
+  },
+  {
+    slug: "fiat-sua-vontade-seja-feita",
+    name: "FIAT — Sua Vontade Seja Feita",
+    collection: "Apóstolos",
+    category: "Baby Look",
+    audience: "Feminino",
+    color: "Branco Gelo",
+    price: "R$ 89,90",
+    image: fiat,
+    tagline: "O sim que transforma tudo.",
+    description:
+      "Baby look branca com cruz dourada radiante e a mensagem 'FIAT — Sua vontade seja feita', com assinatura Sanctus Dominus nas costas.",
+    inspiration:
+      "Inspirada no sim de Maria, esta peça traduz obediência, confiança e disponibilidade total à vontade de Deus.",
   },
 ];
 

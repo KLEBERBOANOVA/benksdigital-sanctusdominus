@@ -74,7 +74,7 @@ export function Footer() {
 
         <div className="mt-14 pt-8 border-t border-cream/10 flex flex-col items-center gap-3 text-center">
           <p className="text-xs text-cream/60">
-            © {new Date().getFullYear()} Sanctus Dominus — Todos os direitos reservados.
+            © 2026 Sanctus Dominus — Todos os direitos reservados.
           </p>
           <p className="text-sm text-cream/80">
             Desenvolvido e Gerenciado pela{" "}
