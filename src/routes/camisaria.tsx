@@ -81,7 +81,7 @@ function CamisariaPage() {
           {filtered.length === 0 ? (
             <p className="text-center text-muted-foreground py-20">Nenhuma peça encontrada com esses filtros.</p>
           ) : (
-            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-5 sm:gap-8 md:gap-10 grid-cols-2 lg:grid-cols-3">
               {filtered.map((p, i) => (
                 <Reveal key={p.slug} delay={i * 80}>
                   <ProductCard product={p} />

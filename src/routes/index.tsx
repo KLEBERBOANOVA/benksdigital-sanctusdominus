@@ -100,7 +100,7 @@ function HomePage() {
             />
           </Reveal>
 
-          <div className="mt-16 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 md:mt-16 grid gap-5 sm:gap-8 md:gap-10 grid-cols-2 lg:grid-cols-3">
             {products.slice(0, 9).map((p, i) => (
               <Reveal key={p.slug} delay={i * 120}>
                 <ProductCard product={p} />
