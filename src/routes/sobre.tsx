@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import founderImg from "@/assets/founder.jpg";
+import founderAsset from "@/assets/founder-carlos.png.asset.json";
+import logoAsset from "@/assets/dominus-select-logo.png.asset.json";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Reveal } from "@/components/site/Reveal";
+
+const founderImg = founderAsset.url;
+const brandLogo = logoAsset.url;
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({
@@ -41,32 +45,36 @@ function SobrePage() {
       </section>
 
       <section className="py-24 px-5 lg:px-8">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-5xl">
           <Reveal>
-            <div className="space-y-6 text-lg leading-relaxed text-foreground/85">
-              <p>
-                <strong className="font-display text-2xl text-bordeaux">Sanctus Dominus</strong> — Studio de
-                Criação e Camisaria Católica é uma marca que une fé, arte e identidade cristã
-                por meio de peças exclusivas e cheias de significado.
-              </p>
-              <p>
-                Inspirada nos valores da tradição católica, a marca transforma símbolos
-                sagrados em criações elegantes e autênticas, vestindo homens e mulheres —
-                jovens, adultos e idosos — que desejam expressar sua devoção com propósito,
-                estilo e reverência.
-              </p>
-              <p className="font-display italic text-2xl text-gold">
-                Mais do que camisaria, a Sanctus Dominus representa uma missão: evangelizar
-                através da beleza e da moda católica.
-              </p>
+            <div className="grid md:grid-cols-[260px_1fr] gap-10 md:gap-14 items-center">
+              <img
+                src={brandLogo}
+                alt="Sanctus Dominus — Dominus Select"
+                loading="lazy"
+                className="w-full max-w-[260px] mx-auto h-auto object-contain"
+              />
+              <div className="space-y-6 text-lg leading-relaxed text-foreground/85">
+                <p>
+                  <strong className="font-display text-2xl text-bordeaux">Sanctus Dominus</strong> — Studio de
+                  Criação e Camisaria Católica é uma marca que une fé, arte e identidade cristã
+                  por meio de peças exclusivas e cheias de significado.
+                </p>
+                <p>
+                  Inspirada nos valores da tradição católica, a marca transforma símbolos
+                  sagrados em criações elegantes e autênticas, vestindo homens e mulheres —
+                  jovens, adultos e idosos — que desejam expressar sua devoção com propósito,
+                  estilo e reverência.
+                </p>
+                <p className="font-display italic text-2xl text-gold">
+                  Mais do que camisaria, a Sanctus Dominus representa uma missão: evangelizar
+                  através da beleza e da moda católica.
+                </p>
+              </div>
             </div>
           </Reveal>
         </div>
       </section>
-
-      <section className="py-20 px-5 lg:px-8 bg-muted/40">
-        <div className="mx-auto max-w-6xl grid md:grid-cols-2 gap-12">
-          <Reveal>
             <div className="p-10 rounded-lg bg-card border border-border h-full">
               <p className="text-xs tracking-[0.3em] uppercase text-gold">Missão</p>
               <p className="mt-4 leading-relaxed text-foreground/85">
