@@ -38,10 +38,10 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
 
-        <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-10">
-          <div className="rounded-lg sm:rounded-xl bg-gradient-gold px-2.5 py-1.5 sm:px-4 sm:py-2 text-navy-deep shadow-gold ring-1 ring-gold/40 backdrop-blur">
-            <p className="text-[8px] sm:text-[9px] uppercase tracking-[0.2em] sm:tracking-[0.24em] font-semibold opacity-75">Preço</p>
-            <p className="font-display text-lg sm:text-2xl leading-none font-bold">{product.price}</p>
+        <div className="hidden sm:block absolute bottom-3 left-3 z-10">
+          <div className="rounded-xl bg-gradient-gold px-4 py-2 text-navy-deep shadow-gold ring-1 ring-gold/40 backdrop-blur">
+            <p className="text-[9px] uppercase tracking-[0.24em] font-semibold opacity-75">Preço</p>
+            <p className="font-display text-2xl leading-none font-bold">{product.price}</p>
           </div>
         </div>
 
