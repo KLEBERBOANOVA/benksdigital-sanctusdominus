@@ -172,6 +172,8 @@ function ProductPage() {
           <img
             src={product.image}
             alt={product.name}
+            loading="lazy"
+            decoding="async"
             onClick={(e) => e.stopPropagation()}
             className="max-h-full max-w-full object-contain rounded-md shadow-elegant"
           />
