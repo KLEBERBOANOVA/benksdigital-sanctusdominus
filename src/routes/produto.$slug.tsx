@@ -152,6 +152,31 @@ function ProductPage() {
           </div>
         </div>
       </section>
+
+      {zoomed && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Imagem ampliada: ${product.name}`}
+          onClick={() => setZoomed(false)}
+          className="fixed inset-0 z-[100] bg-navy-deep/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-10 animate-fade-in cursor-zoom-out"
+        >
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setZoomed(false); }}
+            aria-label="Fechar"
+            className="absolute top-5 right-5 h-11 w-11 grid place-items-center rounded-full bg-cream/10 text-cream hover:bg-gold hover:text-navy-deep transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <img
+            src={product.image}
+            alt={product.name}
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-full max-w-full object-contain rounded-md shadow-elegant"
+          />
+        </div>
+      )}
     </>
   );
 }
