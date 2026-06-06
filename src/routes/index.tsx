@@ -87,29 +87,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* MANIFESTO */}
-      <section className="py-28 px-5 lg:px-8 bg-background">
-        <div className="mx-auto max-w-4xl text-center">
-          <Reveal>
-            <p className="text-xs tracking-[0.4em] uppercase text-gold mb-6">Manifesto</p>
-            <h2 className="font-display text-4xl md:text-6xl leading-tight">
-              Não seguimos tendências.
-              <br />
-              <span className="italic text-bordeaux">Resgatamos símbolos eternos.</span>
-            </h2>
-            <div className="ornament-divider my-10 max-w-md mx-auto">
-              <span className="text-gold text-xl">✦</span>
-            </div>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Nasce a Sanctus Dominus, uma marca criada para aqueles que carregam sua fé não
-              apenas no coração, mas também na forma como se apresentam ao mundo. Cada arte,
-              cada detalhe, cada peça é pensada para expressar a beleza da tradição católica
-              com identidade, reverência e propósito.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
       {/* PRODUCTS */}
       <section className="py-28 px-5 lg:px-8 bg-muted/40">
         <div className="mx-auto max-w-7xl">
@@ -137,6 +114,29 @@ function HomePage() {
               Ver toda a coleção <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* MANIFESTO */}
+      <section className="py-28 px-5 lg:px-8 bg-background">
+        <div className="mx-auto max-w-4xl text-center">
+          <Reveal>
+            <p className="text-xs tracking-[0.4em] uppercase text-gold mb-6">Manifesto</p>
+            <h2 className="font-display text-4xl md:text-6xl leading-tight">
+              Não seguimos tendências.
+              <br />
+              <span className="italic text-bordeaux">Resgatamos símbolos eternos.</span>
+            </h2>
+            <div className="ornament-divider my-10 max-w-md mx-auto">
+              <span className="text-gold text-xl">✦</span>
+            </div>
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+              Nasce a Sanctus Dominus, uma marca criada para aqueles que carregam sua fé não
+              apenas no coração, mas também na forma como se apresentam ao mundo. Cada arte,
+              cada detalhe, cada peça é pensada para expressar a beleza da tradição católica
+              com identidade, reverência e propósito.
+            </p>
+          </Reveal>
         </div>
       </section>
 
