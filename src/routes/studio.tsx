@@ -3,8 +3,7 @@ import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ShoppingBag } from "lucide-react";
 import { products } from "@/lib/products";
 import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
-import tshirtBasicaMasculina from "@/assets/studio-tshirt-basica-masculina.png.asset.json";
-import babyLookFeminino from "@/assets/studio-baby-look-feminino.png.asset.json";
+import plusSizeFeminino from "@/assets/studio-plus-size-feminino.png.asset.json";
 
 export const Route = createFileRoute("/studio")({
   head: () => ({
@@ -44,18 +43,11 @@ const COLORS: { name: string; hex: string }[] = [
 
 const MODELS: { key: string; label: string; desc: string; priceAdd: number; image: string }[] = [
   {
-    key: "tshirt-basica-masculina",
-    label: "T-Shirt Básica Masculina",
-    desc: "Modelagem masculina clássica e confortável.",
+    key: "plus-size-feminino",
+    label: "Plus Size Feminino",
+    desc: "Modelagem feminina plus size confortável.",
     priceAdd: 0,
-    image: tshirtBasicaMasculina.url,
-  },
-  {
-    key: "baby-look-feminino",
-    label: "Baby Look Feminino",
-    desc: "Modelagem feminina acinturada.",
-    priceAdd: 0,
-    image: babyLookFeminino.url,
+    image: plusSizeFeminino.url,
   },
 ];
 
