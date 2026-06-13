@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, CheckCircle2, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, CheckCircle2, ImageUp, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
 import { studioDesigns } from "@/lib/studio-designs";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
@@ -134,6 +134,8 @@ function StudioPage() {
   const [sent, setSent] = useState(false);
   const [previewSlug, setPreviewSlug] = useState<string | null>(null);
   const [previewZoom, setPreviewZoom] = useState(1);
+  const [customImage, setCustomImage] = useState<File | null>(null);
+  const [customImageUrl, setCustomImageUrl] = useState<string | null>(null);
 
   const estampaProduct = useMemo(() => studioDesigns.find((design) => design.slug === estampa) ?? null, [estampa]);
   const modeloItem = useMemo(() => MODELS.find((m) => m.key === modelo) ?? null, [modelo]);
@@ -146,9 +148,20 @@ function StudioPage() {
 
   const basePrice = 89.9;
   const totalPrice = basePrice + (modeloItem?.priceAdd ?? 0);
+  const pixPrice = totalPrice * 0.93;
+
+  useEffect(() => {
+    if (!customImage) {
+      setCustomImageUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(customImage);
+    setCustomImageUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [customImage]);
 
   const canAdvance = [
-    () => !!estampa,
+    () => !!estampa || !!customImage,
     () => !!cor,
     () => !!modelo,
     () => !!tamanho,
@@ -168,11 +181,12 @@ function StudioPage() {
     const body = [
       "*PEDIDO DOMINUS SELECT*",
       "",
-      `Estampa: ${estampaProduct?.name}`,
+      `Estampa: ${customImage ? `Imagem própria (${customImage.name}) — enviarei o arquivo nesta conversa` : estampaProduct?.name}`,
       `Cor: ${cor}`,
       `Modelo: ${modeloItem?.label}`,
       `Tamanho: ${tamanho}`,
       `Valor: R$ ${totalPrice.toFixed(2).replace(".", ",")}`,
+      `Valor no Pix (7% de desconto): R$ ${pixPrice.toFixed(2).replace(".", ",")}`,
       "",
       `Nome: ${pedido.nome}`,
       `WhatsApp: ${pedido.whatsapp}`,
