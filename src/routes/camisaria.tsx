@@ -11,12 +11,20 @@ import plusSizeAsset from "@/assets/size-plus-size.jpg.asset.json";
 
 const categories = ["Baby Look"];
 const fits = ["Oversize", "Plus size"];
-const collections = ["Amor Divino", "Homens de Fé", "Mulheres de Fé"];
+type FaithFilter = "amor-divino" | "homens-fe" | "mulheres-fe" | "apostolos" | "textos" | "texto-iconografia" | "iconografias" | "jesus" | "salmos" | "conversao";
 
-function getCollection(product: (typeof products)[number]) {
-  if (product.audience === "Masculino") return "Homens de Fé";
-  if (product.audience === "Feminino") return "Mulheres de Fé";
-  return "Amor Divino";
+const womenOfFaith = ["fe-inabalavel", "nossa-senhora", "maria-", "santa-terezinha", "fiat-", "virgem-maria"];
+const menOfFaith = ["padre-pio", "sao-joao-batista"];
+
+function getFaithTaxonomy(product: (typeof products)[number]): { group: "amor-divino" | "apostolos"; subgroup: FaithFilter } {
+  if (womenOfFaith.some((term) => product.slug.includes(term))) return { group: "amor-divino", subgroup: "mulheres-fe" };
+  if (menOfFaith.some((term) => product.slug.includes(term))) return { group: "amor-divino", subgroup: "homens-fe" };
+  if (product.collection === "Salmos") return { group: "apostolos", subgroup: "salmos" };
+  if (product.collection === "Conversão" || product.slug.includes("encontrei-jesus")) return { group: "apostolos", subgroup: "conversao" };
+  if (["foi-por-voce", "ele-vive", "jesus-cristo-e-o-caminho-a-verdade-e-a-vida", "jesus-meu-senhor-e-salvador", "eis-o-coracao-que-tanto-amou", "dai-me-um-coracao-semelhante-ao-teu-preto", "dai-me-um-coracao-semelhante-ao-teu-bege"].includes(product.slug)) return { group: "apostolos", subgroup: "jesus" };
+  if (["sanctus-dominus-bordo-vinho", "tudo-posso-naquele-que-me-fortalece", "buscai-ao-senhor"].includes(product.slug)) return { group: "apostolos", subgroup: "textos" };
+  if (["somos-o-bom-perfume-de-cristo", "recebereis-o-poder-do-espirito-santo"].includes(product.slug)) return { group: "apostolos", subgroup: "iconografias" };
+  return { group: "apostolos", subgroup: "texto-iconografia" };
 }
 
 export const Route = createFileRoute("/camisaria")({
@@ -36,7 +44,7 @@ export const Route = createFileRoute("/camisaria")({
 function CamisariaPage() {
   const [cat, setCat] = useState<string | null>(null);
   const [aud, setAud] = useState<string | null>(null);
-  const [col, setCol] = useState<string | null>(null);
+  const [faith, setFaith] = useState<FaithFilter | null>(null);
 
   const filtered = useMemo(
     () =>
@@ -44,9 +52,12 @@ function CamisariaPage() {
         (p) =>
           (!cat || p.category === cat) &&
           (!aud || p.audience === aud) &&
-          (!col || getCollection(p) === col)
+          (!faith || (() => {
+            const taxonomy = getFaithTaxonomy(p);
+            return faith === taxonomy.group || faith === taxonomy.subgroup;
+          })())
       ),
-    [cat, aud, col]
+    [cat, aud, faith]
   );
 
   const sizeGuide = useMemo(() => {
@@ -89,7 +100,7 @@ function CamisariaPage() {
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-center gap-3 mb-12 justify-center">
             <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground mr-2">Filtros:</span>
-            <Chip active={!cat && !aud && !col} onClick={() => { setCat(null); setAud(null); setCol(null); }}>Todos</Chip>
+            <Chip active={!cat && !aud && !faith} onClick={() => { setCat(null); setAud(null); setFaith(null); }}>Todos</Chip>
             {categories.map((c) => (
               <Chip key={c} active={cat === c} onClick={() => setCat(cat === c ? null : c)}>{c}</Chip>
             ))}
@@ -99,9 +110,26 @@ function CamisariaPage() {
             {fits.map((fit) => (
               <Chip key={fit} active={cat === fit} onClick={() => setCat(cat === fit ? null : fit)}>{fit}</Chip>
             ))}
-            {collections.map((c) => (
-              <Chip key={c} active={col === c} onClick={() => setCol(col === c ? null : c)}>{c}</Chip>
-            ))}
+          </div>
+
+          <div className="mb-12 grid gap-5 lg:grid-cols-2">
+            <div className="rounded-xl border border-border bg-card p-5">
+              <button type="button" onClick={() => setFaith(faith === "amor-divino" ? null : "amor-divino")} className="font-display text-xl text-bordeaux">Amor Divino</button>
+              <p className="mt-1 text-xs text-muted-foreground">Santos, arcanjos, Maria e santas</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Chip active={faith === "homens-fe"} onClick={() => setFaith(faith === "homens-fe" ? null : "homens-fe")}>Homens de Fé</Chip>
+                <Chip active={faith === "mulheres-fe"} onClick={() => setFaith(faith === "mulheres-fe" ? null : "mulheres-fe")}>Mulheres de Fé</Chip>
+              </div>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-5">
+              <button type="button" onClick={() => setFaith(faith === "apostolos" ? null : "apostolos")} className="font-display text-xl text-bordeaux">Apóstolos</button>
+              <p className="mt-1 text-xs text-muted-foreground">Mensagens e símbolos para evangelizar</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {([['textos', 'Textos'], ['texto-iconografia', 'Textos com iconografia'], ['iconografias', 'Só iconografias'], ['jesus', 'Jesus'], ['salmos', 'Salmos'], ['conversao', 'Conversão']] as const).map(([key, label]) => (
+                  <Chip key={key} active={faith === key} onClick={() => setFaith(faith === key ? null : key)}>{label}</Chip>
+                ))}
+              </div>
+            </div>
           </div>
 
           {filtered.length === 0 ? (
@@ -120,7 +148,7 @@ function CamisariaPage() {
 
       {sizeGuide && (
         <section className="bg-muted/40 px-5 py-16 lg:px-8 lg:py-20">
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="mx-auto max-w-4xl text-center lg:max-w-2xl">
             <p className="text-xs uppercase tracking-[0.35em] text-gold">Guia de tamanhos</p>
             <h2 className="mt-3 font-display text-3xl text-foreground sm:text-5xl">Tabela de medidas</h2>
             <img
