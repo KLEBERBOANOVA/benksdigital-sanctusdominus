@@ -270,6 +270,19 @@ function StudioPage() {
             <p className="mt-2 text-muted-foreground max-w-xl mx-auto">{STEPS[step].sub}</p>
           </div>
 
+          {step === 0 && !sent && (
+            <div className="mb-8 flex justify-center md:justify-end">
+              <Button
+                type="button"
+                onClick={goNext}
+                disabled={!canAdvance}
+                className="rounded-full px-7 py-5 text-sm uppercase tracking-wider"
+              >
+                Avançar <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+
           {/* Step content */}
           <div className="min-h-[320px]">
             {step === 0 && (
