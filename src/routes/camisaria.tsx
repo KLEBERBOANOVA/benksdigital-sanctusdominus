@@ -1,9 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { products, categories, audiences, collections } from "@/lib/products";
+import { products, audiences } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
-import { SectionHeading } from "@/components/site/SectionHeading";
 import { Reveal } from "@/components/site/Reveal";
+import masculinoAsset from "@/assets/size-masculino.jpg.asset.json";
+import babyLookAsset from "@/assets/size-baby-look.jpg.asset.json";
+import infantilAsset from "@/assets/size-infantil.jpg.asset.json";
+import oversizeAsset from "@/assets/size-oversize.jpg.asset.json";
+import plusSizeAsset from "@/assets/size-plus-size.jpg.asset.json";
+
+const categories = ["Camiseta", "Baby Look", "Moletom", "Boné", "Oversize", "Plus size"];
+const collections = ["Amor Divino", "Homens de Fé", "Mulheres de Fé"];
+
+function getCollection(product: (typeof products)[number]) {
+  if (product.audience === "Masculino") return "Homens de Fé";
+  if (product.audience === "Feminino") return "Mulheres de Fé";
+  return "Amor Divino";
+}
 
 export const Route = createFileRoute("/camisaria")({
   head: () => ({
@@ -30,10 +43,19 @@ function CamisariaPage() {
         (p) =>
           (!cat || p.category === cat) &&
           (!aud || p.audience === aud) &&
-          (!col || p.collection === col)
+          (!col || getCollection(p) === col)
       ),
     [cat, aud, col]
   );
+
+  const sizeGuide = useMemo(() => {
+    if (cat === "Baby Look" || aud === "Feminino") return { src: babyLookAsset.url, alt: "Tabela de medidas feminina para camisas baby look" };
+    if (aud === "Masculino") return { src: masculinoAsset.url, alt: "Tabela de medidas masculina para camisa básica" };
+    if (aud === "Infantil") return { src: infantilAsset.url, alt: "Tabela de medidas para camisas infantis" };
+    if (cat === "Oversize") return { src: oversizeAsset.url, alt: "Tabela de medidas masculina para camisa oversized" };
+    if (cat === "Plus size") return { src: plusSizeAsset.url, alt: "Tabela de medidas masculina para camisa plus size" };
+    return null;
+  }, [cat, aud]);
 
   const Chip = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
     <button
@@ -92,43 +114,23 @@ function CamisariaPage() {
         </div>
       </section>
 
-      <section className="py-20 px-5 lg:px-8 bg-muted/40">
-        <div className="mx-auto max-w-3xl">
-          <SectionHeading
-            eyebrow="Guia rápido"
-            title={<>Tabela de <span className="italic text-bordeaux">medidas</span></>}
-            description="Veste do P ao GG. Algodão encolhe de 3% a 5% na primeira lavagem — entre dois tamanhos, prefira o maior."
-          />
-          <div className="mt-10 overflow-hidden rounded-lg border border-border bg-card">
-            <table className="w-full text-sm">
-              <thead className="bg-navy-deep text-cream">
-                <tr>
-                  <th className="px-4 py-3 text-left">Tamanho</th>
-                  <th className="px-4 py-3 text-left">Tórax</th>
-                  <th className="px-4 py-3 text-left">Comprimento</th>
-                  <th className="px-4 py-3 text-left">Veste</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["P", "98–102 cm", "68 cm", "60–72 kg"],
-                  ["M", "103–108 cm", "70 cm", "73–84 kg"],
-                  ["G", "109–114 cm", "72 cm", "85–96 kg"],
-                  ["GG", "115–122 cm", "75 cm", "97–112 kg"],
-                ].map((row) => (
-                  <tr key={row[0]} className="border-t border-border">
-                    {row.map((cell, i) => (
-                      <td key={i} className={`px-4 py-3 ${i === 0 ? "font-display text-gold" : "text-muted-foreground"}`}>
-                        {cell}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {sizeGuide && (
+        <section className="bg-muted/40 px-5 py-16 lg:px-8 lg:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-xs uppercase tracking-[0.35em] text-gold">Guia de tamanhos</p>
+            <h2 className="mt-3 font-display text-3xl text-foreground sm:text-5xl">Tabela de medidas</h2>
+            <img
+              src={sizeGuide.src}
+              alt={sizeGuide.alt}
+              loading="lazy"
+              decoding="async"
+              width={1254}
+              height={1254}
+              className="mt-8 h-auto w-full rounded-lg border border-border shadow-elegant"
+            />
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }
