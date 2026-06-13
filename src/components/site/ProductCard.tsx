@@ -12,7 +12,7 @@ function pixPrice(price: string) {
 
 export function ProductCard({ product }: { product: Product }) {
   const buyHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Olá! Tenho interesse na peça "${product.name}" (${product.category} · ${product.color}) — ${product.price}.`
+    `Olá! Tenho interesse na peça "${product.name}" (${product.category} · ${product.color}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto.`
   )}`;
 
   return (
