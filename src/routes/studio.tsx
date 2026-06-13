@@ -455,19 +455,19 @@ function StudioPage() {
                 <div className="rounded-xl border border-border bg-card p-6 md:p-8">
                   <h3 className="font-display text-2xl text-foreground">Resumo da sua criação</h3>
                   <div className="mt-6 grid grid-cols-[120px_1fr] gap-4 items-center">
-                    {estampaProduct && (
+                    {(estampaProduct || customImageUrl) && (
                       <img
-                        src={estampaProduct.image}
-                        alt={estampaProduct.name}
+                        src={customImageUrl ?? estampaProduct?.image}
+                        alt={customImage ? "Imagem própria" : estampaProduct?.name}
                         loading="lazy"
                         decoding="async"
                         className="h-28 w-28 rounded-lg object-cover border border-border"
                       />
                     )}
                     <div>
-                      <p className="font-display text-lg">{estampaProduct?.name}</p>
+                      <p className="font-display text-lg">{customImage ? "Imagem própria" : estampaProduct?.name}</p>
                       <p className="text-xs uppercase tracking-wider text-muted-foreground mt-1">
-                        {estampaProduct?.collection}
+                        {customImage ? "Criação personalizada" : estampaProduct?.collection}
                       </p>
                     </div>
                   </div>
@@ -478,8 +478,8 @@ function StudioPage() {
                     <SummaryRow
                       label="Valor"
                       value={`R$ ${totalPrice.toFixed(2).replace(".", ",")}`}
-                      strong
                     />
+                    <SummaryRow label="No Pix (7% OFF)" value={`R$ ${pixPrice.toFixed(2).replace(".", ",")}`} strong />
                   </dl>
                 </div>
 
