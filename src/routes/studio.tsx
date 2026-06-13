@@ -3,6 +3,11 @@ import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ShoppingBag } from "lucide-react";
 import { studioDesigns } from "@/lib/studio-designs";
 import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
+import tshirtBasicaMasculina from "@/assets/studio-tshirt-basica-masculina.png.asset.json";
+import babyLookFeminino from "@/assets/studio-baby-look-feminino.png.asset.json";
+import oversizeMasculina from "@/assets/studio-oversize-masculina.png.asset.json";
+import oversizeFeminino from "@/assets/studio-oversize-feminino.png.asset.json";
+import plusSizeMasculino from "@/assets/studio-plus-size-masculino.png.asset.json";
 import plusSizeFeminino from "@/assets/studio-plus-size-feminino.png.asset.json";
 
 export const Route = createFileRoute("/studio")({
@@ -42,6 +47,41 @@ const COLORS: { name: string; hex: string }[] = [
 ];
 
 const MODELS: { key: string; label: string; desc: string; priceAdd: number; image: string }[] = [
+  {
+    key: "tshirt-basica-masculina",
+    label: "T-Shirt Básica Masculina",
+    desc: "Modelagem masculina clássica e confortável.",
+    priceAdd: 0,
+    image: tshirtBasicaMasculina.url,
+  },
+  {
+    key: "baby-look-feminino",
+    label: "Baby Look Feminino",
+    desc: "Modelagem feminina acinturada.",
+    priceAdd: 0,
+    image: babyLookFeminino.url,
+  },
+  {
+    key: "oversize-masculina",
+    label: "Oversize Masculina",
+    desc: "Modelagem masculina ampla e contemporânea.",
+    priceAdd: 0,
+    image: oversizeMasculina.url,
+  },
+  {
+    key: "oversize-feminino",
+    label: "Oversize Feminino",
+    desc: "Modelagem feminina ampla e contemporânea.",
+    priceAdd: 0,
+    image: oversizeFeminino.url,
+  },
+  {
+    key: "plus-size-masculino",
+    label: "Plus Size Masculino",
+    desc: "Modelagem masculina plus size confortável.",
+    priceAdd: 0,
+    image: plusSizeMasculino.url,
+  },
   {
     key: "plus-size-feminino",
     label: "Plus Size Feminino",
