@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ShoppingBag } from "lucide-react";
 import { products } from "@/lib/products";
 import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
+import tshirtBasicaMasculina from "@/assets/studio-tshirt-basica-masculina.png.asset.json";
+import babyLookFeminino from "@/assets/studio-baby-look-feminino.png.asset.json";
 
 export const Route = createFileRoute("/studio")({
   head: () => ({
@@ -40,11 +42,21 @@ const COLORS: { name: string; hex: string }[] = [
   { name: "Roxo", hex: "#5a2ea6" },
 ];
 
-const MODELS: { key: string; label: string; desc: string; priceAdd: number }[] = [
-  { key: "camiseta", label: "Camiseta", desc: "Algodão fio 30.1 penteado.", priceAdd: 0 },
-  { key: "baby-look", label: "Baby Look", desc: "Modelagem feminina acinturada.", priceAdd: 0 },
-  { key: "polo", label: "Polo", desc: "Acabamento clássico com colarinho.", priceAdd: 20 },
-  { key: "moletom", label: "Moletom", desc: "Felpado, ideal para dias frios.", priceAdd: 60 },
+const MODELS: { key: string; label: string; desc: string; priceAdd: number; image: string }[] = [
+  {
+    key: "tshirt-basica-masculina",
+    label: "T-Shirt Básica Masculina",
+    desc: "Modelagem masculina clássica e confortável.",
+    priceAdd: 0,
+    image: tshirtBasicaMasculina.url,
+  },
+  {
+    key: "baby-look-feminino",
+    label: "Baby Look Feminino",
+    desc: "Modelagem feminina acinturada.",
+    priceAdd: 0,
+    image: babyLookFeminino.url,
+  },
 ];
 
 const SIZES = ["PP", "P", "M", "G", "GG", "XG", "3G", "4G"];
@@ -236,7 +248,7 @@ function StudioPage() {
             )}
 
             {step === 2 && (
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+              <div className="grid gap-5 sm:grid-cols-2 max-w-4xl mx-auto">
                 {MODELS.map((m) => {
                   const selected = modelo === m.key;
                   return (
@@ -244,17 +256,28 @@ function StudioPage() {
                       key={m.key}
                       type="button"
                       onClick={() => setModelo(m.key)}
-                      className={`rounded-xl p-6 border-2 text-left transition-all bg-card ${
+                      className={`rounded-xl overflow-hidden border-2 text-left transition-all bg-card ${
                         selected
                           ? "border-bordeaux shadow-elegant"
                           : "border-border hover:border-gold/60"
                       }`}
                     >
-                      <h3 className="font-display text-xl text-foreground">{m.label}</h3>
-                      <p className="mt-2 text-sm text-muted-foreground">{m.desc}</p>
-                      <p className="mt-4 text-xs tracking-[0.2em] uppercase text-gold">
-                        {m.priceAdd > 0 ? `+ R$ ${m.priceAdd.toFixed(2).replace(".", ",")}` : "Sem acréscimo"}
-                      </p>
+                      <div className="aspect-[4/3] overflow-hidden bg-muted">
+                        <img
+                          src={m.image}
+                          alt={m.label}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-contain"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <h3 className="font-display text-xl text-foreground">{m.label}</h3>
+                        <p className="mt-2 text-sm text-muted-foreground">{m.desc}</p>
+                        <p className="mt-4 text-xs tracking-[0.2em] uppercase text-gold">
+                          {m.priceAdd > 0 ? `+ R$ ${m.priceAdd.toFixed(2).replace(".", ",")}` : "Sem acréscimo"}
+                        </p>
+                      </div>
                     </button>
                   );
                 })}
