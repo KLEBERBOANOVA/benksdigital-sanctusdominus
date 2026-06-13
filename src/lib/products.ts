@@ -30,6 +30,7 @@ import euEncontreiJesusBrancaAsset from "@/assets/product-eu-encontrei-jesus-bra
 import euEncontreiJesusRoxaAsset from "@/assets/product-eu-encontrei-jesus-roxa.png.asset.json";
 import euEscolhiVocesOversizeAsset from "@/assets/product-eu-escolhi-voces-oversize.png.asset.json";
 import euNaoSouDesteMundoOversizeAsset from "@/assets/product-eu-nao-sou-deste-mundo-oversize.png.asset.json";
+import nossaSenhoraGuadalupeOversizeAsset from "@/assets/product-nossa-senhora-guadalupe-oversize.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -60,6 +61,7 @@ const euEncontreiJesusBranca = euEncontreiJesusBrancaAsset.url;
 const euEncontreiJesusRoxa = euEncontreiJesusRoxaAsset.url;
 const euEscolhiVocesOversize = euEscolhiVocesOversizeAsset.url;
 const euNaoSouDesteMundoOversize = euNaoSouDesteMundoOversizeAsset.url;
+const nossaSenhoraGuadalupeOversize = nossaSenhoraGuadalupeOversizeAsset.url;
 
 export type Product = {
   slug: string;
@@ -76,6 +78,21 @@ export type Product = {
 };
 
 export const products: Product[] = [
+  {
+    slug: "nossa-senhora-de-guadalupe-oversize-feminina",
+    name: "Nossa Senhora de Guadalupe — Oversize",
+    collection: "Mulheres de Fé",
+    category: "Oversize",
+    audience: "Feminino",
+    color: "Branco",
+    price: "R$ 89,90",
+    image: nossaSenhoraGuadalupeOversize,
+    tagline: "Sob o manto da Mãe das Américas.",
+    description:
+      "Camiseta feminina oversize branca, com modelagem ampla, estampa de Nossa Senhora de Guadalupe à frente e assinatura Sanctus Dominus nas costas.",
+    inspiration:
+      "Inspirada na aparição de Nossa Senhora de Guadalupe, uma peça que traduz proteção materna, esperança e devoção.",
+  },
   {
     slug: "eu-nao-sou-deste-mundo-oversize-masculina",
     name: "Eu Não Sou Deste Mundo — Oversize",
