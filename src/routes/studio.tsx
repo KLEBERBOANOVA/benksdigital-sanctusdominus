@@ -155,7 +155,13 @@ function StudioPage() {
     () => pedido.nome.trim() && pedido.whatsapp.trim() && pedido.endereco.trim(),
   ][step]();
 
-  const goNext = () => canAdvance && setStep((s) => Math.min(s + 1, STEPS.length - 1));
+  const goNext = () => {
+    if (!canAdvance) return;
+    setStep((s) => Math.min(s + 1, STEPS.length - 1));
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  };
   const goPrev = () => setStep((s) => Math.max(s - 1, 0));
 
   const submitOrder = () => {
