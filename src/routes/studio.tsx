@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ShoppingBag } from "lucide-react";
-import { products } from "@/lib/products";
+import { studioDesigns } from "@/lib/studio-designs";
 import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
 import plusSizeFeminino from "@/assets/studio-plus-size-feminino.png.asset.json";
 
@@ -64,7 +64,7 @@ function StudioPage() {
   const [pedido, setPedido] = useState({ nome: "", whatsapp: "", endereco: "", obs: "" });
   const [sent, setSent] = useState(false);
 
-  const estampaProduct = useMemo(() => products.find((p) => p.slug === estampa) ?? null, [estampa]);
+  const estampaProduct = useMemo(() => studioDesigns.find((design) => design.slug === estampa) ?? null, [estampa]);
   const modeloItem = useMemo(() => MODELS.find((m) => m.key === modelo) ?? null, [modelo]);
 
   const basePrice = 89.9;
@@ -176,38 +176,50 @@ function StudioPage() {
           {/* Step content */}
           <div className="min-h-[320px]">
             {step === 0 && (
-              <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {products.map((p) => {
-                  const selected = estampa === p.slug;
-                  return (
-                    <button
-                      key={p.slug}
-                      type="button"
-                      onClick={() => setEstampa(p.slug)}
-                      className={`group text-left rounded-xl overflow-hidden border-2 transition-all bg-card ${
-                        selected
-                          ? "border-bordeaux shadow-elegant scale-[1.02]"
-                          : "border-border hover:border-gold/60"
-                      }`}
+              <div className="space-y-12">
+                {(["Amor Divino", "Homens de Fé", "Mulheres de Fé"] as const).map((collection) => (
+                  <section key={collection} aria-labelledby={`collection-${collection}`}>
+                    <h3
+                      id={`collection-${collection}`}
+                      className="mb-5 font-display text-2xl text-foreground"
                     >
-                      <div className="aspect-square overflow-hidden bg-muted">
-                        <img
-                          src={p.image}
-                          alt={p.name}
-                          loading="lazy"
-                          decoding="async"
-                          className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                      <div className="p-3">
-                        <p className="font-display text-sm text-foreground line-clamp-2">{p.name}</p>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mt-1">
-                          {p.collection}
-                        </p>
-                      </div>
-                    </button>
-                  );
-                })}
+                      {collection}
+                    </h3>
+                    <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                      {studioDesigns.filter((design) => design.collection === collection).map((design) => {
+                        const selected = estampa === design.slug;
+                        return (
+                          <button
+                            key={design.slug}
+                            type="button"
+                            onClick={() => setEstampa(design.slug)}
+                            className={`group text-left rounded-xl overflow-hidden border-2 transition-all bg-card ${
+                              selected
+                                ? "border-bordeaux shadow-elegant scale-[1.02]"
+                                : "border-border hover:border-gold/60"
+                            }`}
+                          >
+                            <div className="aspect-square overflow-hidden bg-muted">
+                              <img
+                                src={design.image}
+                                alt={`Estampa ${design.name}`}
+                                loading="lazy"
+                                decoding="async"
+                                className="h-full w-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
+                              />
+                            </div>
+                            <div className="p-3">
+                              <p className="font-display text-sm text-foreground line-clamp-2">{design.name}</p>
+                              <p className="text-[11px] uppercase tracking-wider text-muted-foreground mt-1">
+                                {design.collection}
+                              </p>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </section>
+                ))}
               </div>
             )}
 
