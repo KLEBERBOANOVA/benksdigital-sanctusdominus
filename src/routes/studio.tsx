@@ -274,6 +274,37 @@ function StudioPage() {
           <div className="min-h-[320px]">
             {step === 0 && (
               <div className="space-y-12">
+                <section className="rounded-xl border-2 border-dashed border-gold/60 bg-card p-6 md:p-8">
+                  <div className="grid items-center gap-6 md:grid-cols-[1fr_auto]">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.3em] text-gold">Criação exclusiva</p>
+                      <h3 className="mt-2 font-display text-2xl text-foreground">Envie sua imagem ou estampa</h3>
+                      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">Nosso departamento de Criação vai adaptar e personalizar a arte do seu jeito. PNG, JPG ou WebP de até 10 MB.</p>
+                    </div>
+                    <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground transition-colors hover:bg-bordeaux">
+                      <ImageUp className="h-4 w-4" /> Escolher imagem
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        className="sr-only"
+                        onChange={(event) => {
+                          const file = event.target.files?.[0] ?? null;
+                          if (file && file.size <= 10 * 1024 * 1024) {
+                            setCustomImage(file);
+                            setEstampa(null);
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+                  {customImageUrl && customImage && (
+                    <div className="mt-6 flex items-center gap-4 rounded-lg border border-border bg-muted/40 p-3">
+                      <img src={customImageUrl} alt="Prévia da imagem enviada" className="h-20 w-20 rounded-md object-contain" />
+                      <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{customImage.name}</p><p className="text-xs text-muted-foreground">Imagem própria selecionada</p></div>
+                      <Button type="button" variant="ghost" onClick={() => setCustomImage(null)}>Remover</Button>
+                    </div>
+                  )}
+                </section>
                 {(["Amor Divino", "Homens de Fé", "Mulheres de Fé", "Apóstolos"] as const).map((collection) => (
                   <section key={collection} aria-labelledby={`collection-${collection}`}>
                     <h3
@@ -294,7 +325,7 @@ function StudioPage() {
                                 : "border-border hover:border-gold/60"
                             }`}
                           >
-                            <button type="button" onClick={() => setEstampa(design.slug)} className="w-full text-left">
+                            <button type="button" onClick={() => { setEstampa(design.slug); setCustomImage(null); }} className="w-full text-left">
                               <div className="aspect-square overflow-hidden bg-muted">
                                 <img
                                   src={design.image}
