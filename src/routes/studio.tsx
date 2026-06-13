@@ -37,15 +37,26 @@ const STEPS: { key: StepKey; n: string; t: string; sub: string }[] = [
 ];
 
 const COLORS: { name: string; hex: string }[] = [
-  { name: "Azul Marinho", hex: "#0f1b3d" },
-  { name: "Bordô Vinho", hex: "#5b1622" },
-  { name: "Preto", hex: "#0d0d0d" },
-  { name: "Branco", hex: "#f7f5ef" },
-  { name: "Off-White", hex: "#ece5d5" },
-  { name: "Bege", hex: "#cdb89a" },
-  { name: "Marrom", hex: "#5a3a1f" },
-  { name: "Verde Militar", hex: "#3d4a2a" },
-  { name: "Roxo", hex: "#5a2ea6" },
+  { name: "Azul Claro", hex: "#498eca" },
+  { name: "Areia", hex: "#c6c3b4" },
+  { name: "Off White", hex: "#e7e0d8" },
+  { name: "Gelo", hex: "#d1dce7" },
+  { name: "Cinza", hex: "#b9babe" },
+  { name: "Verde Militar", hex: "#212d24" },
+  { name: "Vermelho", hex: "#dd1f39" },
+  { name: "Laranja", hex: "#e94c1f" },
+  { name: "Marinho", hex: "#161d31" },
+  { name: "Roxo", hex: "#502767" },
+  { name: "Verde Água", hex: "#91cab1" },
+  { name: "Branco", hex: "#ffffff" },
+  { name: "Preto", hex: "#140e0c" },
+  { name: "Rosa", hex: "#eeb4dc" },
+  { name: "Bordô", hex: "#9e121e" },
+  { name: "Chumbo", hex: "#6a6c6e" },
+  { name: "Bege", hex: "#f2ce9e" },
+  { name: "Marrom", hex: "#54150b" },
+  { name: "Verde Neon", hex: "#78cc64" },
+  { name: "Amarelo Neon", hex: "#b4df5e" },
 ];
 
 const MODELS: { key: string; label: string; desc: string; priceAdd: number; image: string }[] = [
