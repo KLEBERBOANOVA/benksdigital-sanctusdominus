@@ -11,20 +11,15 @@ import plusSizeAsset from "@/assets/size-plus-size.jpg.asset.json";
 
 const categories = ["Baby Look"];
 const fits = ["Oversize", "Plus size"];
-type FaithFilter = "amor-divino" | "homens-fe" | "mulheres-fe" | "apostolos" | "textos" | "texto-iconografia" | "iconografias" | "jesus" | "salmos" | "conversao";
+type FaithFilter = "amor-divino" | "apostolos";
 
 const womenOfFaith = ["fe-inabalavel", "nossa-senhora", "maria-", "santa-terezinha", "fiat-", "virgem-maria"];
 const menOfFaith = ["padre-pio", "sao-joao-batista"];
 
-function getFaithTaxonomy(product: (typeof products)[number]): { group: "amor-divino" | "apostolos"; subgroup: FaithFilter } {
-  if (womenOfFaith.some((term) => product.slug.includes(term))) return { group: "amor-divino", subgroup: "mulheres-fe" };
-  if (menOfFaith.some((term) => product.slug.includes(term))) return { group: "amor-divino", subgroup: "homens-fe" };
-  if (product.collection === "Salmos") return { group: "apostolos", subgroup: "salmos" };
-  if (product.collection === "Conversão" || product.slug.includes("encontrei-jesus")) return { group: "apostolos", subgroup: "conversao" };
-  if (["foi-por-voce", "ele-vive", "jesus-cristo-e-o-caminho-a-verdade-e-a-vida", "jesus-meu-senhor-e-salvador", "eis-o-coracao-que-tanto-amou", "dai-me-um-coracao-semelhante-ao-teu-preto", "dai-me-um-coracao-semelhante-ao-teu-bege"].includes(product.slug)) return { group: "apostolos", subgroup: "jesus" };
-  if (["sanctus-dominus-bordo-vinho", "tudo-posso-naquele-que-me-fortalece", "buscai-ao-senhor"].includes(product.slug)) return { group: "apostolos", subgroup: "textos" };
-  if (["somos-o-bom-perfume-de-cristo", "recebereis-o-poder-do-espirito-santo"].includes(product.slug)) return { group: "apostolos", subgroup: "iconografias" };
-  return { group: "apostolos", subgroup: "texto-iconografia" };
+function getFaithGroup(product: (typeof products)[number]): FaithFilter {
+  if (womenOfFaith.some((term) => product.slug.includes(term))) return "amor-divino";
+  if (menOfFaith.some((term) => product.slug.includes(term))) return "amor-divino";
+  return "apostolos";
 }
 
 export const Route = createFileRoute("/camisaria")({
@@ -73,10 +68,7 @@ function CamisariaPage() {
         (p) =>
           (!cat || p.category === cat) &&
           (!aud || p.audience === aud) &&
-          (!faith || (() => {
-            const taxonomy = getFaithTaxonomy(p);
-            return faith === taxonomy.group || faith === taxonomy.subgroup;
-          })())
+          (!faith || faith === getFaithGroup(p))
       ),
     [cat, aud, faith]
   );
@@ -134,12 +126,7 @@ function CamisariaPage() {
               <Chip key={fit} active={cat === fit} onClick={() => selectCategory(fit)}>{fit}</Chip>
             ))}
             <Chip active={faith === "amor-divino"} onClick={() => selectFaith("amor-divino")}>Amor Divino</Chip>
-            <Chip active={faith === "homens-fe"} onClick={() => selectFaith("homens-fe")}>Homens de Fé</Chip>
-            <Chip active={faith === "mulheres-fe"} onClick={() => selectFaith("mulheres-fe")}>Mulheres de Fé</Chip>
             <Chip active={faith === "apostolos"} onClick={() => selectFaith("apostolos")}>Apóstolos</Chip>
-            {([['textos', 'Textos'], ['texto-iconografia', 'Textos com iconografia'], ['iconografias', 'Só iconografias'], ['jesus', 'Jesus'], ['salmos', 'Salmos'], ['conversao', 'Conversão']] as const).map(([key, label]) => (
-              <Chip key={key} active={faith === key} onClick={() => selectFaith(key)}>{label}</Chip>
-            ))}
           </div>
 
           {filtered.length === 0 ? (
