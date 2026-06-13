@@ -4,6 +4,13 @@ import { useEffect, useState } from "react";
 import { getProduct, products } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
 
+const PIX_DISCOUNT = 0.93;
+
+function pixPrice(price: string) {
+  const value = Number(price.replace(/[^\d,]/g, "").replace(",", "."));
+  return Number.isFinite(value) ? (value * PIX_DISCOUNT).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : price;
+}
+
 export const Route = createFileRoute("/produto/$slug")({
   loader: ({ params }) => {
     const product = getProduct(params.slug);
@@ -38,7 +45,7 @@ function ProductPage() {
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
   const whatsappMsg = encodeURIComponent(
-    `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}). Pode me ajudar?`
+    `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto. Pode me ajudar?`
   );
 
   useEffect(() => {
@@ -89,7 +96,11 @@ function ProductPage() {
                 <p className="text-sm text-foreground/85 italic">{product.inspiration}</p>
               </div>
 
-              <p className="mt-8 font-display text-4xl text-gold">{product.price}</p>
+              <div className="mt-8">
+                <p className="text-sm text-muted-foreground line-through">De {product.price}</p>
+                <p className="font-display text-4xl text-gold">{pixPrice(product.price)} <span className="text-lg">no Pix</span></p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">7% de desconto</p>
+              </div>
 
               <div className="mt-6">
                 <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3">Tamanho</p>

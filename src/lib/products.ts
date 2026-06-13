@@ -397,7 +397,7 @@ export const products: Product[] = [
   },
   {
     slug: "sanctus-dominus-bordo-vinho",
-    name: "Sanctus Dominus Bordô Vinho",
+    name: "Sanctus Dominus",
     collection: "Apóstolos",
     category: "Camiseta",
     audience: "Masculino",
@@ -427,7 +427,7 @@ export const products: Product[] = [
   },
   {
     slug: "dai-me-um-coracao-semelhante-ao-teu-preto",
-    name: "Dai-me um Coração Semelhante ao Teu — Preto",
+    name: "Dai-me um Coração Semelhante ao Teu",
     collection: "Apóstolos",
     category: "Camiseta",
     audience: "Masculino",
@@ -442,7 +442,7 @@ export const products: Product[] = [
   },
   {
     slug: "dai-me-um-coracao-semelhante-ao-teu-bege",
-    name: "Dai-me um Coração Semelhante ao Teu — Bege",
+    name: "Dai-me um Coração Semelhante ao Teu",
     collection: "Apóstolos",
     category: "Camiseta",
     audience: "Masculino",
@@ -547,7 +547,7 @@ export const products: Product[] = [
   },
   {
     slug: "fe-maior-que-o-medo-offwhite",
-    name: "Fé Maior que o Medo — Off-White",
+    name: "Fé Maior que o Medo",
     collection: "Apóstolos",
     category: "Camiseta",
     audience: "Masculino",
@@ -577,7 +577,7 @@ export const products: Product[] = [
   },
   {
     slug: "eu-encontrei-jesus-adulto-roxa",
-    name: "Eu Encontrei Jesus — Adulto Roxa",
+    name: "Eu Encontrei Jesus — Adulto",
     collection: "Apóstolos",
     category: "Camiseta",
     audience: "Masculino",

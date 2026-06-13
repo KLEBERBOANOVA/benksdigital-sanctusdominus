@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, CheckCircle2, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, CheckCircle2, ImageUp, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
 import { studioDesigns } from "@/lib/studio-designs";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
@@ -134,6 +134,8 @@ function StudioPage() {
   const [sent, setSent] = useState(false);
   const [previewSlug, setPreviewSlug] = useState<string | null>(null);
   const [previewZoom, setPreviewZoom] = useState(1);
+  const [customImage, setCustomImage] = useState<File | null>(null);
+  const [customImageUrl, setCustomImageUrl] = useState<string | null>(null);
 
   const estampaProduct = useMemo(() => studioDesigns.find((design) => design.slug === estampa) ?? null, [estampa]);
   const modeloItem = useMemo(() => MODELS.find((m) => m.key === modelo) ?? null, [modelo]);
@@ -146,9 +148,20 @@ function StudioPage() {
 
   const basePrice = 89.9;
   const totalPrice = basePrice + (modeloItem?.priceAdd ?? 0);
+  const pixPrice = totalPrice * 0.93;
+
+  useEffect(() => {
+    if (!customImage) {
+      setCustomImageUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(customImage);
+    setCustomImageUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [customImage]);
 
   const canAdvance = [
-    () => !!estampa,
+    () => !!estampa || !!customImage,
     () => !!cor,
     () => !!modelo,
     () => !!tamanho,
@@ -168,11 +181,12 @@ function StudioPage() {
     const body = [
       "*PEDIDO DOMINUS SELECT*",
       "",
-      `Estampa: ${estampaProduct?.name}`,
+      `Estampa: ${customImage ? `Imagem própria (${customImage.name}) — enviarei o arquivo nesta conversa` : estampaProduct?.name}`,
       `Cor: ${cor}`,
       `Modelo: ${modeloItem?.label}`,
       `Tamanho: ${tamanho}`,
       `Valor: R$ ${totalPrice.toFixed(2).replace(".", ",")}`,
+      `Valor no Pix (7% de desconto): R$ ${pixPrice.toFixed(2).replace(".", ",")}`,
       "",
       `Nome: ${pedido.nome}`,
       `WhatsApp: ${pedido.whatsapp}`,
@@ -260,6 +274,37 @@ function StudioPage() {
           <div className="min-h-[320px]">
             {step === 0 && (
               <div className="space-y-12">
+                <section className="rounded-xl border-2 border-dashed border-gold/60 bg-card p-6 md:p-8">
+                  <div className="grid items-center gap-6 md:grid-cols-[1fr_auto]">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.3em] text-gold">Criação exclusiva</p>
+                      <h3 className="mt-2 font-display text-2xl text-foreground">Envie sua imagem ou estampa</h3>
+                      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">Nosso departamento de Criação vai adaptar e personalizar a arte do seu jeito. PNG, JPG ou WebP de até 10 MB.</p>
+                    </div>
+                    <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground transition-colors hover:bg-bordeaux">
+                      <ImageUp className="h-4 w-4" /> Escolher imagem
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        className="sr-only"
+                        onChange={(event) => {
+                          const file = event.target.files?.[0] ?? null;
+                          if (file && file.size <= 10 * 1024 * 1024) {
+                            setCustomImage(file);
+                            setEstampa(null);
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+                  {customImageUrl && customImage && (
+                    <div className="mt-6 flex items-center gap-4 rounded-lg border border-border bg-muted/40 p-3">
+                      <img src={customImageUrl} alt="Prévia da imagem enviada" className="h-20 w-20 rounded-md object-contain" />
+                      <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{customImage.name}</p><p className="text-xs text-muted-foreground">Imagem própria selecionada</p></div>
+                      <Button type="button" variant="ghost" onClick={() => setCustomImage(null)}>Remover</Button>
+                    </div>
+                  )}
+                </section>
                 {(["Amor Divino", "Homens de Fé", "Mulheres de Fé", "Apóstolos"] as const).map((collection) => (
                   <section key={collection} aria-labelledby={`collection-${collection}`}>
                     <h3
@@ -280,7 +325,7 @@ function StudioPage() {
                                 : "border-border hover:border-gold/60"
                             }`}
                           >
-                            <button type="button" onClick={() => setEstampa(design.slug)} className="w-full text-left">
+                            <button type="button" onClick={() => { setEstampa(design.slug); setCustomImage(null); }} className="w-full text-left">
                               <div className="aspect-square overflow-hidden bg-muted">
                                 <img
                                   src={design.image}
@@ -410,19 +455,19 @@ function StudioPage() {
                 <div className="rounded-xl border border-border bg-card p-6 md:p-8">
                   <h3 className="font-display text-2xl text-foreground">Resumo da sua criação</h3>
                   <div className="mt-6 grid grid-cols-[120px_1fr] gap-4 items-center">
-                    {estampaProduct && (
+                    {(estampaProduct || customImageUrl) && (
                       <img
-                        src={estampaProduct.image}
-                        alt={estampaProduct.name}
+                        src={customImageUrl ?? estampaProduct?.image}
+                        alt={customImage ? "Imagem própria" : estampaProduct?.name}
                         loading="lazy"
                         decoding="async"
                         className="h-28 w-28 rounded-lg object-cover border border-border"
                       />
                     )}
                     <div>
-                      <p className="font-display text-lg">{estampaProduct?.name}</p>
+                      <p className="font-display text-lg">{customImage ? "Imagem própria" : estampaProduct?.name}</p>
                       <p className="text-xs uppercase tracking-wider text-muted-foreground mt-1">
-                        {estampaProduct?.collection}
+                        {customImage ? "Criação personalizada" : estampaProduct?.collection}
                       </p>
                     </div>
                   </div>
@@ -433,8 +478,8 @@ function StudioPage() {
                     <SummaryRow
                       label="Valor"
                       value={`R$ ${totalPrice.toFixed(2).replace(".", ",")}`}
-                      strong
                     />
+                    <SummaryRow label="No Pix (7% OFF)" value={`R$ ${pixPrice.toFixed(2).replace(".", ",")}`} strong />
                   </dl>
                 </div>
 
