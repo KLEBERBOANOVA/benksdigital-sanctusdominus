@@ -49,11 +49,11 @@ function CamisariaPage() {
   );
 
   const sizeGuide = useMemo(() => {
+    if (cat === "Oversize") return { src: oversizeAsset.url, alt: "Tabela de medidas masculina para camisa oversized" };
+    if (cat === "Plus size") return { src: plusSizeAsset.url, alt: "Tabela de medidas masculina para camisa plus size" };
     if (cat === "Baby Look" || aud === "Feminino") return { src: babyLookAsset.url, alt: "Tabela de medidas feminina para camisas baby look" };
     if (aud === "Masculino") return { src: masculinoAsset.url, alt: "Tabela de medidas masculina para camisa básica" };
     if (aud === "Infantil") return { src: infantilAsset.url, alt: "Tabela de medidas para camisas infantis" };
-    if (cat === "Oversize") return { src: oversizeAsset.url, alt: "Tabela de medidas masculina para camisa oversized" };
-    if (cat === "Plus size") return { src: plusSizeAsset.url, alt: "Tabela de medidas masculina para camisa plus size" };
     return null;
   }, [cat, aud]);
 

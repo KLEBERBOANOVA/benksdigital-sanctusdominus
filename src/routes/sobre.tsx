@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import founderAsset from "@/assets/founder-carlos.png.asset.json";
+import founderAsset from "@/assets/founder-carlos-new.jpg.asset.json";
 import logoAsset from "@/assets/sanctus-dominus-logo.png.asset.json";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Reveal } from "@/components/site/Reveal";
@@ -128,7 +128,9 @@ function SobrePage() {
                   src={founderImg}
                   alt="Carlos Kleber, fundador da Sanctus Dominus"
                   loading="lazy"
-                decoding="async"
+                  decoding="async"
+                  width={900}
+                  height={1600}
                   className="w-full h-auto max-h-[560px] object-contain rounded-md mx-auto"
                 />
                 <div className="absolute -bottom-6 -right-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
