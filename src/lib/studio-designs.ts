@@ -36,6 +36,22 @@ import apostolosMaoSustentaPng from "@/assets/studio-apostolos-a-mao-que-te-sust
 import apostolosAlegriaSenhor from "@/assets/studio-apostolos-a-alegria-do-senhor.png.asset.json";
 import apostolosPerfumeCristo from "@/assets/studio-apostolos-perfume-de-cristo.png.asset.json";
 import apostolosRecebeiPoder from "@/assets/studio-apostolos-recebei-o-poder.png.asset.json";
+import apostolos2Col17b from "@/assets/studio-apostolos-2-col-17b.png.asset.json";
+import apostolos2Col18 from "@/assets/studio-apostolos-2-col-18.png.asset.json";
+import apostolos2Col24 from "@/assets/studio-apostolos-2-col-24.png.asset.json";
+import apostolos2Col28b from "@/assets/studio-apostolos-2-col-28b.png.asset.json";
+import apostolos2Chamado from "@/assets/studio-apostolos-2-chamado-nao-e-sobre.png.asset.json";
+import apostolos2EscolhiVoce from "@/assets/studio-apostolos-2-eu-escolhi-voce.png.asset.json";
+import apostolos2FoiPorVoce01 from "@/assets/studio-apostolos-2-foi-por-voce-01.png.asset.json";
+import apostolos2FoiPorVoce from "@/assets/studio-apostolos-2-foi-por-voce.png.asset.json";
+import apostolos2Raso from "@/assets/studio-apostolos-2-raso-nao-me-serve-mais.png.asset.json";
+import apostolos2TudoPosso from "@/assets/studio-apostolos-2-tudo-posso-naquele.png.asset.json";
+import apostolos2Coracao from "@/assets/studio-apostolos-2-estampa-coracao.png.asset.json";
+import apostolos2FeMedo from "@/assets/studio-apostolos-2-fe-maior-que-o-medo.png.asset.json";
+import apostolos2FeMedoOk from "@/assets/studio-apostolos-2-fe-maior-que-o-medo-ok.png.asset.json";
+import apostolos2JesusKing from "@/assets/studio-apostolos-2-jesus-king.png.asset.json";
+import apostolos2SaoJoao from "@/assets/studio-apostolos-2-sao-joao-batista.png.asset.json";
+import apostolos2Fiat from "@/assets/studio-apostolos-2-fiat-01.png.asset.json";
 
 export type StudioDesign = {
   slug: string;
@@ -83,4 +99,20 @@ export const studioDesigns: StudioDesign[] = [
   { slug: "apostolos-a-alegria-do-senhor", name: "A Alegria do Senhor", collection: "Apóstolos", image: apostolosAlegriaSenhor.url },
   { slug: "apostolos-perfume-de-cristo", name: "Perfume de Cristo", collection: "Apóstolos", image: apostolosPerfumeCristo.url },
   { slug: "apostolos-recebei-o-poder", name: "Recebei o Poder", collection: "Apóstolos", image: apostolosRecebeiPoder.url },
+  { slug: "apostolos-2-col-17b", name: "Coleção 17B", collection: "Apóstolos", image: apostolos2Col17b.url },
+  { slug: "apostolos-2-col-18", name: "Coleção 18", collection: "Apóstolos", image: apostolos2Col18.url },
+  { slug: "apostolos-2-col-24", name: "Coleção 24", collection: "Apóstolos", image: apostolos2Col24.url },
+  { slug: "apostolos-2-col-28b", name: "Coleção 28B", collection: "Apóstolos", image: apostolos2Col28b.url },
+  { slug: "apostolos-2-chamado-nao-e-sobre", name: "Chamado Não é Sobre", collection: "Apóstolos", image: apostolos2Chamado.url },
+  { slug: "apostolos-2-eu-escolhi-voce", name: "Eu Escolhi Você", collection: "Apóstolos", image: apostolos2EscolhiVoce.url },
+  { slug: "apostolos-2-foi-por-voce-01", name: "Foi por Você 01", collection: "Apóstolos", image: apostolos2FoiPorVoce01.url },
+  { slug: "apostolos-2-foi-por-voce", name: "Foi por Você 02", collection: "Apóstolos", image: apostolos2FoiPorVoce.url },
+  { slug: "apostolos-2-raso-nao-me-serve-mais", name: "O Raso Não Me Serve Mais", collection: "Apóstolos", image: apostolos2Raso.url },
+  { slug: "apostolos-2-tudo-posso-naquele", name: "Tudo Posso Naquele", collection: "Apóstolos", image: apostolos2TudoPosso.url },
+  { slug: "apostolos-2-estampa-coracao", name: "Estampa Coração", collection: "Apóstolos", image: apostolos2Coracao.url },
+  { slug: "apostolos-2-fe-maior-que-o-medo", name: "Fé Maior que o Medo 02", collection: "Apóstolos", image: apostolos2FeMedo.url },
+  { slug: "apostolos-2-fe-maior-que-o-medo-ok", name: "Fé Maior que o Medo 03", collection: "Apóstolos", image: apostolos2FeMedoOk.url },
+  { slug: "apostolos-2-jesus-king", name: "Jesus King", collection: "Apóstolos", image: apostolos2JesusKing.url },
+  { slug: "apostolos-2-sao-joao-batista", name: "São João Batista", collection: "Apóstolos", image: apostolos2SaoJoao.url },
+  { slug: "apostolos-2-fiat-01", name: "Fiat 01", collection: "Apóstolos", image: apostolos2Fiat.url },
 ];
