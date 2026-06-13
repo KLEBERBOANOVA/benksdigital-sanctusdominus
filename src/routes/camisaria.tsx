@@ -9,7 +9,8 @@ import infantilAsset from "@/assets/size-infantil.jpg.asset.json";
 import oversizeAsset from "@/assets/size-oversize.jpg.asset.json";
 import plusSizeAsset from "@/assets/size-plus-size.jpg.asset.json";
 
-const categories = ["Camiseta", "Baby Look", "Moletom", "Boné", "Oversize", "Plus size"];
+const categories = ["Camiseta", "Baby Look"];
+const fits = ["Oversize", "Plus size"];
 const collections = ["Amor Divino", "Homens de Fé", "Mulheres de Fé"];
 
 function getCollection(product: (typeof products)[number]) {
@@ -94,6 +95,9 @@ function CamisariaPage() {
             ))}
             {audiences.map((a) => (
               <Chip key={a} active={aud === a} onClick={() => setAud(aud === a ? null : a)}>{a}</Chip>
+            ))}
+            {fits.map((fit) => (
+              <Chip key={fit} active={cat === fit} onClick={() => setCat(cat === fit ? null : fit)}>{fit}</Chip>
             ))}
             {collections.map((c) => (
               <Chip key={c} active={col === c} onClick={() => setCol(col === c ? null : c)}>{c}</Chip>
