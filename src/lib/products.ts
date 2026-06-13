@@ -29,6 +29,7 @@ import feMaiorQueOMedoOffwhiteAsset from "@/assets/product-fe-maior-que-o-medo-o
 import euEncontreiJesusBrancaAsset from "@/assets/product-eu-encontrei-jesus-branca.png.asset.json";
 import euEncontreiJesusRoxaAsset from "@/assets/product-eu-encontrei-jesus-roxa.png.asset.json";
 import euEscolhiVocesOversizeAsset from "@/assets/product-eu-escolhi-voces-oversize.png.asset.json";
+import euNaoSouDesteMundoOversizeAsset from "@/assets/product-eu-nao-sou-deste-mundo-oversize.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -58,6 +59,7 @@ const feMaiorQueOMedoOffwhite = feMaiorQueOMedoOffwhiteAsset.url;
 const euEncontreiJesusBranca = euEncontreiJesusBrancaAsset.url;
 const euEncontreiJesusRoxa = euEncontreiJesusRoxaAsset.url;
 const euEscolhiVocesOversize = euEscolhiVocesOversizeAsset.url;
+const euNaoSouDesteMundoOversize = euNaoSouDesteMundoOversizeAsset.url;
 
 export type Product = {
   slug: string;
@@ -74,6 +76,21 @@ export type Product = {
 };
 
 export const products: Product[] = [
+  {
+    slug: "eu-nao-sou-deste-mundo-oversize-masculina",
+    name: "Eu Não Sou Deste Mundo — Oversize",
+    collection: "Homens de Fé",
+    category: "Oversize",
+    audience: "Masculino",
+    color: "Preto",
+    price: "R$ 89,90",
+    image: euNaoSouDesteMundoOversize,
+    tagline: "João 18,36 — Meu Rei é soberano.",
+    description:
+      "Camiseta masculina oversize preta, com modelagem ampla, assinatura Sanctus Dominus à frente e estampa exclusiva nas costas.",
+    inspiration:
+      "Inspirada em João 18,36: ‘O meu reino não é deste mundo.’ Uma declaração de pertencimento ao Rei soberano.",
+  },
   {
     slug: "eu-escolhi-voces-oversize-masculina",
     name: "Eu Escolhi Vocês — Oversize",
