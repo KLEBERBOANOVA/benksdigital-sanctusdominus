@@ -31,6 +31,7 @@ import euEncontreiJesusRoxaAsset from "@/assets/product-eu-encontrei-jesus-roxa.
 import euEscolhiVocesOversizeAsset from "@/assets/product-eu-escolhi-voces-oversize.png.asset.json";
 import euNaoSouDesteMundoOversizeAsset from "@/assets/product-eu-nao-sou-deste-mundo-oversize.png.asset.json";
 import nossaSenhoraGuadalupeOversizeAsset from "@/assets/product-nossa-senhora-guadalupe-oversize.png.asset.json";
+import feInabalavelPlusSizeAsset from "@/assets/product-fe-inabalavel-plus-size.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -62,6 +63,7 @@ const euEncontreiJesusRoxa = euEncontreiJesusRoxaAsset.url;
 const euEscolhiVocesOversize = euEscolhiVocesOversizeAsset.url;
 const euNaoSouDesteMundoOversize = euNaoSouDesteMundoOversizeAsset.url;
 const nossaSenhoraGuadalupeOversize = nossaSenhoraGuadalupeOversizeAsset.url;
+const feInabalavelPlusSize = feInabalavelPlusSizeAsset.url;
 
 export type Product = {
   slug: string;
@@ -78,6 +80,21 @@ export type Product = {
 };
 
 export const products: Product[] = [
+  {
+    slug: "fe-inabalavel-plus-size-feminina",
+    name: "Fé Inabalável — Plus Size",
+    collection: "Mulheres de Fé",
+    category: "Plus size",
+    audience: "Feminino",
+    color: "Branco Gelo",
+    price: "R$ 89,90",
+    image: feInabalavelPlusSize,
+    tagline: "Ela nunca falha.",
+    description:
+      "Camiseta feminina plus size em branco gelo, com assinatura Sanctus Dominus à frente e estampa exclusiva de Nossa Senhora Aparecida nas costas.",
+    inspiration:
+      "Inspirada na fé inabalável e na proteção de Nossa Senhora Aparecida, Padroeira do Brasil, para mulheres que caminham com confiança e devoção.",
+  },
   {
     slug: "nossa-senhora-de-guadalupe-oversize-feminina",
     name: "Nossa Senhora de Guadalupe — Oversize",
