@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, CheckCircle2, ShoppingBag } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, CheckCircle2, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
 import { studioDesigns } from "@/lib/studio-designs";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
 import tshirtBasicaMasculina from "@/assets/studio-tshirt-basica-masculina.png.asset.json";
 import babyLookFeminino from "@/assets/studio-baby-look-feminino.png.asset.json";
@@ -130,9 +132,17 @@ function StudioPage() {
   const [tamanho, setTamanho] = useState<string | null>(null);
   const [pedido, setPedido] = useState({ nome: "", whatsapp: "", endereco: "", obs: "" });
   const [sent, setSent] = useState(false);
+  const [previewSlug, setPreviewSlug] = useState<string | null>(null);
+  const [previewZoom, setPreviewZoom] = useState(1);
 
   const estampaProduct = useMemo(() => studioDesigns.find((design) => design.slug === estampa) ?? null, [estampa]);
   const modeloItem = useMemo(() => MODELS.find((m) => m.key === modelo) ?? null, [modelo]);
+  const previewDesign = useMemo(() => studioDesigns.find((design) => design.slug === previewSlug) ?? null, [previewSlug]);
+
+  const openPreview = (slug: string) => {
+    setPreviewZoom(1);
+    setPreviewSlug(slug);
+  };
 
   const basePrice = 89.9;
   const totalPrice = basePrice + (modeloItem?.priceAdd ?? 0);
@@ -256,32 +266,43 @@ function StudioPage() {
                       {studioDesigns.filter((design) => design.collection === collection).map((design) => {
                         const selected = estampa === design.slug;
                         return (
-                          <button
+                          <div
                             key={design.slug}
-                            type="button"
-                            onClick={() => setEstampa(design.slug)}
-                            className={`group text-left rounded-xl overflow-hidden border-2 transition-all bg-card ${
+                            className={`group relative rounded-xl overflow-hidden border-2 transition-all bg-card ${
                               selected
                                 ? "border-bordeaux shadow-elegant scale-[1.02]"
                                 : "border-border hover:border-gold/60"
                             }`}
                           >
-                            <div className="aspect-square overflow-hidden bg-muted">
-                              <img
-                                src={design.image}
-                                alt={`Estampa ${design.name}`}
-                                loading="lazy"
-                                decoding="async"
-                                className="h-full w-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
-                              />
-                            </div>
-                            <div className="p-3">
-                              <p className="font-display text-sm text-foreground line-clamp-2">{design.name}</p>
-                              <p className="text-[11px] uppercase tracking-wider text-muted-foreground mt-1">
-                                {design.collection}
-                              </p>
-                            </div>
-                          </button>
+                            <button type="button" onClick={() => setEstampa(design.slug)} className="w-full text-left">
+                              <div className="aspect-square overflow-hidden bg-muted">
+                                <img
+                                  src={design.image}
+                                  alt={`Estampa ${design.name}`}
+                                  loading="lazy"
+                                  decoding="async"
+                                  className="h-full w-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
+                                />
+                              </div>
+                              <div className="p-3 pr-12">
+                                <p className="font-display text-sm text-foreground line-clamp-2">{design.name}</p>
+                                <p className="text-[11px] uppercase tracking-wider text-muted-foreground mt-1">
+                                  {design.collection}
+                                </p>
+                              </div>
+                            </button>
+                            <Button
+                              type="button"
+                              variant="secondary"
+                              size="icon"
+                              onClick={() => openPreview(design.slug)}
+                              aria-label={`Ampliar estampa ${design.name}`}
+                              title="Ampliar estampa"
+                              className="absolute right-3 bottom-3 rounded-full shadow-md"
+                            >
+                              <ZoomIn />
+                            </Button>
+                          </div>
                         );
                       })}
                     </div>
@@ -500,6 +521,51 @@ function StudioPage() {
           )}
         </div>
       </section>
+
+      <Dialog open={Boolean(previewDesign)} onOpenChange={(open) => !open && setPreviewSlug(null)}>
+        <DialogContent className="flex h-[92dvh] w-[96vw] max-w-7xl flex-col gap-0 overflow-hidden p-0 sm:rounded-xl">
+          {previewDesign && (
+            <>
+              <div className="flex shrink-0 items-center justify-between gap-4 border-b border-border bg-background px-5 py-4 pr-14">
+                <div className="min-w-0">
+                  <DialogTitle className="truncate font-display text-xl">{previewDesign.name}</DialogTitle>
+                  <DialogDescription>{previewDesign.collection} · Use a roda do mouse ou os controles para ampliar</DialogDescription>
+                </div>
+                <div className="flex shrink-0 items-center gap-2">
+                  <Button type="button" variant="outline" size="icon" onClick={() => setPreviewZoom((zoom) => Math.max(1, zoom - 0.5))} disabled={previewZoom <= 1} aria-label="Reduzir zoom">
+                    <ZoomOut />
+                  </Button>
+                  <span className="w-12 text-center text-xs font-medium text-muted-foreground">{Math.round(previewZoom * 100)}%</span>
+                  <Button type="button" variant="outline" size="icon" onClick={() => setPreviewZoom((zoom) => Math.min(4, zoom + 0.5))} disabled={previewZoom >= 4} aria-label="Aumentar zoom">
+                    <ZoomIn />
+                  </Button>
+                  <Button type="button" variant="ghost" size="icon" onClick={() => setPreviewZoom(1)} disabled={previewZoom === 1} aria-label="Restaurar zoom">
+                    <RotateCcw />
+                  </Button>
+                </div>
+              </div>
+              <div
+                className="flex-1 overflow-auto overscroll-contain bg-muted/50 p-4 md:p-8"
+                onWheel={(event) => {
+                  if (!event.ctrlKey && !event.metaKey) return;
+                  event.preventDefault();
+                  setPreviewZoom((zoom) => Math.min(4, Math.max(1, zoom + (event.deltaY < 0 ? 0.25 : -0.25))));
+                }}
+              >
+                <div className="flex min-h-full min-w-full items-center justify-center">
+                  <img
+                    src={previewDesign.image}
+                    alt={`Detalhes da estampa ${previewDesign.name}`}
+                    decoding="async"
+                    className="max-w-none object-contain transition-[width] duration-150"
+                    style={{ width: `${previewZoom * 100}%`, maxHeight: previewZoom === 1 ? "100%" : "none" }}
+                  />
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Closing */}
       <section className="py-16 px-5 lg:px-8 bg-navy-deep text-cream text-center">
