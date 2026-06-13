@@ -9,7 +9,7 @@ import infantilAsset from "@/assets/size-infantil.jpg.asset.json";
 import oversizeAsset from "@/assets/size-oversize.jpg.asset.json";
 import plusSizeAsset from "@/assets/size-plus-size.jpg.asset.json";
 
-const categories = ["Camiseta", "Baby Look"];
+const categories = ["Baby Look"];
 const fits = ["Oversize", "Plus size"];
 const collections = ["Amor Divino", "Homens de Fé", "Mulheres de Fé"];
 
