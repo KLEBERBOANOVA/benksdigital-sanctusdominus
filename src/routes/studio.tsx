@@ -244,7 +244,7 @@ function StudioPage() {
           <div className="min-h-[320px]">
             {step === 0 && (
               <div className="space-y-12">
-                {(["Amor Divino", "Homens de Fé", "Mulheres de Fé"] as const).map((collection) => (
+                {(["Amor Divino", "Homens de Fé", "Mulheres de Fé", "Apóstolos"] as const).map((collection) => (
                   <section key={collection} aria-labelledby={`collection-${collection}`}>
                     <h3
                       id={`collection-${collection}`}
