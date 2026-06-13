@@ -10,7 +10,7 @@ function pixPrice(price: string) {
   return Number.isFinite(value) ? (value * PIX_DISCOUNT).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : price;
 }
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, collectionLabel }: { product: Product; collectionLabel?: string }) {
   const buyHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Olá! Tenho interesse na peça "${product.name}" (${product.category} · ${product.color}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto.`
   )}`;
@@ -36,8 +36,8 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/85 via-navy-deep/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
         <div className="absolute top-2 left-2 right-2 sm:top-3 sm:left-3 sm:right-3 flex items-start justify-between gap-1.5">
-          <span className="text-[8px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.2em] uppercase bg-navy-deep/90 text-gold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full backdrop-blur">
-            {product.collection}
+          <span className="max-w-[70%] truncate rounded-full bg-navy-deep/90 px-2 py-0.5 text-[8px] uppercase tracking-[0.15em] text-gold backdrop-blur sm:px-3 sm:py-1 sm:text-[10px] sm:tracking-[0.2em]">
+            {collectionLabel ?? product.collection}
           </span>
           <span className="hidden sm:inline-block text-[10px] tracking-[0.15em] uppercase bg-cream/90 text-navy-deep px-3 py-1 rounded-full backdrop-blur font-semibold">
             {product.category}
