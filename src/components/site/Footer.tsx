@@ -13,8 +13,8 @@ export function Footer() {
         }}
       />
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8 py-16">
-        <div className="grid gap-12 lg:grid-cols-4">
-          <div className="lg:col-span-2 space-y-5">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(10rem,0.75fr)_minmax(20rem,1.25fr)]">
+          <div className="space-y-5">
             <BrandMark />
             <p className="text-sm text-cream/70 max-w-md leading-relaxed">
               Arte católica que evangeliza. Peças exclusivas e criações com propósito que
@@ -26,7 +26,7 @@ export function Footer() {
             <p className="font-display italic text-gold/90 text-lg">Santo é o Senhor.</p>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h4 className="text-gold text-sm tracking-[0.2em] uppercase mb-5">Navegação</h4>
             <ul className="space-y-3 text-sm text-cream/80">
               <li><Link to="/" className="hover:text-gold transition">Home</Link></li>
@@ -53,7 +53,7 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:sanctusdominusoficial@gmail.com"
-                  className="flex items-center gap-2 hover:text-gold transition break-all"
+                  className="flex items-center gap-2 whitespace-nowrap hover:text-gold transition"
                 >
                   <Mail className="h-4 w-4 shrink-0" />
                   <span>sanctusdominusoficial@gmail.com</span>
