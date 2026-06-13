@@ -28,6 +28,7 @@ import jesusMeuSenhorAsset from "@/assets/product-jesus-meu-senhor.png.asset.jso
 import feMaiorQueOMedoOffwhiteAsset from "@/assets/product-fe-maior-que-o-medo-offwhite.png.asset.json";
 import euEncontreiJesusBrancaAsset from "@/assets/product-eu-encontrei-jesus-branca.png.asset.json";
 import euEncontreiJesusRoxaAsset from "@/assets/product-eu-encontrei-jesus-roxa.png.asset.json";
+import euEscolhiVocesOversizeAsset from "@/assets/product-eu-escolhi-voces-oversize.png.asset.json";
 
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
@@ -56,12 +57,13 @@ const jesusMeuSenhor = jesusMeuSenhorAsset.url;
 const feMaiorQueOMedoOffwhite = feMaiorQueOMedoOffwhiteAsset.url;
 const euEncontreiJesusBranca = euEncontreiJesusBrancaAsset.url;
 const euEncontreiJesusRoxa = euEncontreiJesusRoxaAsset.url;
+const euEscolhiVocesOversize = euEscolhiVocesOversizeAsset.url;
 
 export type Product = {
   slug: string;
   name: string;
   collection: string;
-  category: "Camiseta" | "Baby Look" | "Moletom" | "Boné";
+  category: "Camiseta" | "Baby Look" | "Moletom" | "Boné" | "Oversize" | "Plus size";
   audience: "Masculino" | "Feminino" | "Unissex" | "Infantil";
   color: string;
   price: string;
@@ -72,6 +74,21 @@ export type Product = {
 };
 
 export const products: Product[] = [
+  {
+    slug: "eu-escolhi-voces-oversize-masculina",
+    name: "Eu Escolhi Vocês — Oversize",
+    collection: "Homens de Fé",
+    category: "Oversize",
+    audience: "Masculino",
+    color: "Off-White",
+    price: "R$ 89,90",
+    image: euEscolhiVocesOversize,
+    tagline: "João 15,16 — A escolha foi d'Ele.",
+    description:
+      "Camiseta masculina oversize em off-white, com modelagem ampla e estampa exclusiva inspirada em João 15,16.",
+    inspiration:
+      "‘Não foram vocês que me escolheram, Eu escolhi vocês.’ Uma peça para homens que vivem a fé com presença, propósito e identidade.",
+  },
   {
     slug: "foi-por-voce",
     name: "Foi Por Você",
