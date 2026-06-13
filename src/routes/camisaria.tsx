@@ -22,6 +22,12 @@ function getFaithGroup(product: (typeof products)[number]): FaithFilter {
   return "apostolos";
 }
 
+function getCollectionLabel(product: (typeof products)[number]) {
+  if (womenOfFaith.some((term) => product.slug.includes(term))) return "Mulheres de Fé";
+  if (menOfFaith.some((term) => product.slug.includes(term))) return "Homens de Fé";
+  return "Apóstolos";
+}
+
 export const Route = createFileRoute("/camisaria")({
   head: () => ({
     meta: [
@@ -135,7 +141,7 @@ function CamisariaPage() {
             <div className="grid gap-5 sm:gap-8 md:gap-10 grid-cols-2 lg:grid-cols-3">
               {filtered.map((p, i) => (
                 <Reveal key={p.slug} delay={i * 80}>
-                  <ProductCard product={p} />
+                  <ProductCard product={p} collectionLabel={getCollectionLabel(p)} />
                 </Reveal>
               ))}
             </div>
