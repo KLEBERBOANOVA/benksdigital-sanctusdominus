@@ -45,7 +45,7 @@ function ProductPage() {
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
   const whatsappMsg = encodeURIComponent(
-    `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}). Pode me ajudar?`
+    `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto. Pode me ajudar?`
   );
 
   useEffect(() => {
