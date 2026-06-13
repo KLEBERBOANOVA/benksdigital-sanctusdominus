@@ -9,6 +9,8 @@ import oversizeMasculina from "@/assets/studio-oversize-masculina.png.asset.json
 import oversizeFeminino from "@/assets/studio-oversize-feminino.png.asset.json";
 import plusSizeMasculino from "@/assets/studio-plus-size-masculino.png.asset.json";
 import plusSizeFeminino from "@/assets/studio-plus-size-feminino.png.asset.json";
+import infantilMenino from "@/assets/studio-infantil-menino.png.asset.json";
+import infantilMenina from "@/assets/studio-infantil-menina.png.asset.json";
 
 export const Route = createFileRoute("/studio")({
   head: () => ({
@@ -88,6 +90,20 @@ const MODELS: { key: string; label: string; desc: string; priceAdd: number; imag
     desc: "Modelagem feminina plus size confortável.",
     priceAdd: 0,
     image: plusSizeFeminino.url,
+  },
+  {
+    key: "infantil-menino",
+    label: "Infantil Menino",
+    desc: "Modelagem infantil masculina confortável.",
+    priceAdd: 0,
+    image: infantilMenino.url,
+  },
+  {
+    key: "infantil-menina",
+    label: "Infantil Menina",
+    desc: "Modelagem infantil feminina confortável.",
+    priceAdd: 0,
+    image: infantilMenina.url,
   },
 ];
 
