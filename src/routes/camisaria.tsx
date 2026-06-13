@@ -46,6 +46,27 @@ function CamisariaPage() {
   const [aud, setAud] = useState<string | null>(null);
   const [faith, setFaith] = useState<FaithFilter | null>(null);
 
+  const selectCategory = (value: string) => {
+    const shouldClear = cat === value;
+    setCat(shouldClear ? null : value);
+    setAud(null);
+    setFaith(null);
+  };
+
+  const selectAudience = (value: string) => {
+    const shouldClear = aud === value;
+    setCat(null);
+    setAud(shouldClear ? null : value);
+    setFaith(null);
+  };
+
+  const selectFaith = (value: FaithFilter) => {
+    const shouldClear = faith === value;
+    setCat(null);
+    setAud(null);
+    setFaith(shouldClear ? null : value);
+  };
+
   const filtered = useMemo(
     () =>
       products.filter(
@@ -71,7 +92,9 @@ function CamisariaPage() {
 
   const Chip = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
     <button
+      type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={`px-4 py-2 rounded-full text-xs uppercase tracking-wider border transition-all ${
         active
           ? "bg-primary text-primary-foreground border-primary"
@@ -102,34 +125,21 @@ function CamisariaPage() {
             <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground mr-2">Filtros:</span>
             <Chip active={!cat && !aud && !faith} onClick={() => { setCat(null); setAud(null); setFaith(null); }}>Todos</Chip>
             {categories.map((c) => (
-              <Chip key={c} active={cat === c} onClick={() => setCat(cat === c ? null : c)}>{c}</Chip>
+              <Chip key={c} active={cat === c} onClick={() => selectCategory(c)}>{c}</Chip>
             ))}
             {audiences.map((a) => (
-              <Chip key={a} active={aud === a} onClick={() => setAud(aud === a ? null : a)}>{a}</Chip>
+              <Chip key={a} active={aud === a} onClick={() => selectAudience(a)}>{a}</Chip>
             ))}
             {fits.map((fit) => (
-              <Chip key={fit} active={cat === fit} onClick={() => setCat(cat === fit ? null : fit)}>{fit}</Chip>
+              <Chip key={fit} active={cat === fit} onClick={() => selectCategory(fit)}>{fit}</Chip>
             ))}
-          </div>
-
-          <div className="mb-12 grid gap-5 lg:grid-cols-2">
-            <div className="rounded-xl border border-border bg-card p-5">
-              <button type="button" onClick={() => setFaith(faith === "amor-divino" ? null : "amor-divino")} className="font-display text-xl text-bordeaux">Amor Divino</button>
-              <p className="mt-1 text-xs text-muted-foreground">Santos, arcanjos, Maria e santas</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Chip active={faith === "homens-fe"} onClick={() => setFaith(faith === "homens-fe" ? null : "homens-fe")}>Homens de Fé</Chip>
-                <Chip active={faith === "mulheres-fe"} onClick={() => setFaith(faith === "mulheres-fe" ? null : "mulheres-fe")}>Mulheres de Fé</Chip>
-              </div>
-            </div>
-            <div className="rounded-xl border border-border bg-card p-5">
-              <button type="button" onClick={() => setFaith(faith === "apostolos" ? null : "apostolos")} className="font-display text-xl text-bordeaux">Apóstolos</button>
-              <p className="mt-1 text-xs text-muted-foreground">Mensagens e símbolos para evangelizar</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {([['textos', 'Textos'], ['texto-iconografia', 'Textos com iconografia'], ['iconografias', 'Só iconografias'], ['jesus', 'Jesus'], ['salmos', 'Salmos'], ['conversao', 'Conversão']] as const).map(([key, label]) => (
-                  <Chip key={key} active={faith === key} onClick={() => setFaith(faith === key ? null : key)}>{label}</Chip>
-                ))}
-              </div>
-            </div>
+            <Chip active={faith === "amor-divino"} onClick={() => selectFaith("amor-divino")}>Amor Divino</Chip>
+            <Chip active={faith === "homens-fe"} onClick={() => selectFaith("homens-fe")}>Homens de Fé</Chip>
+            <Chip active={faith === "mulheres-fe"} onClick={() => selectFaith("mulheres-fe")}>Mulheres de Fé</Chip>
+            <Chip active={faith === "apostolos"} onClick={() => selectFaith("apostolos")}>Apóstolos</Chip>
+            {([['textos', 'Textos'], ['texto-iconografia', 'Textos com iconografia'], ['iconografias', 'Só iconografias'], ['jesus', 'Jesus'], ['salmos', 'Salmos'], ['conversao', 'Conversão']] as const).map(([key, label]) => (
+              <Chip key={key} active={faith === key} onClick={() => selectFaith(key)}>{label}</Chip>
+            ))}
           </div>
 
           {filtered.length === 0 ? (
