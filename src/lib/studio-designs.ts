@@ -20,11 +20,27 @@ import fiat from "@/assets/studio-mulheres-fe-fiat.png.asset.json";
 import filhaDoRei from "@/assets/studio-mulheres-fe-filha-do-rei.png.asset.json";
 import joanaDarc from "@/assets/studio-mulheres-fe-joana-darc.png.asset.json";
 import totaPulchra from "@/assets/studio-mulheres-fe-tota-pulchra.png.asset.json";
+import apostolosEisCoracaoEscura from "@/assets/studio-apostolos-eis-o-coracao-escura.png.asset.json";
+import apostolosEisCoracaoClara from "@/assets/studio-apostolos-eis-o-coracao-clara.png.asset.json";
+import apostolosFoiPorVoce from "@/assets/studio-apostolos-foi-por-voce.png.asset.json";
+import apostolosCriaiCoracao from "@/assets/studio-apostolos-criai-em-mim-um-coracao.png.asset.json";
+import apostolosEncontreiJesus from "@/assets/studio-apostolos-eu-encontrei-jesus.png.asset.json";
+import apostolosFeMaiorMedo from "@/assets/studio-apostolos-fe-maior-que-o-medo.png.asset.json";
+import apostolosFeMedoCostas from "@/assets/studio-apostolos-fe-medo-costas.png.asset.json";
+import apostolosFilipenses from "@/assets/studio-apostolos-filipenses-4-13.png.asset.json";
+import apostolosOraEspera from "@/assets/studio-apostolos-ora-espera-e-confia.png.asset.json";
+import apostolosSegueMe from "@/assets/studio-apostolos-segue-me.png.asset.json";
+import apostolosSemFe from "@/assets/studio-apostolos-sem-fe-e-impossivel-agradar.png.asset.json";
+import apostolosMaoSustentaJpg from "@/assets/studio-apostolos-a-mao-que-te-sustenta.jpg.asset.json";
+import apostolosMaoSustentaPng from "@/assets/studio-apostolos-a-mao-que-te-sustenta.png.asset.json";
+import apostolosAlegriaSenhor from "@/assets/studio-apostolos-a-alegria-do-senhor.png.asset.json";
+import apostolosPerfumeCristo from "@/assets/studio-apostolos-perfume-de-cristo.png.asset.json";
+import apostolosRecebeiPoder from "@/assets/studio-apostolos-recebei-o-poder.png.asset.json";
 
 export type StudioDesign = {
   slug: string;
   name: string;
-  collection: "Amor Divino" | "Homens de Fé" | "Mulheres de Fé";
+  collection: "Amor Divino" | "Homens de Fé" | "Mulheres de Fé" | "Apóstolos";
   image: string;
 };
 
@@ -51,4 +67,20 @@ export const studioDesigns: StudioDesign[] = [
   { slug: "mulheres-fe-filha-do-rei", name: "Filha do Rei", collection: "Mulheres de Fé", image: filhaDoRei.url },
   { slug: "mulheres-fe-joana-darc", name: "Joana d’Arc", collection: "Mulheres de Fé", image: joanaDarc.url },
   { slug: "mulheres-fe-tota-pulchra", name: "Tota Pulchra", collection: "Mulheres de Fé", image: totaPulchra.url },
+  { slug: "apostolos-eis-o-coracao-escura", name: "Eis o Coração — Cores Escuras", collection: "Apóstolos", image: apostolosEisCoracaoEscura.url },
+  { slug: "apostolos-eis-o-coracao-clara", name: "Eis o Coração — Cores Claras", collection: "Apóstolos", image: apostolosEisCoracaoClara.url },
+  { slug: "apostolos-foi-por-voce", name: "Foi por Você", collection: "Apóstolos", image: apostolosFoiPorVoce.url },
+  { slug: "apostolos-criai-em-mim-um-coracao", name: "Criai em Mim um Coração", collection: "Apóstolos", image: apostolosCriaiCoracao.url },
+  { slug: "apostolos-eu-encontrei-jesus", name: "Eu Encontrei Jesus", collection: "Apóstolos", image: apostolosEncontreiJesus.url },
+  { slug: "apostolos-fe-maior-que-o-medo", name: "Fé Maior que o Medo", collection: "Apóstolos", image: apostolosFeMaiorMedo.url },
+  { slug: "apostolos-fe-medo-costas", name: "Fé Maior que o Medo — Costas", collection: "Apóstolos", image: apostolosFeMedoCostas.url },
+  { slug: "apostolos-filipenses-4-13", name: "Filipenses 4,13", collection: "Apóstolos", image: apostolosFilipenses.url },
+  { slug: "apostolos-ora-espera-e-confia", name: "Ora, Espera e Confia", collection: "Apóstolos", image: apostolosOraEspera.url },
+  { slug: "apostolos-segue-me", name: "Segue-me", collection: "Apóstolos", image: apostolosSegueMe.url },
+  { slug: "apostolos-sem-fe-e-impossivel-agradar", name: "Sem Fé é Impossível Agradar", collection: "Apóstolos", image: apostolosSemFe.url },
+  { slug: "apostolos-a-mao-que-te-sustenta-jpg", name: "A Mão que te Sustenta 01", collection: "Apóstolos", image: apostolosMaoSustentaJpg.url },
+  { slug: "apostolos-a-mao-que-te-sustenta-png", name: "A Mão que te Sustenta 02", collection: "Apóstolos", image: apostolosMaoSustentaPng.url },
+  { slug: "apostolos-a-alegria-do-senhor", name: "A Alegria do Senhor", collection: "Apóstolos", image: apostolosAlegriaSenhor.url },
+  { slug: "apostolos-perfume-de-cristo", name: "Perfume de Cristo", collection: "Apóstolos", image: apostolosPerfumeCristo.url },
+  { slug: "apostolos-recebei-o-poder", name: "Recebei o Poder", collection: "Apóstolos", image: apostolosRecebeiPoder.url },
 ];
