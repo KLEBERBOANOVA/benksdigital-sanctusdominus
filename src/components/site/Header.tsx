@@ -25,7 +25,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 bg-white text-navy-deep ${
+      className={`fixed inset-x-0 top-9 z-40 transition-all duration-500 bg-white text-navy-deep ${
         scrolled ? "shadow-elegant border-b border-navy-deep/10" : "border-b border-navy-deep/5"
       }`}
     >

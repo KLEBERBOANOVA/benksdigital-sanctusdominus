@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
+import { JinglePlayer } from "@/components/site/JinglePlayer";
 
 function NotFoundComponent() {
   return (
@@ -147,8 +148,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col bg-background">
+        <JinglePlayer />
         <Header />
-        <main className="flex-1 pt-20">
+        <main className="flex-1 pt-[7.25rem]">
           <Outlet />
         </main>
         <Footer />
