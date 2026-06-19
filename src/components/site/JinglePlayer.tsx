@@ -12,34 +12,53 @@ export function JinglePlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(false);
+  // Start muted so the browser allows autoplay; we unmute on the first user gesture.
+  const [muted, setMuted] = useState(true);
+  const userUnmutedRef = useRef(false);
   const current = TRACKS[index];
 
+  // Load track + try to start playback (muted on first load so autoplay is allowed).
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.src = current.src;
     audio.load();
-    audio.play().catch(() => {
-      // Browser blocked unmuted autoplay — retry muted so playback still starts.
-      audio.muted = true;
-      setMuted(true);
-      audio.play().catch(() => setPlaying(false));
-    });
+    const tryPlay = () => audio.play().catch(() => setPlaying(false));
+    tryPlay();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
+  // Keep audio element muted state in sync.
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.muted = muted;
   }, [muted]);
 
+  // First user gesture anywhere on the page → unmute + ensure playback.
+  useEffect(() => {
+    const onFirstGesture = () => {
+      if (userUnmutedRef.current) return;
+      userUnmutedRef.current = true;
+      const audio = audioRef.current;
+      if (!audio) return;
+      audio.muted = false;
+      setMuted(false);
+      audio.play().then(() => setPlaying(true)).catch(() => {});
+      cleanup();
+    };
+    const events: (keyof WindowEventMap)[] = ["pointerdown", "keydown", "touchstart", "scroll"];
+    const cleanup = () => events.forEach((e) => window.removeEventListener(e, onFirstGesture));
+    events.forEach((e) => window.addEventListener(e, onFirstGesture, { once: true, passive: true }));
+    return cleanup;
+  }, []);
 
   const toggle = () => {
     const audio = audioRef.current;
     if (!audio) return;
     if (audio.paused) {
+      audio.muted = false;
+      setMuted(false);
       audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
     } else {
       audio.pause();
@@ -78,7 +97,10 @@ export function JinglePlayer() {
           </button>
           <button
             type="button"
-            onClick={() => setMuted((m) => !m)}
+            onClick={() => {
+              userUnmutedRef.current = true;
+              setMuted((m) => !m);
+            }}
             aria-label={muted ? "Ativar som" : "Silenciar"}
             className="grid h-7 w-7 place-items-center rounded-full text-cream/80 hover:text-gold hover:bg-cream/10 transition-colors"
           >
@@ -88,6 +110,8 @@ export function JinglePlayer() {
       </div>
       <audio
         ref={audioRef}
+        muted
+        autoPlay
         preload="auto"
         onEnded={next}
         onPlay={() => setPlaying(true)}
