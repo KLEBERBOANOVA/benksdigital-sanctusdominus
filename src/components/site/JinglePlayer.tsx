@@ -20,9 +20,12 @@ export function JinglePlayer() {
     if (!audio) return;
     audio.src = current.src;
     audio.load();
-    if (playing) {
+    audio.play().catch(() => {
+      // Browser blocked unmuted autoplay — retry muted so playback still starts.
+      audio.muted = true;
+      setMuted(true);
       audio.play().catch(() => setPlaying(false));
-    }
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
@@ -31,6 +34,7 @@ export function JinglePlayer() {
     if (!audio) return;
     audio.muted = muted;
   }, [muted]);
+
 
   const toggle = () => {
     const audio = audioRef.current;
