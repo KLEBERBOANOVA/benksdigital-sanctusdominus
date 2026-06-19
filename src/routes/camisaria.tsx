@@ -9,7 +9,6 @@ import infantilAsset from "@/assets/size-infantil.jpg.asset.json";
 import oversizeAsset from "@/assets/size-oversize.jpg.asset.json";
 import plusSizeAsset from "@/assets/size-plus-size.jpg.asset.json";
 
-const categories = ["Baby Look"];
 const fits = ["Oversize", "Plus size"];
 type FaithFilter = "amor-divino" | "apostolos";
 
@@ -122,9 +121,6 @@ function CamisariaPage() {
           <div className="flex flex-wrap items-center gap-3 mb-12 justify-center">
             <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground mr-2">Filtros:</span>
             <Chip active={!cat && !aud && !faith} onClick={() => { setCat(null); setAud(null); setFaith(null); }}>Todos</Chip>
-            {categories.map((c) => (
-              <Chip key={c} active={cat === c} onClick={() => selectCategory(c)}>{c}</Chip>
-            ))}
             {audiences.map((a) => (
               <Chip key={a} active={aud === a} onClick={() => selectAudience(a)}>{a}</Chip>
             ))}

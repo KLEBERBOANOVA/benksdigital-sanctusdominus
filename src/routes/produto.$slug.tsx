@@ -38,9 +38,19 @@ export const Route = createFileRoute("/produto/$slug")({
   component: ProductPage,
 });
 
+function getSizesFor(product: { category: string; audience: string }): string[] {
+  if (product.category === "Plus size") return ["G1", "G2", "G3", "G4", "G5"];
+  if (product.category === "Oversize") return ["P", "M", "G", "GG", "G1"];
+  if (product.audience === "Infantil")
+    return ["02 ANOS", "04 ANOS", "06 ANOS", "08 ANOS", "10 ANOS", "12 ANOS", "14 ANOS", "16 ANOS"];
+  if (product.audience === "Feminino" || product.category === "Baby Look") return ["PP", "P", "M", "G", "GG"];
+  return ["P", "M", "G", "GG"];
+}
+
 function ProductPage() {
   const { product } = Route.useLoaderData();
-  const [size, setSize] = useState("M");
+  const sizes = getSizesFor(product);
+  const [size, setSize] = useState(sizes[Math.min(1, sizes.length - 1)]);
   const [zoomed, setZoomed] = useState(false);
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
@@ -104,12 +114,12 @@ function ProductPage() {
 
               <div className="mt-6">
                 <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3">Tamanho</p>
-                <div className="flex gap-2">
-                  {["P", "M", "G", "GG"].map((s) => (
+                <div className="flex flex-wrap gap-2">
+                  {sizes.map((s) => (
                     <button
                       key={s}
                       onClick={() => setSize(s)}
-                      className={`h-11 w-11 rounded-full border text-sm font-medium transition-all ${
+                      className={`h-11 min-w-11 px-3 rounded-full border text-sm font-medium transition-all ${
                         size === s
                           ? "bg-primary text-primary-foreground border-primary"
                           : "border-border hover:border-gold hover:text-gold"

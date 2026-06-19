@@ -127,9 +127,9 @@ export const products: Product[] = [
   },
   {
     slug: "eu-escolhi-voces-oversize-masculina",
-    name: "Eu Escolhi Vocês — Oversize",
+    name: "Eu Escolhi Vocês — Plus Size",
     collection: "Homens de Fé",
-    category: "Oversize",
+    category: "Plus size",
     audience: "Masculino",
     color: "Off-White",
     price: "R$ 89,90",

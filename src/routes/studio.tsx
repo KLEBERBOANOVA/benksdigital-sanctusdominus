@@ -61,61 +61,61 @@ const COLORS: { name: string; hex: string }[] = [
   { name: "Amarelo Neon", hex: "#b4df5e" },
 ];
 
-const MODELS: { key: string; label: string; desc: string; priceAdd: number; image: string }[] = [
+const MODELS: { key: string; label: string; desc: string; price: number; image: string }[] = [
   {
     key: "tshirt-basica-masculina",
     label: "T-Shirt Básica Masculina",
     desc: "Modelagem masculina clássica e confortável.",
-    priceAdd: 0,
+    price: 129.9,
     image: tshirtBasicaMasculina.url,
   },
   {
     key: "baby-look-feminino",
     label: "Baby Look Feminino",
     desc: "Modelagem feminina acinturada.",
-    priceAdd: 0,
+    price: 129.9,
     image: babyLookFeminino.url,
   },
   {
     key: "oversize-masculina",
     label: "Oversize Masculina",
     desc: "Modelagem masculina ampla e contemporânea.",
-    priceAdd: 0,
+    price: 143.9,
     image: oversizeMasculina.url,
   },
   {
     key: "oversize-feminino",
     label: "Oversize Feminino",
     desc: "Modelagem feminina ampla e contemporânea.",
-    priceAdd: 0,
+    price: 143.9,
     image: oversizeFeminino.url,
   },
   {
     key: "plus-size-masculino",
     label: "Plus Size Masculino",
     desc: "Modelagem masculina plus size confortável.",
-    priceAdd: 0,
+    price: 159.9,
     image: plusSizeMasculino.url,
   },
   {
     key: "plus-size-feminino",
     label: "Plus Size Feminino",
     desc: "Modelagem feminina plus size confortável.",
-    priceAdd: 0,
+    price: 159.9,
     image: plusSizeFeminino.url,
   },
   {
     key: "infantil-menino",
     label: "Infantil Menino",
     desc: "Modelagem infantil masculina confortável.",
-    priceAdd: 0,
+    price: 109.99,
     image: infantilMenino.url,
   },
   {
     key: "infantil-menina",
     label: "Infantil Menina",
     desc: "Modelagem infantil feminina confortável.",
-    priceAdd: 0,
+    price: 109.99,
     image: infantilMenina.url,
   },
 ];
@@ -146,8 +146,8 @@ function StudioPage() {
     setPreviewSlug(slug);
   };
 
-  const basePrice = 89.9;
-  const totalPrice = basePrice + (modeloItem?.priceAdd ?? 0);
+  const basePrice = 129.9;
+  const totalPrice = modeloItem?.price ?? basePrice;
   const pixPrice = totalPrice * 0.93;
 
   useEffect(() => {
@@ -431,7 +431,7 @@ function StudioPage() {
                         <h3 className="font-display text-xl text-foreground">{m.label}</h3>
                         <p className="mt-2 text-sm text-muted-foreground">{m.desc}</p>
                         <p className="mt-4 text-xs tracking-[0.2em] uppercase text-gold">
-                          {m.priceAdd > 0 ? `+ R$ ${m.priceAdd.toFixed(2).replace(".", ",")}` : "Sem acréscimo"}
+                          R$ {m.price.toFixed(2).replace(".", ",")}
                         </p>
                       </div>
                     </button>
