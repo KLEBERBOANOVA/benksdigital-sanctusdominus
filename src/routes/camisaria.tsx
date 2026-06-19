@@ -3,11 +3,78 @@ import { useMemo, useState } from "react";
 import { products, audiences } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
 import { Reveal } from "@/components/site/Reveal";
-import masculinoAsset from "@/assets/size-masculino.jpg.asset.json";
-import babyLookAsset from "@/assets/size-baby-look.jpg.asset.json";
-import infantilAsset from "@/assets/size-infantil.jpg.asset.json";
-import oversizeAsset from "@/assets/size-oversize.jpg.asset.json";
-import plusSizeAsset from "@/assets/size-plus-size.jpg.asset.json";
+
+type SizeTable = {
+  title: string;
+  headers: string[];
+  rows: string[][];
+};
+
+const SIZE_TABLES: Record<string, SizeTable> = {
+  masculino: {
+    title: "Camisa Básica Masculina",
+    headers: ["Tamanho", "Largura (cm)", "Altura (cm)", "Manga (cm)"],
+    rows: [
+      ["P", "53", "69", "15"],
+      ["M", "56", "71", "16"],
+      ["G", "58", "73", "17"],
+      ["GG", "61", "75", "18"],
+      ["G1", "64", "77", "22"],
+      ["G2", "67", "79", "22"],
+      ["G3", "71", "81", "22"],
+      ["G4", "74", "83", "23"],
+      ["G5", "76", "86", "24"],
+    ],
+  },
+  babyLook: {
+    title: "Camisas Baby Look — Feminina",
+    headers: ["Tamanho", "Busto (cm)", "Comprimento (cm)", "Ombro a ombro (cm)", "Manga (cm)", "Veste (kg) | Manequim"],
+    rows: [
+      ["PP", "82 a 86", "58", "36", "15", "40 a 50 kg · 34/36"],
+      ["P", "87 a 92", "60", "38", "16", "51 a 58 kg · 38/40"],
+      ["M", "93 a 98", "62", "40", "17", "59 a 68 kg · 42/44"],
+      ["G", "99 a 106", "64", "42", "18", "69 a 80 kg · 46/48"],
+      ["GG", "107 a 116", "67", "45", "19", "81 a 95 kg · 50/52"],
+    ],
+  },
+  infantil: {
+    title: "Camisas Infantis",
+    headers: ["Tamanho", "Altura (cm)", "Largura (cm)", "Manga (cm)"],
+    rows: [
+      ["02 anos", "37", "25,5", "10,5"],
+      ["04 anos", "40", "28,5", "12"],
+      ["06 anos", "43,5", "29,5", "13"],
+      ["08 anos", "47", "32,5", "15"],
+      ["10 anos", "51,5", "33,5", "15,5"],
+      ["12 anos", "55", "36", "18"],
+      ["14 anos", "58", "39", "19"],
+      ["16 anos", "63", "40", "20,5"],
+    ],
+  },
+  oversize: {
+    title: "Camisa Básica Oversized",
+    headers: ["Tamanho", "Largura (cm)", "Altura (cm)", "Manga (cm)"],
+    rows: [
+      ["P", "57", "72", "22"],
+      ["M", "59", "75", "23"],
+      ["G", "62", "75", "24"],
+      ["GG", "64", "81", "25"],
+      ["G1", "68", "86", "26"],
+    ],
+  },
+  plusSize: {
+    title: "Camisa Plus Size",
+    headers: ["Tamanho", "Altura (cm)", "Tórax (cm)"],
+    rows: [
+      ["G1", "84", "70"],
+      ["G2", "86", "73"],
+      ["G3", "88", "76"],
+      ["G4", "90", "79"],
+      ["G5", "92", "82"],
+    ],
+  },
+};
+
 
 const fits = ["Oversize", "Plus size"];
 type FaithFilter = "amor-divino" | "apostolos";
@@ -78,14 +145,15 @@ function CamisariaPage() {
     [cat, aud, faith]
   );
 
-  const sizeGuide = useMemo(() => {
-    if (cat === "Oversize") return { src: oversizeAsset.url, alt: "Tabela de medidas masculina para camisa oversized" };
-    if (cat === "Plus size") return { src: plusSizeAsset.url, alt: "Tabela de medidas masculina para camisa plus size" };
-    if (cat === "Baby Look" || aud === "Feminino") return { src: babyLookAsset.url, alt: "Tabela de medidas feminina para camisas baby look" };
-    if (aud === "Masculino") return { src: masculinoAsset.url, alt: "Tabela de medidas masculina para camisa básica" };
-    if (aud === "Infantil") return { src: infantilAsset.url, alt: "Tabela de medidas para camisas infantis" };
+  const sizeGuide = useMemo<SizeTable | null>(() => {
+    if (cat === "Oversize") return SIZE_TABLES.oversize;
+    if (cat === "Plus size") return SIZE_TABLES.plusSize;
+    if (aud === "Feminino") return SIZE_TABLES.babyLook;
+    if (aud === "Masculino") return SIZE_TABLES.masculino;
+    if (aud === "Infantil") return SIZE_TABLES.infantil;
     return null;
   }, [cat, aud]);
+
 
   const Chip = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
     <button
@@ -147,21 +215,62 @@ function CamisariaPage() {
 
       {sizeGuide && (
         <section className="bg-muted/40 px-5 py-16 lg:px-8 lg:py-20">
-          <div className="mx-auto max-w-4xl text-center lg:max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.35em] text-gold">Guia de tamanhos</p>
-            <h2 className="mt-3 font-display text-3xl text-foreground sm:text-5xl">Tabela de medidas</h2>
-            <img
-              src={sizeGuide.src}
-              alt={sizeGuide.alt}
-              loading="lazy"
-              decoding="async"
-              width={1254}
-              height={1254}
-              className="mt-8 h-auto w-full rounded-lg border border-border shadow-elegant"
-            />
+          <div className="mx-auto max-w-4xl">
+            <div className="text-center">
+              <p className="text-xs uppercase tracking-[0.35em] text-gold">Guia de tamanhos</p>
+              <h2 className="mt-3 font-display text-3xl text-foreground sm:text-5xl">Tabela de medidas</h2>
+              <p className="mt-3 font-display text-xl text-bordeaux">{sizeGuide.title}</p>
+              <p className="mt-2 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                As medidas podem ter uma variação de até 3%
+              </p>
+            </div>
+
+            <div className="mt-10 overflow-x-auto rounded-xl border border-border bg-card shadow-elegant">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-navy-deep text-cream">
+                    {sizeGuide.headers.map((h) => (
+                      <th
+                        key={h}
+                        scope="col"
+                        className="px-4 py-4 text-left text-[11px] uppercase tracking-[0.18em] font-semibold whitespace-nowrap"
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {sizeGuide.rows.map((row, ri) => (
+                    <tr
+                      key={row[0]}
+                      className={ri % 2 === 0 ? "bg-background" : "bg-muted/50"}
+                    >
+                      {row.map((cell, ci) => (
+                        <td
+                          key={ci}
+                          className={`px-4 py-3.5 border-t border-border ${
+                            ci === 0
+                              ? "font-display text-base text-bordeaux font-semibold whitespace-nowrap"
+                              : "text-foreground/85"
+                          }`}
+                        >
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <p className="mt-6 text-center text-xs text-muted-foreground">
+              Dica: utilize uma fita métrica para medir uma peça que você já possui.
+            </p>
           </div>
         </section>
       )}
+
     </>
   );
 }
