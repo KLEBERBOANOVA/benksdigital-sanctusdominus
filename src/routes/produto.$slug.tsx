@@ -1,8 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, MessageCircle, Truck, ShieldCheck, Scissors, X, ZoomIn } from "lucide-react";
+import { ArrowLeft, MessageCircle, Truck, ShieldCheck, Scissors, X, ZoomIn, Loader2, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getProduct, products } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
+import { calcularFrete, type ShippingOption } from "@/lib/melhor-envio.functions";
 
 const PIX_DISCOUNT = 0.93;
 
