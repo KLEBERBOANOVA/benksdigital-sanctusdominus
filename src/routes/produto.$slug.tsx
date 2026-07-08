@@ -62,7 +62,7 @@ function ProductPage() {
   const [freteSelecionado, setFreteSelecionado] = useState<number | null>(null);
 
   const precoNumerico = Number(product.price.replace(/[^\d,]/g, "").replace(",", "."));
-  const precoPix = Number.isFinite(precoNumerico) ? precoNumerico * 0.93 : 0;
+
 
   function formatCep(v: string) {
     const digits = v.replace(/\D/g, "").slice(0, 8);
