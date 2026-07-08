@@ -170,6 +170,80 @@ function ProductPage() {
                 </div>
               </div>
 
+              <div className="mt-8 rounded-lg border border-border bg-muted/40 p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <Truck className="h-4 w-4 text-bordeaux" />
+                  <p className="text-xs tracking-[0.2em] uppercase text-gold">Calcular frete e prazo</p>
+                </div>
+                <form onSubmit={handleCalcularFrete} className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={cep}
+                    onChange={(e) => setCep(formatCep(e.target.value))}
+                    placeholder="Digite seu CEP"
+                    aria-label="CEP de destino"
+                    className="flex-1 h-11 px-4 rounded-full border border-border bg-background text-sm focus:outline-none focus:border-gold"
+                  />
+                  <button
+                    type="submit"
+                    disabled={freteLoading}
+                    className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full bg-navy-deep text-cream text-xs uppercase tracking-wider font-semibold hover:bg-bordeaux transition-colors disabled:opacity-60"
+                  >
+                    {freteLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
+                    {freteLoading ? "Calculando" : "Calcular"}
+                  </button>
+                </form>
+                <a
+                  href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block text-[11px] text-muted-foreground hover:text-bordeaux underline"
+                >
+                  Não sei meu CEP
+                </a>
+
+                {freteError && (
+                  <p className="mt-3 text-xs text-bordeaux">{freteError}</p>
+                )}
+
+                {freteOpcoes.length > 0 && (
+                  <ul className="mt-4 space-y-2">
+                    {freteOpcoes.map((opt) => {
+                      const selected = freteSelecionado === opt.id;
+                      return (
+                        <li key={opt.id}>
+                          <button
+                            type="button"
+                            onClick={() => setFreteSelecionado(opt.id)}
+                            className={`w-full text-left flex items-center justify-between gap-3 rounded-lg border p-3 transition-all ${
+                              selected
+                                ? "border-gold bg-gold/10 ring-1 ring-gold"
+                                : "border-border bg-background hover:border-gold/60"
+                            }`}
+                          >
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold text-foreground truncate">
+                                {opt.company} <span className="text-muted-foreground font-normal">· {opt.name}</span>
+                              </p>
+                              <p className="text-[11px] text-muted-foreground">Prazo estimado: {opt.deliveryTime}</p>
+                            </div>
+                            <span className="font-display text-lg text-bordeaux whitespace-nowrap">{opt.price}</span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+                {opcaoEscolhida && (
+                  <p className="mt-3 text-[11px] text-muted-foreground">
+                    Frete selecionado: <strong className="text-foreground">{opcaoEscolhida.company} {opcaoEscolhida.name}</strong> — {opcaoEscolhida.price}. Ao clicar em comprar, enviamos essa informação para finalizar seu pedido no WhatsApp.
+                  </p>
+                )}
+              </div>
+
+
+
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <a
                   href={`https://wa.me/5581982202007?text=${whatsappMsg}`}
