@@ -55,8 +55,46 @@ function ProductPage() {
   const [zoomed, setZoomed] = useState(false);
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
+  const [cep, setCep] = useState("");
+  const [freteLoading, setFreteLoading] = useState(false);
+  const [freteError, setFreteError] = useState<string | null>(null);
+  const [freteOpcoes, setFreteOpcoes] = useState<ShippingOption[]>([]);
+  const [freteSelecionado, setFreteSelecionado] = useState<number | null>(null);
+
+  const precoNumerico = Number(product.price.replace(/[^\d,]/g, "").replace(",", "."));
+  const precoPix = Number.isFinite(precoNumerico) ? precoNumerico * 0.93 : 0;
+
+  function formatCep(v: string) {
+    const digits = v.replace(/\D/g, "").slice(0, 8);
+    return digits.length > 5 ? `${digits.slice(0, 5)}-${digits.slice(5)}` : digits;
+  }
+
+  async function handleCalcularFrete(e: React.FormEvent) {
+    e.preventDefault();
+    const digits = cep.replace(/\D/g, "");
+    if (digits.length !== 8) { setFreteError("Informe um CEP válido (8 dígitos)."); return; }
+    setFreteLoading(true);
+    setFreteError(null);
+    setFreteOpcoes([]);
+    setFreteSelecionado(null);
+    try {
+      const res = await calcularFrete({ data: { cepDestino: digits, precoProduto: precoNumerico || 100 } });
+      if (res.error) setFreteError(res.error);
+      const validas = res.options.filter((o) => !o.error && o.price !== "—");
+      setFreteOpcoes(validas);
+      if (validas.length === 0 && !res.error) setFreteError("Nenhuma opção de frete disponível para este CEP.");
+    } catch {
+      setFreteError("Falha ao calcular o frete. Tente novamente.");
+    } finally {
+      setFreteLoading(false);
+    }
+  }
+
+  const opcaoEscolhida = freteOpcoes.find((o) => o.id === freteSelecionado);
   const whatsappMsg = encodeURIComponent(
-    `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto. Pode me ajudar?`
+    `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto.${
+      opcaoEscolhida ? ` Frete escolhido: ${opcaoEscolhida.company} ${opcaoEscolhida.name} — ${opcaoEscolhida.price} (${opcaoEscolhida.deliveryTime}) para o CEP ${formatCep(cep)}.` : ""
+    } Pode me ajudar?`
   );
 
   useEffect(() => {
