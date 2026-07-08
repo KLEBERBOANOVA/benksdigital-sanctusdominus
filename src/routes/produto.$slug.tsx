@@ -1,8 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, MessageCircle, Truck, ShieldCheck, Scissors, X, ZoomIn } from "lucide-react";
+import { ArrowLeft, MessageCircle, Truck, ShieldCheck, Scissors, X, ZoomIn, Loader2, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getProduct, products } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
+import { calcularFrete, type ShippingOption } from "@/lib/melhor-envio.functions";
 
 const PIX_DISCOUNT = 0.93;
 
@@ -54,8 +55,46 @@ function ProductPage() {
   const [zoomed, setZoomed] = useState(false);
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
+  const [cep, setCep] = useState("");
+  const [freteLoading, setFreteLoading] = useState(false);
+  const [freteError, setFreteError] = useState<string | null>(null);
+  const [freteOpcoes, setFreteOpcoes] = useState<ShippingOption[]>([]);
+  const [freteSelecionado, setFreteSelecionado] = useState<number | null>(null);
+
+  const precoNumerico = Number(product.price.replace(/[^\d,]/g, "").replace(",", "."));
+
+
+  function formatCep(v: string) {
+    const digits = v.replace(/\D/g, "").slice(0, 8);
+    return digits.length > 5 ? `${digits.slice(0, 5)}-${digits.slice(5)}` : digits;
+  }
+
+  async function handleCalcularFrete(e: React.FormEvent) {
+    e.preventDefault();
+    const digits = cep.replace(/\D/g, "");
+    if (digits.length !== 8) { setFreteError("Informe um CEP válido (8 dígitos)."); return; }
+    setFreteLoading(true);
+    setFreteError(null);
+    setFreteOpcoes([]);
+    setFreteSelecionado(null);
+    try {
+      const res = await calcularFrete({ data: { cepDestino: digits, precoProduto: precoNumerico || 100 } });
+      if (res.error) setFreteError(res.error);
+      const validas = res.options.filter((o) => !o.error && o.price !== "—");
+      setFreteOpcoes(validas);
+      if (validas.length === 0 && !res.error) setFreteError("Nenhuma opção de frete disponível para este CEP.");
+    } catch {
+      setFreteError("Falha ao calcular o frete. Tente novamente.");
+    } finally {
+      setFreteLoading(false);
+    }
+  }
+
+  const opcaoEscolhida = freteOpcoes.find((o) => o.id === freteSelecionado);
   const whatsappMsg = encodeURIComponent(
-    `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto. Pode me ajudar?`
+    `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto.${
+      opcaoEscolhida ? ` Frete escolhido: ${opcaoEscolhida.company} ${opcaoEscolhida.name} — ${opcaoEscolhida.price} (${opcaoEscolhida.deliveryTime}) para o CEP ${formatCep(cep)}.` : ""
+    } Pode me ajudar?`
   );
 
   useEffect(() => {
@@ -130,6 +169,80 @@ function ProductPage() {
                   ))}
                 </div>
               </div>
+
+              <div className="mt-8 rounded-lg border border-border bg-muted/40 p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <Truck className="h-4 w-4 text-bordeaux" />
+                  <p className="text-xs tracking-[0.2em] uppercase text-gold">Calcular frete e prazo</p>
+                </div>
+                <form onSubmit={handleCalcularFrete} className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={cep}
+                    onChange={(e) => setCep(formatCep(e.target.value))}
+                    placeholder="Digite seu CEP"
+                    aria-label="CEP de destino"
+                    className="flex-1 h-11 px-4 rounded-full border border-border bg-background text-sm focus:outline-none focus:border-gold"
+                  />
+                  <button
+                    type="submit"
+                    disabled={freteLoading}
+                    className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full bg-navy-deep text-cream text-xs uppercase tracking-wider font-semibold hover:bg-bordeaux transition-colors disabled:opacity-60"
+                  >
+                    {freteLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
+                    {freteLoading ? "Calculando" : "Calcular"}
+                  </button>
+                </form>
+                <a
+                  href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block text-[11px] text-muted-foreground hover:text-bordeaux underline"
+                >
+                  Não sei meu CEP
+                </a>
+
+                {freteError && (
+                  <p className="mt-3 text-xs text-bordeaux">{freteError}</p>
+                )}
+
+                {freteOpcoes.length > 0 && (
+                  <ul className="mt-4 space-y-2">
+                    {freteOpcoes.map((opt) => {
+                      const selected = freteSelecionado === opt.id;
+                      return (
+                        <li key={opt.id}>
+                          <button
+                            type="button"
+                            onClick={() => setFreteSelecionado(opt.id)}
+                            className={`w-full text-left flex items-center justify-between gap-3 rounded-lg border p-3 transition-all ${
+                              selected
+                                ? "border-gold bg-gold/10 ring-1 ring-gold"
+                                : "border-border bg-background hover:border-gold/60"
+                            }`}
+                          >
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold text-foreground truncate">
+                                {opt.company} <span className="text-muted-foreground font-normal">· {opt.name}</span>
+                              </p>
+                              <p className="text-[11px] text-muted-foreground">Prazo estimado: {opt.deliveryTime}</p>
+                            </div>
+                            <span className="font-display text-lg text-bordeaux whitespace-nowrap">{opt.price}</span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+                {opcaoEscolhida && (
+                  <p className="mt-3 text-[11px] text-muted-foreground">
+                    Frete selecionado: <strong className="text-foreground">{opcaoEscolhida.company} {opcaoEscolhida.name}</strong> — {opcaoEscolhida.price}. Ao clicar em comprar, enviamos essa informação para finalizar seu pedido no WhatsApp.
+                  </p>
+                )}
+              </div>
+
+
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <a
