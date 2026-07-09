@@ -6,10 +6,36 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// Rewrite Lovable CDN pointer URLs (/__l5e/assets-v1/...) to absolute URLs so
+// assets load correctly when the site is hosted outside Lovable (e.g. Vercel).
+const LOVABLE_ASSET_ORIGIN =
+  process.env.VITE_LOVABLE_ASSET_ORIGIN ||
+  "https://benksdigital-sanctusdominus.lovable.app";
+
+const rewriteAssetPointers = {
+  name: "rewrite-lovable-asset-pointers",
+  enforce: "pre" as const,
+  transform(code: string, id: string) {
+    if (!id.endsWith(".asset.json")) return null;
+    try {
+      const json = JSON.parse(code);
+      if (typeof json.url === "string" && json.url.startsWith("/__l5e/")) {
+        json.url = LOVABLE_ASSET_ORIGIN + json.url;
+        return { code: JSON.stringify(json), map: null };
+      }
+    } catch {
+      /* ignore */
+    }
+    return null;
+  },
+};
+
 export default defineConfig({
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    plugins: [rewriteAssetPointers],
+  },
 });
+
