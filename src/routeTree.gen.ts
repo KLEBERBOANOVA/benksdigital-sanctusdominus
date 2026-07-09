@@ -14,8 +14,11 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as CamisariaRouteImport } from './routes/camisaria'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProdutoSlugRouteImport } from './routes/produto.$slug'
+import { Route as AuthenticatedAdminPedidosRouteImport } from './routes/_authenticated/admin.pedidos'
 
 const StudioRoute = StudioRouteImport.update({
   id: '/studio',
@@ -42,6 +45,15 @@ const CamisariaRoute = CamisariaRouteImport.update({
   path: '/camisaria',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -52,67 +64,89 @@ const ProdutoSlugRoute = ProdutoSlugRouteImport.update({
   path: '/produto/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminPedidosRoute =
+  AuthenticatedAdminPedidosRouteImport.update({
+    id: '/admin/pedidos',
+    path: '/admin/pedidos',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/camisaria': typeof CamisariaRoute
   '/contato': typeof ContatoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/studio': typeof StudioRoute
   '/produto/$slug': typeof ProdutoSlugRoute
+  '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/camisaria': typeof CamisariaRoute
   '/contato': typeof ContatoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/studio': typeof StudioRoute
   '/produto/$slug': typeof ProdutoSlugRoute
+  '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/camisaria': typeof CamisariaRoute
   '/contato': typeof ContatoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/studio': typeof StudioRoute
   '/produto/$slug': typeof ProdutoSlugRoute
+  '/_authenticated/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/camisaria'
     | '/contato'
     | '/sitemap.xml'
     | '/sobre'
     | '/studio'
     | '/produto/$slug'
+    | '/admin/pedidos'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/camisaria'
     | '/contato'
     | '/sitemap.xml'
     | '/sobre'
     | '/studio'
     | '/produto/$slug'
+    | '/admin/pedidos'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/camisaria'
     | '/contato'
     | '/sitemap.xml'
     | '/sobre'
     | '/studio'
     | '/produto/$slug'
+    | '/_authenticated/admin/pedidos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   CamisariaRoute: typeof CamisariaRoute
   ContatoRoute: typeof ContatoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -158,6 +192,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CamisariaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -172,11 +220,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProdutoSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/pedidos': {
+      id: '/_authenticated/admin/pedidos'
+      path: '/admin/pedidos'
+      fullPath: '/admin/pedidos'
+      preLoaderRoute: typeof AuthenticatedAdminPedidosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminPedidosRoute: typeof AuthenticatedAdminPedidosRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminPedidosRoute: AuthenticatedAdminPedidosRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   CamisariaRoute: CamisariaRoute,
   ContatoRoute: ContatoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
