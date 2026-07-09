@@ -12,12 +12,12 @@ const SENDER = {
   name: "Sanctus Dominus",
   phone: "5581982202007",
   email: CONTACT_EMAIL,
-  document: "00000000000", // CPF/CNPJ do remetente (11 ou 14 dígitos, apenas números)
-  address: "Endereço da loja",
-  complement: "",
-  number: "S/N",
-  district: "Centro",
-  city_name: "Paulista",
+  document: "51978776420", // CPF do remetente (apenas números)
+  address: "Rua Castro Alves",
+  complement: "casa",
+  number: "108",
+  district: "Matinha",
+  city_name: "Abreu e Lima",
   state_abbr: "PE",
   country_id: "BR",
   postal_code: ORIGIN_CEP,
