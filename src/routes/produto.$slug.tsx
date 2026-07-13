@@ -384,6 +384,119 @@ function ProductPage() {
           />
         </div>
       )}
+
+      {checkoutOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Finalizar pedido"
+          onClick={() => setCheckoutOpen(false)}
+          className="fixed inset-0 z-[110] bg-navy-deep/80 backdrop-blur-sm flex items-start md:items-center justify-center p-4 md:p-8 overflow-y-auto animate-fade-in"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-2xl bg-background rounded-2xl shadow-elegant border border-border my-8"
+          >
+            <button
+              type="button"
+              onClick={() => setCheckoutOpen(false)}
+              aria-label="Fechar"
+              className="absolute top-4 right-4 h-9 w-9 grid place-items-center rounded-full bg-muted hover:bg-bordeaux hover:text-cream transition-colors"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            <div className="p-6 md:p-8 border-b border-border">
+              <p className="text-xs tracking-[0.3em] uppercase text-gold">Finalizar pedido</p>
+              <h2 className="mt-2 font-display text-2xl md:text-3xl text-foreground">Seus dados para envio</h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                <strong className="text-foreground">{product.name}</strong> · Tamanho {size} · {pixPrice(product.price)} no Pix
+                {opcaoEscolhida && <> · Frete {opcaoEscolhida.company} {opcaoEscolhida.name} ({opcaoEscolhida.price})</>}
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmitOrder} className="p-6 md:p-8 space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <label className="block">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground flex items-center gap-1.5"><User className="h-3 w-3" /> Nome completo *</span>
+                  <input type="text" required value={buyer.nome} onChange={(e) => setBuyer({ ...buyer, nome: e.target.value })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+                </label>
+                <label className="block">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground flex items-center gap-1.5"><Phone className="h-3 w-3" /> WhatsApp *</span>
+                  <input type="tel" required inputMode="numeric" placeholder="(81) 98220-2007" value={buyer.whatsapp} onChange={(e) => setBuyer({ ...buyer, whatsapp: formatPhone(e.target.value) })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+                </label>
+              </div>
+
+              <label className="block">
+                <span className="text-[11px] uppercase tracking-wider text-muted-foreground flex items-center gap-1.5"><Mail className="h-3 w-3" /> E-mail *</span>
+                <input type="email" required value={buyer.email} onChange={(e) => setBuyer({ ...buyer, email: e.target.value })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+              </label>
+
+              <div className="pt-2">
+                <p className="text-xs tracking-[0.2em] uppercase text-gold flex items-center gap-1.5"><MapPin className="h-3 w-3" /> Endereço de entrega</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
+                <label className="block md:col-span-1">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">CEP *</span>
+                  <input type="text" required inputMode="numeric" value={buyer.cep} onChange={(e) => setBuyer({ ...buyer, cep: formatCep(e.target.value) })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+                </label>
+                <label className="block md:col-span-2">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Endereço (rua/av) *</span>
+                  <input type="text" required value={buyer.endereco} onChange={(e) => setBuyer({ ...buyer, endereco: e.target.value })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+                </label>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
+                <label className="block">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Número *</span>
+                  <input type="text" required value={buyer.numero} onChange={(e) => setBuyer({ ...buyer, numero: e.target.value })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+                </label>
+                <label className="block md:col-span-2">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Complemento</span>
+                  <input type="text" value={buyer.complemento} onChange={(e) => setBuyer({ ...buyer, complemento: e.target.value })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+                </label>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
+                <label className="block">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Bairro *</span>
+                  <input type="text" required value={buyer.bairro} onChange={(e) => setBuyer({ ...buyer, bairro: e.target.value })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+                </label>
+                <label className="block">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Cidade *</span>
+                  <input type="text" required value={buyer.cidade} onChange={(e) => setBuyer({ ...buyer, cidade: e.target.value })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+                </label>
+                <label className="block">
+                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground">UF *</span>
+                  <input type="text" required maxLength={2} value={buyer.estado} onChange={(e) => setBuyer({ ...buyer, estado: e.target.value.toUpperCase().slice(0, 2) })} className="mt-1 w-full h-11 px-4 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold uppercase" />
+                </label>
+              </div>
+
+              <label className="block">
+                <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Observações (opcional)</span>
+                <textarea rows={3} value={buyer.observacoes} onChange={(e) => setBuyer({ ...buyer, observacoes: e.target.value })} placeholder="Referência, cor preferida, presente, etc." className="mt-1 w-full px-4 py-3 rounded-lg border border-border bg-background text-sm focus:outline-none focus:border-gold" />
+              </label>
+
+              {formError && (
+                <p className="text-sm text-bordeaux bg-bordeaux/10 border border-bordeaux/30 rounded-lg px-4 py-3">{formError}</p>
+              )}
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <button type="button" onClick={() => setCheckoutOpen(false)} className="sm:flex-1 h-12 rounded-full border border-border text-sm uppercase tracking-wider font-semibold hover:bg-muted transition-colors">
+                  Cancelar
+                </button>
+                <button type="submit" className="sm:flex-[2] inline-flex items-center justify-center gap-2 h-12 rounded-full bg-gradient-gold text-navy-deep text-sm uppercase tracking-wider font-semibold shadow-gold hover:scale-[1.01] transition-transform">
+                  <MessageCircle className="h-4 w-4" /> Enviar pedido no WhatsApp
+                </button>
+              </div>
+              <p className="text-[11px] text-muted-foreground text-center">
+                Ao enviar, abriremos o WhatsApp da loja com todas as informações do seu pedido preenchidas.
+              </p>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }
