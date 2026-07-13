@@ -275,6 +275,12 @@ function ProductPage() {
         </div>
       </section>
 
+      <section className="py-16 px-5 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <ProductReviews productSlug={product.slug} />
+        </div>
+      </section>
+
       <section className="py-20 px-5 lg:px-8 bg-muted/40">
         <div className="mx-auto max-w-7xl">
           <h2 className="font-display text-3xl md:text-4xl text-center mb-12">
