@@ -3,6 +3,7 @@ import { ArrowLeft, MessageCircle, Truck, ShieldCheck, Scissors, X, ZoomIn, Load
 import { useEffect, useState } from "react";
 import { getProduct, products } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
+import { ProductReviews } from "@/components/site/ProductReviews";
 import { calcularFrete, type ShippingOption } from "@/lib/melhor-envio.functions";
 
 const PIX_DISCOUNT = 0.93;
@@ -271,6 +272,12 @@ function ProductPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-5 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <ProductReviews productSlug={product.slug} />
         </div>
       </section>
 
