@@ -92,11 +92,76 @@ function ProductPage() {
   }
 
   const opcaoEscolhida = freteOpcoes.find((o) => o.id === freteSelecionado);
-  const whatsappMsg = encodeURIComponent(
-    `Olá! Tenho interesse na peça "${product.name}" (Tamanho ${size}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto.${
-      opcaoEscolhida ? ` Frete escolhido: ${opcaoEscolhida.company} ${opcaoEscolhida.name} — ${opcaoEscolhida.price} (${opcaoEscolhida.deliveryTime}) para o CEP ${formatCep(cep)}.` : ""
-    } Pode me ajudar?`
-  );
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [buyer, setBuyer] = useState({ nome: "", whatsapp: "", email: "", cep: "", endereco: "", numero: "", complemento: "", bairro: "", cidade: "", estado: "", observacoes: "" });
+  const [formError, setFormError] = useState<string | null>(null);
+
+  function formatPhone(v: string) {
+    const d = v.replace(/\D/g, "").slice(0, 11);
+    if (d.length <= 2) return d;
+    if (d.length <= 7) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+    if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+    return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  }
+
+  function buildOrderMessage() {
+    const linhas: string[] = [];
+    linhas.push("*🛒 NOVO PEDIDO — SANCTUS DOMINUS*");
+    linhas.push("");
+    linhas.push("*👤 DADOS DO CLIENTE*");
+    linhas.push(`• Nome: ${buyer.nome}`);
+    linhas.push(`• WhatsApp: ${buyer.whatsapp}`);
+    linhas.push(`• E-mail: ${buyer.email}`);
+    linhas.push("");
+    linhas.push("*📦 PRODUTO*");
+    linhas.push(`• Peça: ${product.name}`);
+    if (product.tagline) linhas.push(`• Tagline: ${product.tagline}`);
+    linhas.push(`• Categoria: ${product.category} · ${product.audience}`);
+    linhas.push(`• Coleção: ${product.collection}`);
+    linhas.push(`• Tamanho: ${size}`);
+    linhas.push(`• Preço: ${product.price}`);
+    linhas.push(`• Preço no Pix (7% off): ${pixPrice(product.price)}`);
+    linhas.push(`• Link: ${typeof window !== "undefined" ? window.location.href : `/produto/${product.slug}`}`);
+    linhas.push("");
+    linhas.push("*🏠 ENDEREÇO DE ENTREGA*");
+    linhas.push(`• CEP: ${buyer.cep}`);
+    linhas.push(`• Endereço: ${buyer.endereco}, ${buyer.numero}${buyer.complemento ? ` — ${buyer.complemento}` : ""}`);
+    linhas.push(`• Bairro: ${buyer.bairro}`);
+    linhas.push(`• Cidade/UF: ${buyer.cidade}/${buyer.estado}`);
+    linhas.push("");
+    linhas.push("*🚚 FRETE*");
+    if (opcaoEscolhida) {
+      linhas.push(`• Transportadora: ${opcaoEscolhida.company} — ${opcaoEscolhida.name}`);
+      linhas.push(`• Valor: ${opcaoEscolhida.price}`);
+      linhas.push(`• Prazo estimado: ${opcaoEscolhida.deliveryTime}`);
+    } else {
+      linhas.push("• A calcular com o cliente");
+    }
+    if (buyer.observacoes.trim()) {
+      linhas.push("");
+      linhas.push("*📝 OBSERVAÇÕES*");
+      linhas.push(buyer.observacoes.trim());
+    }
+    linhas.push("");
+    linhas.push("_Pedido enviado pelo site sanctusdominus.com_");
+    return linhas.join("\n");
+  }
+
+  function handleSubmitOrder(e: React.FormEvent) {
+    e.preventDefault();
+    setFormError(null);
+    const req: Array<[string, string]> = [
+      ["nome", buyer.nome], ["whatsapp", buyer.whatsapp], ["email", buyer.email],
+      ["cep", buyer.cep], ["endereco", buyer.endereco], ["numero", buyer.numero],
+      ["bairro", buyer.bairro], ["cidade", buyer.cidade], ["estado", buyer.estado],
+    ];
+    for (const [k, v] of req) if (!v.trim()) { setFormError(`Preencha o campo ${k}.`); return; }
+    if (buyer.whatsapp.replace(/\D/g, "").length < 10) { setFormError("Informe um WhatsApp válido."); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyer.email)) { setFormError("Informe um e-mail válido."); return; }
+    const url = `https://wa.me/5581982202007?text=${encodeURIComponent(buildOrderMessage())}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+    setCheckoutOpen(false);
+  }
 
   useEffect(() => {
     if (!zoomed) return;
