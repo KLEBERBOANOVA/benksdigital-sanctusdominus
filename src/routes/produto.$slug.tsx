@@ -311,14 +311,13 @@ function ProductPage() {
 
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <a
-                  href={`https://wa.me/5581982202007?text=${whatsappMsg}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={() => { setFormError(null); setCheckoutOpen(true); }}
                   className="flex-1 inline-flex items-center justify-center gap-3 bg-gradient-gold text-navy-deep px-6 py-4 rounded-full text-sm uppercase tracking-wider font-semibold shadow-gold hover:scale-[1.02] transition-transform"
                 >
                   <MessageCircle className="h-4 w-4" /> Comprar via WhatsApp
-                </a>
+                </button>
               </div>
 
               <div className="mt-10 grid grid-cols-3 gap-4 text-xs text-muted-foreground">
