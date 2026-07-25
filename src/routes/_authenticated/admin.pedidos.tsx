@@ -78,10 +78,8 @@ function PedidosPage() {
 
   useEffect(() => { load(); loadSaldo(); }, []);
 
-  async function handleSignOut() {
-    await supabase.auth.signOut();
-    window.location.href = "/auth";
-  }
+
+
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
