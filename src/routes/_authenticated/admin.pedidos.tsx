@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { calcularFrete, type ShippingOption } from "@/lib/melhor-envio.functions";
 import { emitirEtiqueta, meSaldo } from "@/lib/melhor-envio-admin.functions";
-import { Loader2, Package, Plus, RefreshCw, ExternalLink, LogOut, Search, Truck } from "lucide-react";
+import { Loader2, Package, Plus, RefreshCw, ExternalLink, Search, Truck } from "lucide-react";
+import { AdminNav } from "@/components/site/AdminNav";
 
 export const Route = createFileRoute("/_authenticated/admin/pedidos")({
   head: () => ({ meta: [{ title: "Pedidos | Sanctus Dominus" }, { name: "robots", content: "noindex" }] }),
