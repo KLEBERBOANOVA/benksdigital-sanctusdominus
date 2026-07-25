@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Mail, MessageCircle } from "lucide-react";
+import { Instagram, Mail, MessageCircle, LogIn } from "lucide-react";
 import { BrandMark } from "./Logo";
+
 
 export function Footer() {
   return (
