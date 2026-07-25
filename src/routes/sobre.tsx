@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import founderAsset from "@/assets/founder-carlos-new.jpg.asset.json";
+import founderAsset from "@/assets/founder-carlos-2026.jpg.asset.json";
 import logoAsset from "@/assets/sanctus-dominus-logo.png.asset.json";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Reveal } from "@/components/site/Reveal";
