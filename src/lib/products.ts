@@ -1,6 +1,6 @@
-import foiPorVoce from "@/assets/product-foi-por-voce.png";
-import rasoNaoServe from "@/assets/product-raso-nao-serve.png";
-import criaiEmMim from "@/assets/product-criai-em-mim.png";
+import foiPorVoceAsset from "@/assets/product-foi-por-voce.png.asset.json";
+import rasoNaoServeAsset from "@/assets/product-raso-nao-serve.png.asset.json";
+import criaiEmMimAsset from "@/assets/product-criai-em-mim.png.asset.json";
 import euEscolhiVocesAsset from "@/assets/product-eu-escolhi-voces.png.asset.json";
 import feMaiorMedoAsset from "@/assets/product-fe-maior-medo.png.asset.json";
 import bomPerfumeAsset from "@/assets/product-bom-perfume.png.asset.json";
@@ -33,6 +33,9 @@ import euNaoSouDesteMundoOversizeAsset from "@/assets/product-eu-nao-sou-deste-m
 import nossaSenhoraGuadalupeOversizeAsset from "@/assets/product-nossa-senhora-guadalupe-oversize.png.asset.json";
 import feInabalavelPlusSizeAsset from "@/assets/product-fe-inabalavel-plus-size.png.asset.json";
 
+const foiPorVoce = foiPorVoceAsset.url;
+const rasoNaoServe = rasoNaoServeAsset.url;
+const criaiEmMim = criaiEmMimAsset.url;
 const euEscolhiVoces = euEscolhiVocesAsset.url;
 const feMaiorMedo = feMaiorMedoAsset.url;
 const bomPerfume = bomPerfumeAsset.url;
