@@ -65,6 +65,40 @@ function AdminProdutosPage() {
   const [editing, setEditing] = useState<(Omit<Row, "id"> & { id?: string }) | null>(null);
   const [saving, setSaving] = useState(false);
   const [importing, setImporting] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  async function handleImageUpload(file: File) {
+    if (!file.type.startsWith("image/")) {
+      setMsg("Selecione um arquivo de imagem (JPG, PNG ou WEBP).");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      setMsg("Imagem muito grande. Envie um arquivo de até 8 MB.");
+      return;
+    }
+    setUploading(true);
+    setMsg(null);
+    try {
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+      const path = `produtos/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const up = await supabase.storage.from("product-images").upload(path, file, {
+        cacheControl: "31536000",
+        upsert: false,
+        contentType: file.type,
+      });
+      if (up.error) throw new Error(up.error.message);
+      const signed = await supabase.storage
+        .from("product-images")
+        .createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
+      if (signed.error || !signed.data?.signedUrl) throw new Error(signed.error?.message ?? "URL não gerada");
+      setEditing((prev) => (prev ? { ...prev, image: signed.data.signedUrl } : prev));
+      setMsg("Imagem enviada com sucesso.");
+    } catch (err) {
+      setMsg(`Falha ao enviar imagem: ${err instanceof Error ? err.message : "erro desconhecido"}`);
+    } finally {
+      setUploading(false);
+    }
+  }
 
   async function load() {
     setLoading(true);
@@ -106,6 +140,10 @@ function AdminProdutosPage() {
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
     if (!editing) return;
+    if (!editing.image) {
+      setMsg("Envie a imagem do produto antes de salvar.");
+      return;
+    }
     setSaving(true);
     setMsg(null);
     const payload = { ...editing, slug: editing.slug || slugify(editing.name) };
@@ -199,7 +237,39 @@ function AdminProdutosPage() {
               <Select label="Público" value={editing.audience} options={AUDIENCES} onChange={(v) => setEditing({ ...editing, audience: v })} />
               <Field label="Cor" value={editing.color} onChange={(v) => setEditing({ ...editing, color: v })} />
               <Field label="Preço *" value={editing.price} onChange={(v) => setEditing({ ...editing, price: v })} required />
-              <Field label="URL da imagem *" value={editing.image} onChange={(v) => setEditing({ ...editing, image: v })} required />
+              <label className="block md:col-span-2">
+                <span className="block text-[11px] uppercase tracking-wider text-muted-foreground">Imagem do produto *</span>
+                <div className="mt-1 flex flex-wrap items-center gap-3">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    disabled={uploading}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      e.target.value = "";
+                      if (f) void handleImageUpload(f);
+                    }}
+                    className="block w-full max-w-sm cursor-pointer rounded-lg border border-border bg-background px-3 py-2 text-sm file:mr-3 file:rounded-full file:border-0 file:bg-navy-deep file:px-4 file:py-1.5 file:text-xs file:uppercase file:tracking-wider file:text-cream"
+                  />
+                  {uploading && (
+                    <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
+                      <Loader2 className="h-4 w-4 animate-spin" /> Enviando imagem…
+                    </span>
+                  )}
+                  {editing.image && !uploading && (
+                    <button
+                      type="button"
+                      onClick={() => setEditing({ ...editing, image: "" })}
+                      className="rounded-full border border-border px-4 py-1.5 text-[11px] uppercase tracking-wider hover:border-bordeaux hover:text-bordeaux"
+                    >
+                      Remover imagem
+                    </button>
+                  )}
+                </div>
+                <span className="mt-1 block text-[11px] text-muted-foreground">
+                  JPG, PNG ou WEBP até 8 MB. A imagem é salva no armazenamento do site.
+                </span>
+              </label>
               <Field label="Chamada (tagline)" value={editing.tagline} onChange={(v) => setEditing({ ...editing, tagline: v })} />
               <Field label="Ordem de exibição" value={String(editing.sort_order)} onChange={(v) => setEditing({ ...editing, sort_order: Number(v.replace(/\D/g, "")) || 0 })} />
               <Area label="Descrição" value={editing.description} onChange={(v) => setEditing({ ...editing, description: v })} />
