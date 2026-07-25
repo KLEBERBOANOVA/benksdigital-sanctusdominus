@@ -146,6 +146,63 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          audience: string
+          category: string
+          collection: string
+          color: string
+          created_at: string
+          description: string
+          id: string
+          image: string
+          inspiration: string
+          is_active: boolean
+          name: string
+          price: string
+          slug: string
+          sort_order: number
+          tagline: string
+          updated_at: string
+        }
+        Insert: {
+          audience?: string
+          category?: string
+          collection?: string
+          color?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image?: string
+          inspiration?: string
+          is_active?: boolean
+          name: string
+          price?: string
+          slug: string
+          sort_order?: number
+          tagline?: string
+          updated_at?: string
+        }
+        Update: {
+          audience?: string
+          category?: string
+          collection?: string
+          color?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image?: string
+          inspiration?: string
+          is_active?: boolean
+          name?: string
+          price?: string
+          slug?: string
+          sort_order?: number
+          tagline?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -164,6 +221,87 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      whatsapp_orders: {
+        Row: {
+          address_city: string | null
+          address_complement: string | null
+          address_district: string | null
+          address_number: string | null
+          address_postal_code: string | null
+          address_state_abbr: string | null
+          address_street: string | null
+          created_at: string
+          customer_email: string | null
+          customer_name: string
+          customer_phone: string
+          id: string
+          message: string | null
+          product_color: string | null
+          product_name: string
+          product_price: string | null
+          product_price_pix: string | null
+          product_size: string | null
+          product_slug: string | null
+          shipping_deadline: string | null
+          shipping_price: string | null
+          shipping_service: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          address_city?: string | null
+          address_complement?: string | null
+          address_district?: string | null
+          address_number?: string | null
+          address_postal_code?: string | null
+          address_state_abbr?: string | null
+          address_street?: string | null
+          created_at?: string
+          customer_email?: string | null
+          customer_name: string
+          customer_phone: string
+          id?: string
+          message?: string | null
+          product_color?: string | null
+          product_name: string
+          product_price?: string | null
+          product_price_pix?: string | null
+          product_size?: string | null
+          product_slug?: string | null
+          shipping_deadline?: string | null
+          shipping_price?: string | null
+          shipping_service?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          address_city?: string | null
+          address_complement?: string | null
+          address_district?: string | null
+          address_number?: string | null
+          address_postal_code?: string | null
+          address_state_abbr?: string | null
+          address_street?: string | null
+          created_at?: string
+          customer_email?: string | null
+          customer_name?: string
+          customer_phone?: string
+          id?: string
+          message?: string | null
+          product_color?: string | null
+          product_name?: string
+          product_price?: string | null
+          product_price_pix?: string | null
+          product_size?: string | null
+          product_slug?: string | null
+          shipping_deadline?: string | null
+          shipping_price?: string | null
+          shipping_service?: string | null
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }

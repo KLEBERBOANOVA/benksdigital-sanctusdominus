@@ -18,6 +18,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProdutoSlugRouteImport } from './routes/produto.$slug'
+import { Route as AuthenticatedAdminWhatsappRouteImport } from './routes/_authenticated/admin.whatsapp'
+import { Route as AuthenticatedAdminProdutosRouteImport } from './routes/_authenticated/admin.produtos'
 import { Route as AuthenticatedAdminPedidosRouteImport } from './routes/_authenticated/admin.pedidos'
 
 const StudioRoute = StudioRouteImport.update({
@@ -64,6 +66,18 @@ const ProdutoSlugRoute = ProdutoSlugRouteImport.update({
   path: '/produto/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminWhatsappRoute =
+  AuthenticatedAdminWhatsappRouteImport.update({
+    id: '/admin/whatsapp',
+    path: '/admin/whatsapp',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminProdutosRoute =
+  AuthenticatedAdminProdutosRouteImport.update({
+    id: '/admin/produtos',
+    path: '/admin/produtos',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminPedidosRoute =
   AuthenticatedAdminPedidosRouteImport.update({
     id: '/admin/pedidos',
@@ -81,6 +95,8 @@ export interface FileRoutesByFullPath {
   '/studio': typeof StudioRoute
   '/produto/$slug': typeof ProdutoSlugRoute
   '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
+  '/admin/produtos': typeof AuthenticatedAdminProdutosRoute
+  '/admin/whatsapp': typeof AuthenticatedAdminWhatsappRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -92,6 +108,8 @@ export interface FileRoutesByTo {
   '/studio': typeof StudioRoute
   '/produto/$slug': typeof ProdutoSlugRoute
   '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
+  '/admin/produtos': typeof AuthenticatedAdminProdutosRoute
+  '/admin/whatsapp': typeof AuthenticatedAdminWhatsappRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -105,6 +123,8 @@ export interface FileRoutesById {
   '/studio': typeof StudioRoute
   '/produto/$slug': typeof ProdutoSlugRoute
   '/_authenticated/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
+  '/_authenticated/admin/produtos': typeof AuthenticatedAdminProdutosRoute
+  '/_authenticated/admin/whatsapp': typeof AuthenticatedAdminWhatsappRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -118,6 +138,8 @@ export interface FileRouteTypes {
     | '/studio'
     | '/produto/$slug'
     | '/admin/pedidos'
+    | '/admin/produtos'
+    | '/admin/whatsapp'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -129,6 +151,8 @@ export interface FileRouteTypes {
     | '/studio'
     | '/produto/$slug'
     | '/admin/pedidos'
+    | '/admin/produtos'
+    | '/admin/whatsapp'
   id:
     | '__root__'
     | '/'
@@ -141,6 +165,8 @@ export interface FileRouteTypes {
     | '/studio'
     | '/produto/$slug'
     | '/_authenticated/admin/pedidos'
+    | '/_authenticated/admin/produtos'
+    | '/_authenticated/admin/whatsapp'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -220,6 +246,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProdutoSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/whatsapp': {
+      id: '/_authenticated/admin/whatsapp'
+      path: '/admin/whatsapp'
+      fullPath: '/admin/whatsapp'
+      preLoaderRoute: typeof AuthenticatedAdminWhatsappRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/produtos': {
+      id: '/_authenticated/admin/produtos'
+      path: '/admin/produtos'
+      fullPath: '/admin/produtos'
+      preLoaderRoute: typeof AuthenticatedAdminProdutosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/pedidos': {
       id: '/_authenticated/admin/pedidos'
       path: '/admin/pedidos'
@@ -232,10 +272,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminPedidosRoute: typeof AuthenticatedAdminPedidosRoute
+  AuthenticatedAdminProdutosRoute: typeof AuthenticatedAdminProdutosRoute
+  AuthenticatedAdminWhatsappRoute: typeof AuthenticatedAdminWhatsappRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminPedidosRoute: AuthenticatedAdminPedidosRoute,
+  AuthenticatedAdminProdutosRoute: AuthenticatedAdminProdutosRoute,
+  AuthenticatedAdminWhatsappRoute: AuthenticatedAdminWhatsappRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
