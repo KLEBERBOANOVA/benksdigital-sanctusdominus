@@ -233,7 +233,39 @@ function AdminProdutosPage() {
               <Select label="Público" value={editing.audience} options={AUDIENCES} onChange={(v) => setEditing({ ...editing, audience: v })} />
               <Field label="Cor" value={editing.color} onChange={(v) => setEditing({ ...editing, color: v })} />
               <Field label="Preço *" value={editing.price} onChange={(v) => setEditing({ ...editing, price: v })} required />
-              <Field label="URL da imagem *" value={editing.image} onChange={(v) => setEditing({ ...editing, image: v })} required />
+              <label className="block md:col-span-2">
+                <span className="block text-[11px] uppercase tracking-wider text-muted-foreground">Imagem do produto *</span>
+                <div className="mt-1 flex flex-wrap items-center gap-3">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    disabled={uploading}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      e.target.value = "";
+                      if (f) void handleImageUpload(f);
+                    }}
+                    className="block w-full max-w-sm cursor-pointer rounded-lg border border-border bg-background px-3 py-2 text-sm file:mr-3 file:rounded-full file:border-0 file:bg-navy-deep file:px-4 file:py-1.5 file:text-xs file:uppercase file:tracking-wider file:text-cream"
+                  />
+                  {uploading && (
+                    <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
+                      <Loader2 className="h-4 w-4 animate-spin" /> Enviando imagem…
+                    </span>
+                  )}
+                  {editing.image && !uploading && (
+                    <button
+                      type="button"
+                      onClick={() => setEditing({ ...editing, image: "" })}
+                      className="rounded-full border border-border px-4 py-1.5 text-[11px] uppercase tracking-wider hover:border-bordeaux hover:text-bordeaux"
+                    >
+                      Remover imagem
+                    </button>
+                  )}
+                </div>
+                <span className="mt-1 block text-[11px] text-muted-foreground">
+                  JPG, PNG ou WEBP até 8 MB. A imagem é salva no armazenamento do site.
+                </span>
+              </label>
               <Field label="Chamada (tagline)" value={editing.tagline} onChange={(v) => setEditing({ ...editing, tagline: v })} />
               <Field label="Ordem de exibição" value={String(editing.sort_order)} onChange={(v) => setEditing({ ...editing, sort_order: Number(v.replace(/\D/g, "")) || 0 })} />
               <Area label="Descrição" value={editing.description} onChange={(v) => setEditing({ ...editing, description: v })} />
