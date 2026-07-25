@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Mail, MessageCircle } from "lucide-react";
+import { Instagram, Mail, MessageCircle, LogIn } from "lucide-react";
 import { BrandMark } from "./Logo";
+
 
 export function Footer() {
   return (
@@ -74,9 +75,18 @@ export function Footer() {
         </div>
 
         <div className="mt-14 pt-8 border-t border-cream/10 flex flex-col items-center gap-3 text-center">
+          <Link
+            to="/admin/produtos"
+            aria-label="Acesso do gestor ao painel administrativo"
+            title="Acesso do gestor"
+            className="inline-flex items-center gap-2 rounded-full border border-cream/20 px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-cream/70 hover:border-gold hover:text-gold transition"
+          >
+            <LogIn className="h-3.5 w-3.5" /> Acesso do gestor
+          </Link>
           <p className="text-xs text-cream/60">
             © 2026 Sanctus Dominus — Todos os direitos reservados.
           </p>
+
           <p className="text-sm text-cream/80">
             Desenvolvido e Gerenciado pela{" "}
             <a

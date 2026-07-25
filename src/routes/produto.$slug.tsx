@@ -5,6 +5,8 @@ import { getProduct, products } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
 import { ProductReviews } from "@/components/site/ProductReviews";
 import { calcularFrete, type ShippingOption } from "@/lib/melhor-envio.functions";
+import { fetchCatalog, type CatalogProduct } from "@/lib/catalog.functions";
+import { supabase } from "@/integrations/supabase/client";
 
 const PIX_DISCOUNT = 0.93;
 
@@ -14,10 +16,11 @@ function pixPrice(price: string) {
 }
 
 export const Route = createFileRoute("/produto/$slug")({
-  loader: ({ params }) => {
-    const product = getProduct(params.slug);
+  loader: async ({ params }) => {
+    const catalog = await fetchCatalog();
+    const product = catalog.find((p) => p.slug === params.slug) ?? getProduct(params.slug);
     if (!product) throw notFound();
-    return { product };
+    return { product, catalog };
   },
   head: ({ loaderData }) => ({
     meta: [
@@ -50,11 +53,11 @@ function getSizesFor(product: { category: string; audience: string }): string[] 
 }
 
 function ProductPage() {
-  const { product } = Route.useLoaderData();
+  const { product, catalog } = Route.useLoaderData() as { product: CatalogProduct; catalog: CatalogProduct[] };
   const sizes = getSizesFor(product);
   const [size, setSize] = useState(sizes[Math.min(1, sizes.length - 1)]);
   const [zoomed, setZoomed] = useState(false);
-  const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
+  const related = (catalog.length ? catalog : products).filter((p) => p.slug !== product.slug).slice(0, 3);
 
   const [cep, setCep] = useState("");
   const [freteLoading, setFreteLoading] = useState(false);
@@ -147,6 +150,35 @@ function ProductPage() {
     return linhas.join("\n");
   }
 
+  async function registerOrder(message: string) {
+    try {
+      await supabase.from("whatsapp_orders" as never).insert({
+        customer_name: buyer.nome.trim(),
+        customer_phone: buyer.whatsapp.trim(),
+        customer_email: buyer.email.trim() || null,
+        address_postal_code: buyer.cep,
+        address_street: buyer.endereco,
+        address_number: buyer.numero,
+        address_complement: buyer.complemento || null,
+        address_district: buyer.bairro,
+        address_city: buyer.cidade,
+        address_state_abbr: buyer.estado,
+        product_slug: product.slug,
+        product_name: product.name,
+        product_size: size,
+        product_color: product.color || null,
+        product_price: product.price,
+        product_price_pix: pixPrice(product.price),
+        shipping_service: opcaoEscolhida ? `${opcaoEscolhida.company} — ${opcaoEscolhida.name}` : null,
+        shipping_price: opcaoEscolhida?.price ?? null,
+        shipping_deadline: opcaoEscolhida?.deliveryTime ?? null,
+        message,
+      } as never);
+    } catch {
+      /* o pedido segue para o WhatsApp mesmo se o registro falhar */
+    }
+  }
+
   function handleSubmitOrder(e: React.FormEvent) {
     e.preventDefault();
     setFormError(null);
@@ -158,7 +190,9 @@ function ProductPage() {
     for (const [k, v] of req) if (!v.trim()) { setFormError(`Preencha o campo ${k}.`); return; }
     if (buyer.whatsapp.replace(/\D/g, "").length < 10) { setFormError("Informe um WhatsApp válido."); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyer.email)) { setFormError("Informe um e-mail válido."); return; }
-    const url = `https://wa.me/5581982202007?text=${encodeURIComponent(buildOrderMessage())}`;
+    const message = buildOrderMessage();
+    void registerOrder(message);
+    const url = `https://wa.me/5581982202007?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setCheckoutOpen(false);
   }

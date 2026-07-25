@@ -44,7 +44,7 @@ function toProduct(row: Record<string, unknown>): CatalogProduct {
 }
 
 /** Public catalog read — falls back to the built-in list when the table is empty or unreachable. */
-export const fetchCatalog = createServerFn({ method: "GET" }).handler(async () => {
+export const fetchCatalog = createServerFn({ method: "GET" }).handler(async (): Promise<CatalogProduct[]> => {
   try {
     const supabase = serverPublicClient();
     const { data, error } = await supabase

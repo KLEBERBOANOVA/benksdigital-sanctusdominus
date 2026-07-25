@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { products, audiences } from "@/lib/products";
+import { fetchCatalog, type CatalogProduct } from "@/lib/catalog.functions";
+
 import { ProductCard } from "@/components/site/ProductCard";
 import { Reveal } from "@/components/site/Reveal";
 
@@ -95,6 +97,7 @@ function getCollectionLabel(product: (typeof products)[number]) {
 }
 
 export const Route = createFileRoute("/camisaria")({
+  loader: () => fetchCatalog(),
   head: () => ({
     meta: [
       { title: "Camisaria | Sanctus Dominus" },
@@ -105,13 +108,17 @@ export const Route = createFileRoute("/camisaria")({
     ],
     links: [{ rel: "canonical", href: "/camisaria" }],
   }),
+  errorComponent: () => <div className="py-32 text-center text-muted-foreground">Erro ao carregar a camisaria.</div>,
+  notFoundComponent: () => <div className="py-32 text-center text-muted-foreground">Página não encontrada.</div>,
   component: CamisariaPage,
 });
 
 function CamisariaPage() {
+  const catalog = Route.useLoaderData() as CatalogProduct[];
   const [cat, setCat] = useState<string | null>(null);
   const [aud, setAud] = useState<string | null>(null);
   const [faith, setFaith] = useState<FaithFilter | null>(null);
+
 
   const selectCategory = (value: string) => {
     const shouldClear = cat === value;
@@ -136,13 +143,13 @@ function CamisariaPage() {
 
   const filtered = useMemo(
     () =>
-      products.filter(
+      catalog.filter(
         (p) =>
           (!cat || p.category === cat) &&
           (!aud || p.audience === aud) &&
           (!faith || faith === getFaithGroup(p))
       ),
-    [cat, aud, faith]
+    [catalog, cat, aud, faith]
   );
 
   const sizeGuide = useMemo<SizeTable | null>(() => {
