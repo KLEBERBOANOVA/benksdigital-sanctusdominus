@@ -65,6 +65,40 @@ function AdminProdutosPage() {
   const [editing, setEditing] = useState<(Omit<Row, "id"> & { id?: string }) | null>(null);
   const [saving, setSaving] = useState(false);
   const [importing, setImporting] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  async function handleImageUpload(file: File) {
+    if (!file.type.startsWith("image/")) {
+      setMsg("Selecione um arquivo de imagem (JPG, PNG ou WEBP).");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      setMsg("Imagem muito grande. Envie um arquivo de até 8 MB.");
+      return;
+    }
+    setUploading(true);
+    setMsg(null);
+    try {
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+      const path = `produtos/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const up = await supabase.storage.from("product-images").upload(path, file, {
+        cacheControl: "31536000",
+        upsert: false,
+        contentType: file.type,
+      });
+      if (up.error) throw new Error(up.error.message);
+      const signed = await supabase.storage
+        .from("product-images")
+        .createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
+      if (signed.error || !signed.data?.signedUrl) throw new Error(signed.error?.message ?? "URL não gerada");
+      setEditing((prev) => (prev ? { ...prev, image: signed.data.signedUrl } : prev));
+      setMsg("Imagem enviada com sucesso.");
+    } catch (err) {
+      setMsg(`Falha ao enviar imagem: ${err instanceof Error ? err.message : "erro desconhecido"}`);
+    } finally {
+      setUploading(false);
+    }
+  }
 
   async function load() {
     setLoading(true);
