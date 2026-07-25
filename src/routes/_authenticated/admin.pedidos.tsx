@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { calcularFrete, type ShippingOption } from "@/lib/melhor-envio.functions";
 import { emitirEtiqueta, meSaldo } from "@/lib/melhor-envio-admin.functions";
-import { Loader2, Package, Plus, RefreshCw, ExternalLink, LogOut, Search, Truck } from "lucide-react";
+import { Loader2, Package, Plus, RefreshCw, ExternalLink, Search, Truck } from "lucide-react";
+import { AdminNav } from "@/components/site/AdminNav";
 
 export const Route = createFileRoute("/_authenticated/admin/pedidos")({
   head: () => ({ meta: [{ title: "Pedidos | Sanctus Dominus" }, { name: "robots", content: "noindex" }] }),
@@ -77,10 +78,8 @@ function PedidosPage() {
 
   useEffect(() => { load(); loadSaldo(); }, []);
 
-  async function handleSignOut() {
-    await supabase.auth.signOut();
-    window.location.href = "/auth";
-  }
+
+
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -136,6 +135,7 @@ function PedidosPage() {
   return (
     <section className="min-h-screen px-5 lg:px-8 py-10">
       <div className="mx-auto max-w-7xl">
+        <AdminNav />
         <header className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="font-display text-4xl text-foreground flex items-center gap-3"><Package className="h-8 w-8 text-gold" /> Pedidos & Etiquetas</h1>
@@ -146,11 +146,9 @@ function PedidosPage() {
               Saldo ME: <strong className="text-bordeaux">{saldo !== null ? formatCurrency(saldo) : "—"}</strong>
               <button onClick={loadSaldo} className="ml-2 text-gold hover:text-bordeaux" aria-label="Atualizar saldo"><RefreshCw className="inline h-3 w-3" /></button>
             </div>
-            <button onClick={handleSignOut} className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs uppercase tracking-wider hover:border-bordeaux hover:text-bordeaux">
-              <LogOut className="h-3 w-3" /> Sair
-            </button>
           </div>
         </header>
+
 
         {msg && <p className="mt-4 rounded-lg border border-gold/40 bg-gold/10 p-3 text-sm text-foreground">{msg}</p>}
 
