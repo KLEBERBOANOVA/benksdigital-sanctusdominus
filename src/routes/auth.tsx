@@ -52,10 +52,6 @@ function AuthPage() {
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           Entrar
         </button>
-
-        <p className="mt-6 text-xs text-muted-foreground">
-          Crie o primeiro usuário no painel Supabase (Authentication → Users) e, na tabela <code>user_roles</code>, adicione o papel <strong>admin</strong> com o <code>user_id</code> dele.
-        </p>
       </form>
     </section>
   );
