@@ -140,6 +140,10 @@ function AdminProdutosPage() {
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
     if (!editing) return;
+    if (!editing.image) {
+      setMsg("Envie a imagem do produto antes de salvar.");
+      return;
+    }
     setSaving(true);
     setMsg(null);
     const payload = { ...editing, slug: editing.slug || slugify(editing.name) };
