@@ -17,7 +17,7 @@ export function AdminNav() {
   }
 
   return (
-    <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-border pb-5">
+    <div className="sticky top-[9.25rem] z-30 -mx-5 mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-border bg-background/95 px-5 py-4 backdrop-blur md:top-[10.25rem] lg:-mx-8 lg:px-8">
       <nav className="flex flex-wrap gap-2">
         {tabs.map((t) => (
           <Link
