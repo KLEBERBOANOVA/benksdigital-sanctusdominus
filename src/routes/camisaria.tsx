@@ -143,13 +143,13 @@ function CamisariaPage() {
 
   const filtered = useMemo(
     () =>
-      products.filter(
+      catalog.filter(
         (p) =>
           (!cat || p.category === cat) &&
           (!aud || p.audience === aud) &&
           (!faith || faith === getFaithGroup(p))
       ),
-    [cat, aud, faith]
+    [catalog, cat, aud, faith]
   );
 
   const sizeGuide = useMemo<SizeTable | null>(() => {
