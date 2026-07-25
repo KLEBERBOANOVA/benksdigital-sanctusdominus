@@ -150,7 +150,7 @@ function RootComponent() {
       <div className="min-h-screen flex flex-col bg-background">
         <JinglePlayer />
         <Header />
-        <main className="flex-1 pt-[7.25rem]">
+        <main className="flex-1 pt-[9.25rem] md:pt-[10.25rem]">
           <Outlet />
         </main>
         <Footer />
