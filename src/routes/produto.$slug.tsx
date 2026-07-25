@@ -5,7 +5,7 @@ import { getProduct, products } from "@/lib/products";
 import { ProductCard } from "@/components/site/ProductCard";
 import { ProductReviews } from "@/components/site/ProductReviews";
 import { calcularFrete, type ShippingOption } from "@/lib/melhor-envio.functions";
-import { fetchCatalog } from "@/lib/catalog.functions";
+import { fetchCatalog, type CatalogProduct } from "@/lib/catalog.functions";
 import { supabase } from "@/integrations/supabase/client";
 
 const PIX_DISCOUNT = 0.93;
@@ -53,7 +53,7 @@ function getSizesFor(product: { category: string; audience: string }): string[] 
 }
 
 function ProductPage() {
-  const { product, catalog } = Route.useLoaderData();
+  const { product, catalog } = Route.useLoaderData() as { product: CatalogProduct; catalog: CatalogProduct[] };
   const sizes = getSizesFor(product);
   const [size, setSize] = useState(sizes[Math.min(1, sizes.length - 1)]);
   const [zoomed, setZoomed] = useState(false);

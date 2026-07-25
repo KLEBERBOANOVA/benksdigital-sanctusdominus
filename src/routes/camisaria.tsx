@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { products, audiences } from "@/lib/products";
-import { fetchCatalog } from "@/lib/catalog.functions";
+import { fetchCatalog, type CatalogProduct } from "@/lib/catalog.functions";
 
 import { ProductCard } from "@/components/site/ProductCard";
 import { Reveal } from "@/components/site/Reveal";
@@ -114,7 +114,7 @@ export const Route = createFileRoute("/camisaria")({
 });
 
 function CamisariaPage() {
-  const catalog = Route.useLoaderData();
+  const catalog = Route.useLoaderData() as CatalogProduct[];
   const [cat, setCat] = useState<string | null>(null);
   const [aud, setAud] = useState<string | null>(null);
   const [faith, setFaith] = useState<FaithFilter | null>(null);
