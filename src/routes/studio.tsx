@@ -147,9 +147,18 @@ function StudioPage() {
   const [customImage, setCustomImage] = useState<File | null>(null);
   const [customImageUrl, setCustomImageUrl] = useState<string | null>(null);
 
-  const estampaProduct = useMemo(() => studioDesigns.find((design) => design.slug === estampa) ?? null, [estampa]);
+  const studioDesigns = Route.useLoaderData();
+  const collections = useMemo(() => {
+    const base = ["Amor Divino", "Homens de Fé", "Mulheres de Fé", "Apóstolos"];
+    const extras = studioDesigns.map((d) => d.collection).filter((c) => c && !base.includes(c));
+    return [...base, ...Array.from(new Set(extras))].filter((c) =>
+      studioDesigns.some((d) => d.collection === c)
+    );
+  }, [studioDesigns]);
+
+  const estampaProduct = useMemo(() => studioDesigns.find((design) => design.slug === estampa) ?? null, [studioDesigns, estampa]);
   const modeloItem = useMemo(() => MODELS.find((m) => m.key === modelo) ?? null, [modelo]);
-  const previewDesign = useMemo(() => studioDesigns.find((design) => design.slug === previewSlug) ?? null, [previewSlug]);
+  const previewDesign = useMemo(() => studioDesigns.find((design) => design.slug === previewSlug) ?? null, [studioDesigns, previewSlug]);
 
   const openPreview = (slug: string) => {
     setPreviewZoom(1);
