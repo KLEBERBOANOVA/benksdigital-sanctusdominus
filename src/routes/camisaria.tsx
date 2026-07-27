@@ -98,6 +98,8 @@ function getCollectionLabel(product: (typeof products)[number]) {
 
 export const Route = createFileRoute("/camisaria")({
   loader: () => fetchCatalog(),
+  staleTime: 0,
+  shouldReload: true,
   head: () => ({
     meta: [
       { title: "Camisaria | Sanctus Dominus" },

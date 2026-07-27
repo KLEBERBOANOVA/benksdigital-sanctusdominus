@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseHeader } from "@tanstack/react-start/server";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { products as staticProducts, type Product } from "@/lib/products";
@@ -46,6 +47,11 @@ function toProduct(row: Record<string, unknown>): CatalogProduct {
 /** Public catalog read — falls back to the built-in list when the table is empty or unreachable. */
 export const fetchCatalog = createServerFn({ method: "GET" }).handler(async (): Promise<CatalogProduct[]> => {
   try {
+    try {
+      setResponseHeader("Cache-Control", "no-store, max-age=0");
+    } catch {
+      /* header not available in this context */
+    }
     const supabase = serverPublicClient();
     const { data, error } = await supabase
       .from("products")
