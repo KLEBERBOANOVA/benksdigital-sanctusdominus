@@ -4,10 +4,10 @@ import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { products as staticProducts, type Product } from "@/lib/products";
 
-export type CatalogProduct = Product & { id?: string; is_active?: boolean; sort_order?: number };
+export type CatalogProduct = Product & { id?: string; is_active?: boolean; sort_order?: number; sizes?: string };
 
 const COLUMNS =
-  "id, slug, name, collection, category, audience, color, price, image, tagline, description, inspiration, is_active, sort_order";
+  "id, slug, name, collection, category, audience, color, price, image, tagline, description, inspiration, sizes, is_active, sort_order";
 
 function serverPublicClient() {
   const key = process.env.SUPABASE_PUBLISHABLE_KEY!;
@@ -39,6 +39,7 @@ function toProduct(row: Record<string, unknown>): CatalogProduct {
     tagline: (row.tagline as string) ?? "",
     description: (row.description as string) ?? "",
     inspiration: (row.inspiration as string) ?? "",
+    sizes: (row.sizes as string) ?? "",
     is_active: row.is_active as boolean,
     sort_order: row.sort_order as number,
   };
