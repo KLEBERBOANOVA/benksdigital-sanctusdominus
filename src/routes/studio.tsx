@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ImageUp, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
-import { fetchStudioDesigns } from "@/lib/studio.functions";
+import { fetchStudioDesigns, type StudioDesignRow } from "@/lib/studio.functions";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
@@ -147,7 +147,7 @@ function StudioPage() {
   const [customImage, setCustomImage] = useState<File | null>(null);
   const [customImageUrl, setCustomImageUrl] = useState<string | null>(null);
 
-  const studioDesigns = Route.useLoaderData();
+  const studioDesigns = Route.useLoaderData() as StudioDesignRow[];
   const collections = useMemo(() => {
     const base = ["Amor Divino", "Homens de Fé", "Mulheres de Fé", "Apóstolos"];
     const extras = studioDesigns.map((d) => d.collection).filter((c) => c && !base.includes(c));
@@ -337,7 +337,7 @@ function StudioPage() {
                     </div>
                   )}
                 </section>
-                {(["Amor Divino", "Homens de Fé", "Mulheres de Fé", "Apóstolos"] as const).map((collection) => (
+                {collections.map((collection) => (
                   <section key={collection} aria-labelledby={`collection-${collection}`}>
                     <h3
                       id={`collection-${collection}`}
