@@ -45,7 +45,12 @@ export const Route = createFileRoute("/produto/$slug")({
   component: ProductPage,
 });
 
-function getSizesFor(product: { category: string; audience: string }): string[] {
+function getSizesFor(product: { category: string; audience: string; sizes?: string }): string[] {
+  const custom = (product.sizes ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (custom.length) return custom;
   if (product.category === "Plus size") return ["G1", "G2", "G3", "G4", "G5"];
   if (product.category === "Oversize") return ["P", "M", "G", "GG", "G1"];
   if (product.audience === "Infantil")
