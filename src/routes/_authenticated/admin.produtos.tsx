@@ -279,6 +279,30 @@ function AdminProdutosPage() {
               </label>
               <Field label="Chamada (tagline)" value={editing.tagline} onChange={(v) => setEditing({ ...editing, tagline: v })} />
               <Field label="Ordem de exibição" value={String(editing.sort_order)} onChange={(v) => setEditing({ ...editing, sort_order: Number(v.replace(/\D/g, "")) || 0 })} />
+              <label className="block md:col-span-2">
+                <span className="block text-[11px] uppercase tracking-wider text-muted-foreground">Tamanhos disponíveis</span>
+                <input
+                  value={editing.sizes ?? ""}
+                  onChange={(e) => setEditing({ ...editing, sizes: e.target.value })}
+                  placeholder="P, M, G, GG"
+                  className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-bordeaux"
+                />
+                <span className="mt-1 block text-[11px] text-muted-foreground">
+                  Separe por vírgula. Deixe vazio para usar os tamanhos padrão da categoria.
+                </span>
+                <span className="mt-2 flex flex-wrap gap-2">
+                  {SIZE_PRESETS.map((p) => (
+                    <button
+                      key={p.label}
+                      type="button"
+                      onClick={() => setEditing({ ...editing, sizes: p.value })}
+                      className="rounded-full border border-border px-3 py-1 text-[11px] uppercase tracking-wider hover:border-bordeaux hover:text-bordeaux"
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </span>
+              </label>
               <Area label="Descrição" value={editing.description} onChange={(v) => setEditing({ ...editing, description: v })} />
               <Area label="Inspiração" value={editing.inspiration} onChange={(v) => setEditing({ ...editing, inspiration: v })} />
             </div>
