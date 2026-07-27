@@ -120,8 +120,8 @@ function SobrePage() {
       </section>
 
       <section className="py-24 px-5 lg:px-8 bg-navy-deep text-cream">
-        <div className="mx-auto max-w-6xl grid lg:grid-cols-[5fr_7fr] gap-14 items-center">
-          <Reveal>
+        <div className="mx-auto max-w-6xl grid lg:grid-cols-[7fr_5fr] gap-14 items-center">
+          <Reveal className="lg:order-2">
             <div>
               <div className="relative rounded-lg shadow-elegant bg-gradient-to-br from-cream/10 to-cream/5 p-5 ring-1 ring-gold/30 max-w-[460px] mx-auto">
                 <img
@@ -133,14 +133,14 @@ function SobrePage() {
                   height={1600}
                   className="w-full h-auto max-h-[560px] object-contain rounded-md mx-auto"
                 />
-                <div className="absolute -bottom-6 -right-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
+                <div className="absolute -bottom-6 -left-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
                   <p className="font-display text-2xl leading-tight">+25 anos</p>
                   <p className="text-xs tracking-wider uppercase">de design sacro</p>
                 </div>
               </div>
             </div>
           </Reveal>
-          <Reveal delay={150}>
+          <Reveal delay={150} className="lg:order-1">
             <p className="text-xs tracking-[0.4em] uppercase text-gold">O Fundador</p>
             <h2 className="font-display text-4xl md:text-5xl mt-3">Carlos Kleber</h2>
             <p className="font-display italic text-gold/90 mt-1">+25 anos transformando fé em expressão visual.</p>
