@@ -182,14 +182,14 @@ function HomePage() {
           />
         </div>
         <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-center relative">
-          <Reveal className="lg:order-2">
+          <Reveal>
             <div className="relative max-w-[460px] mx-auto">
               <div className="rounded-lg shadow-elegant bg-gradient-to-br from-navy-deep/5 to-bordeaux/5 p-5 ring-1 ring-gold/30">
                 <img
                   src={founderImg}
                   alt="Carlos Kleber — fundador da Sanctus Dominus"
                   loading="lazy"
-                  className="w-full h-auto max-h-[520px] object-contain rounded-md mx-auto"
+                  className="w-full h-auto max-h-[520px] object-contain rounded-md mx-auto scale-x-[-1]"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
@@ -199,7 +199,7 @@ function HomePage() {
             </div>
           </Reveal>
 
-          <Reveal delay={150} className="lg:order-1">
+          <Reveal delay={150}>
             <p className="text-xs tracking-[0.4em] uppercase text-gold mb-5">O Fundador</p>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-foreground">
               Fé, arte e propósito em{" "}
