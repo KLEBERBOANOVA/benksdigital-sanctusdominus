@@ -203,6 +203,45 @@ export type Database = {
         }
         Relationships: []
       }
+      studio_designs: {
+        Row: {
+          collection: string
+          created_at: string
+          id: string
+          image: string
+          is_active: boolean
+          name: string
+          slug: string
+          sort_order: number
+          subtitle: string
+          updated_at: string
+        }
+        Insert: {
+          collection?: string
+          created_at?: string
+          id?: string
+          image?: string
+          is_active?: boolean
+          name: string
+          slug: string
+          sort_order?: number
+          subtitle?: string
+          updated_at?: string
+        }
+        Update: {
+          collection?: string
+          created_at?: string
+          id?: string
+          image?: string
+          is_active?: boolean
+          name?: string
+          slug?: string
+          sort_order?: number
+          subtitle?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

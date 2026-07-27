@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { LogOut, Package, MessageCircle, Shirt, Home } from "lucide-react";
+import { LogOut, Package, MessageCircle, Shirt, Home, Palette } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const tabs = [
   { to: "/admin/produtos", label: "Produtos", icon: Shirt },
+  { to: "/admin/estampas", label: "Estampas", icon: Palette },
   { to: "/admin/whatsapp", label: "Pedidos WhatsApp", icon: MessageCircle },
   { to: "/admin/pedidos", label: "Pedidos & Etiquetas", icon: Package },
 ] as const;

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ImageUp, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
-import { studioDesigns } from "@/lib/studio-designs";
+import { fetchStudioDesigns, type StudioDesignRow } from "@/lib/studio.functions";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
@@ -25,8 +25,18 @@ export const Route = createFileRoute("/studio")({
     ],
     links: [{ rel: "canonical", href: "/studio" }],
   }),
+  loader: () => fetchStudioDesigns(),
+  staleTime: 0,
+  shouldReload: true,
+  errorComponent: ({ error }) => (
+    <div role="alert" className="px-5 py-20 text-center text-muted-foreground">
+      Não foi possível carregar as estampas. {error.message}
+    </div>
+  ),
+  notFoundComponent: () => <div className="px-5 py-20 text-center">Nenhuma estampa encontrada.</div>,
   component: StudioPage,
 });
+
 
 type StepKey = "estampa" | "cor" | "modelo" | "tamanho" | "pedido";
 
@@ -137,9 +147,18 @@ function StudioPage() {
   const [customImage, setCustomImage] = useState<File | null>(null);
   const [customImageUrl, setCustomImageUrl] = useState<string | null>(null);
 
-  const estampaProduct = useMemo(() => studioDesigns.find((design) => design.slug === estampa) ?? null, [estampa]);
+  const studioDesigns = Route.useLoaderData() as StudioDesignRow[];
+  const collections = useMemo(() => {
+    const base = ["Amor Divino", "Homens de Fé", "Mulheres de Fé", "Apóstolos"];
+    const extras = studioDesigns.map((d) => d.collection).filter((c) => c && !base.includes(c));
+    return [...base, ...Array.from(new Set(extras))].filter((c) =>
+      studioDesigns.some((d) => d.collection === c)
+    );
+  }, [studioDesigns]);
+
+  const estampaProduct = useMemo(() => studioDesigns.find((design) => design.slug === estampa) ?? null, [studioDesigns, estampa]);
   const modeloItem = useMemo(() => MODELS.find((m) => m.key === modelo) ?? null, [modelo]);
-  const previewDesign = useMemo(() => studioDesigns.find((design) => design.slug === previewSlug) ?? null, [previewSlug]);
+  const previewDesign = useMemo(() => studioDesigns.find((design) => design.slug === previewSlug) ?? null, [studioDesigns, previewSlug]);
 
   const openPreview = (slug: string) => {
     setPreviewZoom(1);
@@ -318,7 +337,7 @@ function StudioPage() {
                     </div>
                   )}
                 </section>
-                {(["Amor Divino", "Homens de Fé", "Mulheres de Fé", "Apóstolos"] as const).map((collection) => (
+                {collections.map((collection) => (
                   <section key={collection} aria-labelledby={`collection-${collection}`}>
                     <h3
                       id={`collection-${collection}`}
@@ -350,6 +369,9 @@ function StudioPage() {
                               </div>
                               <div className="p-3 pr-12">
                                 <p className="font-display text-sm text-foreground line-clamp-2">{design.name}</p>
+                                {design.subtitle && (
+                                  <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">{design.subtitle}</p>
+                                )}
                                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground mt-1">
                                   {design.collection}
                                 </p>
