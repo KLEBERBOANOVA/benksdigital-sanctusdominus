@@ -160,6 +160,7 @@ export type Database = {
           is_active: boolean
           name: string
           price: string
+          sizes: string
           slug: string
           sort_order: number
           tagline: string
@@ -178,6 +179,7 @@ export type Database = {
           is_active?: boolean
           name: string
           price?: string
+          sizes?: string
           slug: string
           sort_order?: number
           tagline?: string
@@ -196,6 +198,7 @@ export type Database = {
           is_active?: boolean
           name?: string
           price?: string
+          sizes?: string
           slug?: string
           sort_order?: number
           tagline?: string
