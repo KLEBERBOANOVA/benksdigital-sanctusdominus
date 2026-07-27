@@ -369,6 +369,9 @@ function StudioPage() {
                               </div>
                               <div className="p-3 pr-12">
                                 <p className="font-display text-sm text-foreground line-clamp-2">{design.name}</p>
+                                {design.subtitle && (
+                                  <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">{design.subtitle}</p>
+                                )}
                                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground mt-1">
                                   {design.collection}
                                 </p>
