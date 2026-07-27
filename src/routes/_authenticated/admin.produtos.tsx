@@ -18,6 +18,7 @@ type Row = {
   tagline: string;
   description: string;
   inspiration: string;
+  sizes: string;
   is_active: boolean;
   sort_order: number;
 };
