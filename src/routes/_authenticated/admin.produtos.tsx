@@ -38,6 +38,7 @@ const EMPTY: Omit<Row, "id"> = {
   tagline: "",
   description: "",
   inspiration: "",
+  sizes: "",
   is_active: true,
   sort_order: 0,
 };
