@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ImageUp, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
-import { studioDesigns } from "@/lib/studio-designs";
+import { fetchStudioDesigns } from "@/lib/studio.functions";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
@@ -25,8 +25,18 @@ export const Route = createFileRoute("/studio")({
     ],
     links: [{ rel: "canonical", href: "/studio" }],
   }),
+  loader: () => fetchStudioDesigns(),
+  staleTime: 0,
+  shouldReload: true,
+  errorComponent: ({ error }) => (
+    <div role="alert" className="px-5 py-20 text-center text-muted-foreground">
+      Não foi possível carregar as estampas. {error.message}
+    </div>
+  ),
+  notFoundComponent: () => <div className="px-5 py-20 text-center">Nenhuma estampa encontrada.</div>,
   component: StudioPage,
 });
+
 
 type StepKey = "estampa" | "cor" | "modelo" | "tamanho" | "pedido";
 

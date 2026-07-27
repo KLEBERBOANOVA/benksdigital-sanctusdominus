@@ -21,6 +21,7 @@ import { Route as ProdutoSlugRouteImport } from './routes/produto.$slug'
 import { Route as AuthenticatedAdminWhatsappRouteImport } from './routes/_authenticated/admin.whatsapp'
 import { Route as AuthenticatedAdminProdutosRouteImport } from './routes/_authenticated/admin.produtos'
 import { Route as AuthenticatedAdminPedidosRouteImport } from './routes/_authenticated/admin.pedidos'
+import { Route as AuthenticatedAdminEstampasRouteImport } from './routes/_authenticated/admin.estampas'
 
 const StudioRoute = StudioRouteImport.update({
   id: '/studio',
@@ -84,6 +85,12 @@ const AuthenticatedAdminPedidosRoute =
     path: '/admin/pedidos',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminEstampasRoute =
+  AuthenticatedAdminEstampasRouteImport.update({
+    id: '/admin/estampas',
+    path: '/admin/estampas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/sobre': typeof SobreRoute
   '/studio': typeof StudioRoute
   '/produto/$slug': typeof ProdutoSlugRoute
+  '/admin/estampas': typeof AuthenticatedAdminEstampasRoute
   '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
   '/admin/produtos': typeof AuthenticatedAdminProdutosRoute
   '/admin/whatsapp': typeof AuthenticatedAdminWhatsappRoute
@@ -107,6 +115,7 @@ export interface FileRoutesByTo {
   '/sobre': typeof SobreRoute
   '/studio': typeof StudioRoute
   '/produto/$slug': typeof ProdutoSlugRoute
+  '/admin/estampas': typeof AuthenticatedAdminEstampasRoute
   '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
   '/admin/produtos': typeof AuthenticatedAdminProdutosRoute
   '/admin/whatsapp': typeof AuthenticatedAdminWhatsappRoute
@@ -122,6 +131,7 @@ export interface FileRoutesById {
   '/sobre': typeof SobreRoute
   '/studio': typeof StudioRoute
   '/produto/$slug': typeof ProdutoSlugRoute
+  '/_authenticated/admin/estampas': typeof AuthenticatedAdminEstampasRoute
   '/_authenticated/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
   '/_authenticated/admin/produtos': typeof AuthenticatedAdminProdutosRoute
   '/_authenticated/admin/whatsapp': typeof AuthenticatedAdminWhatsappRoute
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/studio'
     | '/produto/$slug'
+    | '/admin/estampas'
     | '/admin/pedidos'
     | '/admin/produtos'
     | '/admin/whatsapp'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/studio'
     | '/produto/$slug'
+    | '/admin/estampas'
     | '/admin/pedidos'
     | '/admin/produtos'
     | '/admin/whatsapp'
@@ -164,6 +176,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/studio'
     | '/produto/$slug'
+    | '/_authenticated/admin/estampas'
     | '/_authenticated/admin/pedidos'
     | '/_authenticated/admin/produtos'
     | '/_authenticated/admin/whatsapp'
@@ -267,16 +280,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPedidosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/estampas': {
+      id: '/_authenticated/admin/estampas'
+      path: '/admin/estampas'
+      fullPath: '/admin/estampas'
+      preLoaderRoute: typeof AuthenticatedAdminEstampasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminEstampasRoute: typeof AuthenticatedAdminEstampasRoute
   AuthenticatedAdminPedidosRoute: typeof AuthenticatedAdminPedidosRoute
   AuthenticatedAdminProdutosRoute: typeof AuthenticatedAdminProdutosRoute
   AuthenticatedAdminWhatsappRoute: typeof AuthenticatedAdminWhatsappRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminEstampasRoute: AuthenticatedAdminEstampasRoute,
   AuthenticatedAdminPedidosRoute: AuthenticatedAdminPedidosRoute,
   AuthenticatedAdminProdutosRoute: AuthenticatedAdminProdutosRoute,
   AuthenticatedAdminWhatsappRoute: AuthenticatedAdminWhatsappRoute,
