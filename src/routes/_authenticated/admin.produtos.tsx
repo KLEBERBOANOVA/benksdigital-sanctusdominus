@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Loader2, Plus, Pencil, Trash2, Search, Download, Eye, EyeOff, Shirt } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -100,6 +100,8 @@ function AdminProdutosPage() {
     }
   }
 
+  const router = useRouter();
+
   async function load() {
     setLoading(true);
     const { data, error } = await supabase
@@ -159,6 +161,7 @@ function AdminProdutosPage() {
     setMsg(id ? "Produto atualizado." : "Produto cadastrado.");
     setEditing(null);
     await load();
+    await router.invalidate();
   }
 
   async function toggleActive(row: Row) {
@@ -168,6 +171,7 @@ function AdminProdutosPage() {
       .eq("id", row.id);
     if (error) setMsg(`Falha ao alterar situação: ${error.message}`);
     await load();
+    await router.invalidate();
   }
 
   async function handleDelete(row: Row) {
@@ -176,6 +180,7 @@ function AdminProdutosPage() {
     if (error) setMsg(`Falha ao excluir: ${error.message}`);
     else setMsg("Produto excluído.");
     await load();
+    await router.invalidate();
   }
 
   return (

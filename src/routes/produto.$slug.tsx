@@ -16,6 +16,8 @@ function pixPrice(price: string) {
 }
 
 export const Route = createFileRoute("/produto/$slug")({
+  staleTime: 0,
+  shouldReload: true,
   loader: async ({ params }) => {
     const catalog = await fetchCatalog();
     const product = catalog.find((p) => p.slug === params.slug) ?? getProduct(params.slug);

@@ -5,11 +5,17 @@ import founderAsset from "@/assets/founder-carlos-2026.jpg.asset.json";
 const founderImg = founderAsset.url;
 import studioImg from "@/assets/studio-art.jpg";
 import { products } from "@/lib/products";
+import { fetchCatalog, type CatalogProduct } from "@/lib/catalog.functions";
 import { ProductCard } from "@/components/site/ProductCard";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Reveal } from "@/components/site/Reveal";
 
 export const Route = createFileRoute("/")({
+  loader: () => fetchCatalog(),
+  staleTime: 0,
+  shouldReload: true,
+  errorComponent: () => <div className="py-32 text-center text-muted-foreground">Erro ao carregar a página.</div>,
+  notFoundComponent: () => <div className="py-32 text-center text-muted-foreground">Página não encontrada.</div>,
   head: () => ({
     meta: [
       { title: "Sanctus Dominus | Moda e Arte Católica que Evangeliza" },
@@ -35,6 +41,8 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
+  const catalog = (Route.useLoaderData() as CatalogProduct[]) ?? [];
+  const featured = catalog.length ? catalog : products;
   const pillars = [
     { icon: Heart, title: "Fé com Propósito", text: "Cada criação nasce da missão de anunciar Cristo." },
     { icon: Sparkles, title: "Excelência Criativa", text: "Qualidade, originalidade e identidade marcante." },
@@ -110,7 +118,7 @@ function HomePage() {
           </Reveal>
 
           <div className="mt-10 md:mt-16 grid gap-5 sm:gap-8 md:gap-10 grid-cols-2 lg:grid-cols-3">
-            {products.slice(0, 9).map((p, i) => (
+            {featured.slice(0, 9).map((p, i) => (
               <Reveal key={p.slug} delay={i * 120}>
                 <ProductCard product={p} />
               </Reveal>
@@ -174,7 +182,7 @@ function HomePage() {
           />
         </div>
         <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-center relative">
-          <Reveal>
+          <Reveal className="lg:order-2">
             <div className="relative max-w-[460px] mx-auto">
               <div className="rounded-lg shadow-elegant bg-gradient-to-br from-navy-deep/5 to-bordeaux/5 p-5 ring-1 ring-gold/30">
                 <img
@@ -184,14 +192,14 @@ function HomePage() {
                   className="w-full h-auto max-h-[520px] object-contain rounded-md mx-auto"
                 />
               </div>
-              <div className="absolute -bottom-6 -left-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
+              <div className="absolute -bottom-6 -right-6 hidden md:block bg-gradient-gold text-navy-deep px-6 py-4 rounded-lg shadow-gold">
                 <p className="font-display text-2xl leading-tight">Carlos Kleber</p>
                 <p className="text-xs tracking-wider uppercase">Fundador & Designer</p>
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={150}>
+          <Reveal delay={150} className="lg:order-1">
             <p className="text-xs tracking-[0.4em] uppercase text-gold mb-5">O Fundador</p>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-foreground">
               Fé, arte e propósito em{" "}
