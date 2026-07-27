@@ -26,6 +26,14 @@ type Row = {
 const CATEGORIES = ["Camiseta", "Baby Look", "Moletom", "Boné", "Oversize", "Plus size"];
 const AUDIENCES = ["Masculino", "Feminino", "Unissex", "Infantil"];
 
+const SIZE_PRESETS: { label: string; value: string }[] = [
+  { label: "Padrão", value: "P, M, G, GG" },
+  { label: "Feminino", value: "PP, P, M, G, GG" },
+  { label: "Oversize", value: "P, M, G, GG, G1" },
+  { label: "Plus size", value: "G1, G2, G3, G4, G5" },
+  { label: "Infantil", value: "02 ANOS, 04 ANOS, 06 ANOS, 08 ANOS, 10 ANOS, 12 ANOS, 14 ANOS, 16 ANOS" },
+];
+
 const EMPTY: Omit<Row, "id"> = {
   slug: "",
   name: "",
