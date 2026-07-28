@@ -148,7 +148,7 @@ function StudioPage() {
   const [customImage, setCustomImage] = useState<File | null>(null);
   const [customImageUrl, setCustomImageUrl] = useState<string | null>(null);
 
-  const studioDesigns = Route.useLoaderData() as StudioDesignRow[];
+  const studioDesigns = useLiveStudioDesigns(Route.useLoaderData() as StudioDesignRow[]);
   const collections = useMemo(() => {
     const base = ["Amor Divino", "Homens de Fé", "Mulheres de Fé", "Apóstolos"];
     const extras = studioDesigns.map((d) => d.collection).filter((c) => c && !base.includes(c));
