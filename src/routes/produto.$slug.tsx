@@ -157,7 +157,7 @@ function ProductPage() {
       linhas.push(buyer.observacoes.trim());
     }
     linhas.push("");
-    linhas.push("_Pedido enviado pelo site sanctusdominus.com_");
+    linhas.push("_Pedido enviado pelo site sanctusdominus.com.br_");
     return linhas.join("\n");
   }
 
