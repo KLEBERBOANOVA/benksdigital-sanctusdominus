@@ -4,6 +4,7 @@ import { Loader2, Plus, Pencil, Trash2, Search, Download, Eye, EyeOff, Shirt } f
 import { supabase } from "@/integrations/supabase/client";
 import { AdminNav } from "@/components/site/AdminNav";
 import { importStaticCatalog } from "@/lib/catalog.functions";
+import { assetUrl } from "@/lib/asset-url";
 
 type Row = {
   id: string;
@@ -317,7 +318,7 @@ function AdminProdutosPage() {
 
             {editing.image && (
               <img
-                src={editing.image}
+                src={assetUrl(editing.image)}
                 alt="Pré-visualização do produto"
                 className="mt-4 h-40 w-auto rounded-lg border border-border object-cover"
               />
@@ -365,7 +366,7 @@ function AdminProdutosPage() {
               {filtered.map((r) => (
                 <li key={r.id} className="flex gap-4 rounded-lg border border-border bg-card p-4">
                   <img
-                    src={r.image}
+                    src={assetUrl(r.image)}
                     alt={r.name}
                     loading="lazy"
                     className="h-24 w-20 shrink-0 rounded-md border border-border object-cover"

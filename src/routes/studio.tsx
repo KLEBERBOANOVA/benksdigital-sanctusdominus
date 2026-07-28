@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { assetUrl } from "@/lib/asset-url";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ImageUp, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
 import { fetchStudioDesigns, type StudioDesignRow } from "@/lib/studio.functions";
@@ -360,7 +361,7 @@ function StudioPage() {
                             <button type="button" onClick={() => { setEstampa(design.slug); setCustomImage(null); }} className="w-full text-left">
                               <div className="aspect-square overflow-hidden bg-muted">
                                 <img
-                                  src={design.image}
+                                  src={assetUrl(design.image)}
                                   alt={`Estampa ${design.name}`}
                                   loading="lazy"
                                   decoding="async"
@@ -492,7 +493,7 @@ function StudioPage() {
                   <div className="mt-6 grid grid-cols-[120px_1fr] gap-4 items-center">
                     {(estampaProduct || customImageUrl) && (
                       <img
-                        src={customImageUrl ?? estampaProduct?.image}
+                        src={customImageUrl ?? assetUrl(estampaProduct?.image)}
                         alt={customImage ? "Imagem própria" : estampaProduct?.name}
                         loading="lazy"
                         decoding="async"
@@ -640,7 +641,7 @@ function StudioPage() {
               >
                 <div className="flex min-h-full min-w-full items-center justify-center">
                   <img
-                    src={previewDesign.image}
+                    src={assetUrl(previewDesign.image)}
                     alt={`Detalhes da estampa ${previewDesign.name}`}
                     decoding="async"
                     className="max-w-none object-contain transition-[width] duration-150"

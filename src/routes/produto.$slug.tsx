@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { assetUrl } from "@/lib/asset-url";
 import { ArrowLeft, MessageCircle, Truck, ShieldCheck, Scissors, X, ZoomIn, Loader2, Search, User, Phone, Mail, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getProduct, products } from "@/lib/products";
@@ -231,7 +232,7 @@ function ProductPage() {
               aria-label="Ampliar imagem do produto"
               className="group relative aspect-[4/5] overflow-hidden rounded-lg bg-muted shadow-elegant cursor-zoom-in"
             >
-              <img src={product.image} alt={product.name} loading="eager" decoding="async" fetchPriority="high" width={800} height={1000} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <img src={assetUrl(product.image)} alt={product.name} loading="eager" decoding="async" fetchPriority="high" width={800} height={1000} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               <span className="absolute top-5 left-5 text-[10px] tracking-[0.2em] uppercase bg-navy-deep/85 text-gold px-3 py-1 rounded-full">
                 Coleção {product.collection}
               </span>
@@ -416,7 +417,7 @@ function ProductPage() {
             <X className="h-5 w-5" />
           </button>
           <img
-            src={product.image}
+            src={assetUrl(product.image)}
             alt={product.name}
             loading="lazy"
             decoding="async"

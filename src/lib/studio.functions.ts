@@ -3,6 +3,7 @@ import { setResponseHeader } from "@tanstack/react-start/server";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { studioDesigns as staticDesigns } from "@/lib/studio-designs";
+import { assetUrl } from "@/lib/asset-url";
 
 export type StudioDesignRow = {
   id?: string;
@@ -18,8 +19,8 @@ export type StudioDesignRow = {
 const COLUMNS = "id, slug, name, subtitle, collection, image, is_active, sort_order";
 
 function serverPublicClient() {
-  const key = process.env.SUPABASE_PUBLISHABLE_KEY!;
-  const url = process.env.SUPABASE_URL!;
+  const key = process.env.SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY!;
+  const url = process.env.SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL!;
   return createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
     global: {
@@ -39,7 +40,7 @@ function fallback(): StudioDesignRow[] {
     name: d.name,
     subtitle: "",
     collection: d.collection,
-    image: d.image,
+    image: assetUrl(d.image),
     is_active: true,
     sort_order: (i + 1) * 10,
   }));
@@ -60,7 +61,7 @@ export const fetchStudioDesigns = createServerFn({ method: "GET" }).handler(asyn
       .eq("is_active", true)
       .order("sort_order", { ascending: true });
     if (error || !data || data.length === 0) return fallback();
-    return data as unknown as StudioDesignRow[];
+    return (data as unknown as StudioDesignRow[]).map((d) => ({ ...d, image: assetUrl(d.image) }));
   } catch {
     return fallback();
   }
