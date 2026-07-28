@@ -5,10 +5,10 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { products as staticProducts, type Product } from "@/lib/products";
 import { assetUrl } from "@/lib/asset-url";
 
-export type CatalogProduct = Product & { id?: string; is_active?: boolean; sort_order?: number; sizes?: string };
+export type CatalogProduct = Product & { id?: string; is_active?: boolean; sort_order?: number; sizes?: string; old_price?: string };
 
 const COLUMNS =
-  "id, slug, name, collection, category, audience, color, price, image, tagline, description, inspiration, sizes, is_active, sort_order";
+  "id, slug, name, collection, category, audience, color, price, old_price, image, tagline, description, inspiration, sizes, is_active, sort_order";
 
 function serverPublicClient() {
   const key = process.env.SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY!;
@@ -37,6 +37,7 @@ function toProduct(row: Record<string, unknown>): CatalogProduct {
     audience: (row.audience as Product["audience"]) ?? "Unissex",
     color: (row.color as string) ?? "",
     price: (row.price as string) ?? "",
+    old_price: (row.old_price as string) ?? "",
     image: assetUrl(row.image as string),
     tagline: (row.tagline as string) ?? "",
     description: (row.description as string) ?? "",
