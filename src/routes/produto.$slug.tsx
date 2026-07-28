@@ -7,6 +7,7 @@ import { ProductCard } from "@/components/site/ProductCard";
 import { ProductReviews } from "@/components/site/ProductReviews";
 import { calcularFrete, type ShippingOption } from "@/lib/melhor-envio.functions";
 import { fetchCatalog, type CatalogProduct } from "@/lib/catalog.functions";
+import { useLiveCatalog } from "@/lib/use-live-catalog";
 import { supabase } from "@/integrations/supabase/client";
 
 const PIX_DISCOUNT = 0.93;
@@ -61,7 +62,9 @@ function getSizesFor(product: { category: string; audience: string; sizes?: stri
 }
 
 function ProductPage() {
-  const { product, catalog } = Route.useLoaderData() as { product: CatalogProduct; catalog: CatalogProduct[] };
+  const loaded = Route.useLoaderData() as { product: CatalogProduct; catalog: CatalogProduct[] };
+  const catalog = useLiveCatalog(loaded.catalog);
+  const product = catalog.find((p) => p.slug === loaded.product.slug) ?? loaded.product;
   const sizes = getSizesFor(product);
   const [size, setSize] = useState(sizes[Math.min(1, sizes.length - 1)]);
   const [zoomed, setZoomed] = useState(false);
@@ -254,9 +257,11 @@ function ProductPage() {
               </div>
 
               <div className="mt-8">
-                <p className="text-sm text-muted-foreground line-through">De {product.price}</p>
-                <p className="font-display text-4xl text-gold">{pixPrice(product.price)} <span className="text-lg">no Pix</span></p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">7% de desconto</p>
+                {product.old_price?.trim() ? (
+                  <p className="text-sm text-muted-foreground line-through">De {product.old_price}</p>
+                ) : null}
+                <p className="font-display text-4xl text-gold">{product.price}</p>
+                <p className="mt-1 text-sm text-foreground/80">{pixPrice(product.price)} no Pix <span className="text-xs uppercase tracking-wider text-muted-foreground">(7% de desconto)</span></p>
               </div>
 
               <div className="mt-6">

@@ -6,6 +6,7 @@ const founderImg = founderAsset.url;
 import studioImg from "@/assets/studio-art.jpg";
 import { products } from "@/lib/products";
 import { fetchCatalog, type CatalogProduct } from "@/lib/catalog.functions";
+import { useLiveCatalog } from "@/lib/use-live-catalog";
 import { ProductCard } from "@/components/site/ProductCard";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Reveal } from "@/components/site/Reveal";
@@ -41,7 +42,7 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const catalog = (Route.useLoaderData() as CatalogProduct[]) ?? [];
+  const catalog = useLiveCatalog((Route.useLoaderData() as CatalogProduct[]) ?? []);
   const featured = catalog.length ? catalog : products;
   const pillars = [
     { icon: Heart, title: "Fé com Propósito", text: "Cada criação nasce da missão de anunciar Cristo." },

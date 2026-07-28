@@ -15,6 +15,7 @@ type Row = {
   audience: string;
   color: string;
   price: string;
+  old_price: string;
   image: string;
   tagline: string;
   description: string;
@@ -43,6 +44,7 @@ const EMPTY: Omit<Row, "id"> = {
   audience: "Unissex",
   color: "",
   price: "R$ 89,90",
+  old_price: "",
   image: "",
   tagline: "",
   description: "",
@@ -253,6 +255,7 @@ function AdminProdutosPage() {
               <Select label="Público" value={editing.audience} options={AUDIENCES} onChange={(v) => setEditing({ ...editing, audience: v })} />
               <Field label="Cor" value={editing.color} onChange={(v) => setEditing({ ...editing, color: v })} />
               <Field label="Preço *" value={editing.price} onChange={(v) => setEditing({ ...editing, price: v })} required />
+              <Field label='Valor antigo (opcional) — ex.: R$ 119,90' value={editing.old_price ?? ""} onChange={(v) => setEditing({ ...editing, old_price: v })} />
               <label className="block md:col-span-2">
                 <span className="block text-[11px] uppercase tracking-wider text-muted-foreground">Imagem do produto *</span>
                 <div className="mt-1 flex flex-wrap items-center gap-3">
@@ -376,7 +379,10 @@ function AdminProdutosPage() {
                     <p className="truncate text-xs text-muted-foreground">
                       {r.category} · {r.audience} · {r.collection}
                     </p>
-                    <p className="mt-1 text-sm text-bordeaux">{r.price}</p>
+                    <p className="mt-1 text-sm text-bordeaux">
+                      {r.old_price ? <span className="mr-2 text-xs text-muted-foreground line-through">{r.old_price}</span> : null}
+                      {r.price}
+                    </p>
                     <p className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">
                       {r.is_active ? "Visível" : "Oculto"} · ordem {r.sort_order}
                     </p>
