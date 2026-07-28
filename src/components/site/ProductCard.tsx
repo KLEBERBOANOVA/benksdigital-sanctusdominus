@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { assetUrl } from "@/lib/asset-url";
 import { ArrowRight, ShoppingBag } from "lucide-react";
-import type { Product } from "@/lib/products";
+import type { CatalogProduct } from "@/lib/catalog.functions";
 
 const WHATSAPP_NUMBER = "5581982202007";
 const PIX_DISCOUNT = 0.93;
@@ -11,7 +11,8 @@ function pixPrice(price: string) {
   return Number.isFinite(value) ? (value * PIX_DISCOUNT).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : price;
 }
 
-export function ProductCard({ product, collectionLabel }: { product: Product; collectionLabel?: string }) {
+export function ProductCard({ product, collectionLabel }: { product: CatalogProduct; collectionLabel?: string }) {
+  const oldPrice = product.old_price?.trim();
   const buyHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Olá! Tenho interesse na peça "${product.name}" (${product.category} · ${product.color}) — ${product.price}, ou ${pixPrice(product.price)} no Pix com 7% de desconto.`
   )}`;
@@ -48,8 +49,9 @@ export function ProductCard({ product, collectionLabel }: { product: Product; co
         <div className="hidden sm:block absolute bottom-3 left-3 z-10">
           <div className="rounded-xl bg-gradient-gold px-4 py-2 text-navy-deep shadow-gold ring-1 ring-gold/40 backdrop-blur">
             <p className="text-[9px] uppercase tracking-[0.24em] font-semibold opacity-75">Preço</p>
-            <p className="text-[10px] line-through opacity-70">{product.price}</p>
-            <p className="font-display text-xl leading-none font-bold">{pixPrice(product.price)} no Pix</p>
+            {oldPrice ? <p className="text-[10px] line-through opacity-70">De {oldPrice}</p> : null}
+            <p className="font-display text-xl leading-none font-bold">{product.price}</p>
+            <p className="text-[10px] opacity-80">{pixPrice(product.price)} no Pix</p>
           </div>
         </div>
 
@@ -71,8 +73,9 @@ export function ProductCard({ product, collectionLabel }: { product: Product; co
         <div className="mt-3 sm:mt-4 flex items-end justify-between gap-2 sm:gap-3 border-t border-dashed border-border/70 pt-3 sm:pt-4">
           <div>
             <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] sm:tracking-[0.22em] text-muted-foreground">Investimento</p>
-            <p className="text-[10px] sm:text-xs text-muted-foreground line-through">{product.price}</p>
-            <p className="font-display text-lg sm:text-2xl leading-none text-bordeaux font-bold">{pixPrice(product.price)} <span className="text-xs">no Pix</span></p>
+            {oldPrice ? <p className="text-[10px] sm:text-xs text-muted-foreground line-through">De {oldPrice}</p> : null}
+            <p className="font-display text-lg sm:text-2xl leading-none text-bordeaux font-bold">{product.price}</p>
+            <p className="text-[10px] sm:text-xs text-muted-foreground">{pixPrice(product.price)} no Pix</p>
           </div>
           <p className="hidden sm:block text-right text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
             peça

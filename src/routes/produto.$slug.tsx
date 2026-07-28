@@ -254,9 +254,11 @@ function ProductPage() {
               </div>
 
               <div className="mt-8">
-                <p className="text-sm text-muted-foreground line-through">De {product.price}</p>
-                <p className="font-display text-4xl text-gold">{pixPrice(product.price)} <span className="text-lg">no Pix</span></p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">7% de desconto</p>
+                {product.old_price?.trim() ? (
+                  <p className="text-sm text-muted-foreground line-through">De {product.old_price}</p>
+                ) : null}
+                <p className="font-display text-4xl text-gold">{product.price}</p>
+                <p className="mt-1 text-sm text-foreground/80">{pixPrice(product.price)} no Pix <span className="text-xs uppercase tracking-wider text-muted-foreground">(7% de desconto)</span></p>
               </div>
 
               <div className="mt-6">
