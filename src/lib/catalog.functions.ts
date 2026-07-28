@@ -10,8 +10,9 @@ const COLUMNS =
   "id, slug, name, collection, category, audience, color, price, image, tagline, description, inspiration, sizes, is_active, sort_order";
 
 function serverPublicClient() {
-  const key = process.env.SUPABASE_PUBLISHABLE_KEY!;
-  const url = process.env.SUPABASE_URL!;
+  const key = process.env.SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY!;
+  const url = process.env.SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL!;
+
   return createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
     global: {
