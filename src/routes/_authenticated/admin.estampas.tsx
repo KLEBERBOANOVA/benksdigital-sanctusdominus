@@ -1,4 +1,5 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { assetUrl } from "@/lib/asset-url";
 import { useEffect, useMemo, useState } from "react";
 import { Loader2, Plus, Pencil, Trash2, Search, Download, Eye, EyeOff, Palette } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -278,7 +279,7 @@ function AdminEstampasPage() {
 
             {editing.image && (
               <img
-                src={editing.image}
+                src={assetUrl(editing.image)}
                 alt="Pré-visualização da estampa"
                 className="mt-4 h-40 w-auto rounded-lg border border-border bg-muted object-contain p-2"
               />
@@ -326,7 +327,7 @@ function AdminEstampasPage() {
               {filtered.map((r) => (
                 <li key={r.id} className="flex gap-4 rounded-lg border border-border bg-card p-4">
                   <img
-                    src={r.image}
+                    src={assetUrl(r.image)}
                     alt={r.name}
                     loading="lazy"
                     className="h-24 w-20 shrink-0 rounded-md border border-border bg-muted object-contain p-1"

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { assetUrl } from "@/lib/asset-url";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import type { Product } from "@/lib/products";
 
@@ -25,7 +26,7 @@ export function ProductCard({ product, collectionLabel }: { product: Product; co
         className="relative block aspect-[4/5] overflow-hidden bg-muted"
       >
         <img
-          src={product.image}
+          src={assetUrl(product.image)}
           alt={`${product.name} — ${product.tagline}`}
           loading="lazy"
           decoding="async"
