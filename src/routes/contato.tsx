@@ -23,10 +23,25 @@ function ContatoPage() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const body = encodeURIComponent(`Nome: ${form.nome}\nEmail: ${form.email}\n\n${form.mensagem}`);
-    window.location.href = `mailto:sanctusdominusoficial@gmail.com?subject=${encodeURIComponent(form.assunto || "Contato pelo site")}&body=${body}`;
+    const body = encodeURIComponent(
+      `Nome: ${form.nome}\nEmail: ${form.email}\n\n${form.mensagem}`
+    );
+    const href = `mailto:sanctusdominusoficial@gmail.com?subject=${encodeURIComponent(
+      form.assunto || "Contato pelo site"
+    )}&body=${body}`;
+
+    // Abre o cliente de e-mail do usuário (funciona também dentro de iframes)
+    const a = document.createElement("a");
+    a.href = href;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
     setSent(true);
   };
+
 
   return (
     <>
