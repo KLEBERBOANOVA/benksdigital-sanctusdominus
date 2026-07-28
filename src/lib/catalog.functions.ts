@@ -3,6 +3,7 @@ import { setResponseHeader } from "@tanstack/react-start/server";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { products as staticProducts, type Product } from "@/lib/products";
+import { assetUrl } from "@/lib/asset-url";
 
 export type CatalogProduct = Product & { id?: string; is_active?: boolean; sort_order?: number; sizes?: string };
 
@@ -36,7 +37,7 @@ function toProduct(row: Record<string, unknown>): CatalogProduct {
     audience: (row.audience as Product["audience"]) ?? "Unissex",
     color: (row.color as string) ?? "",
     price: (row.price as string) ?? "",
-    image: (row.image as string) ?? "",
+    image: assetUrl(row.image as string),
     tagline: (row.tagline as string) ?? "",
     description: (row.description as string) ?? "",
     inspiration: (row.inspiration as string) ?? "",
@@ -60,10 +61,11 @@ export const fetchCatalog = createServerFn({ method: "GET" }).handler(async (): 
       .select(COLUMNS)
       .eq("is_active", true)
       .order("sort_order", { ascending: true });
-    if (error || !data || data.length === 0) return staticProducts as CatalogProduct[];
+    if (error || !data || data.length === 0)
+      return (staticProducts as CatalogProduct[]).map((p) => ({ ...p, image: assetUrl(p.image) }));
     return (data as Record<string, unknown>[]).map(toProduct);
   } catch {
-    return staticProducts as CatalogProduct[];
+    return (staticProducts as CatalogProduct[]).map((p) => ({ ...p, image: assetUrl(p.image) }));
   }
 });
 
