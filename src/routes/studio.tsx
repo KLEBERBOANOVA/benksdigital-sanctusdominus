@@ -3,6 +3,7 @@ import { assetUrl } from "@/lib/asset-url";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ImageUp, RotateCcw, ShoppingBag, ZoomIn, ZoomOut } from "lucide-react";
 import { fetchStudioDesigns, type StudioDesignRow } from "@/lib/studio.functions";
+import { useLiveStudioDesigns } from "@/lib/use-live-studio-designs";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import dominusSelectLogo from "@/assets/dominus-select-horizontal.png.asset.json";
