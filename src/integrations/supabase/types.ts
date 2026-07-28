@@ -159,6 +159,7 @@ export type Database = {
           inspiration: string
           is_active: boolean
           name: string
+          old_price: string
           price: string
           sizes: string
           slug: string
@@ -178,6 +179,7 @@ export type Database = {
           inspiration?: string
           is_active?: boolean
           name: string
+          old_price?: string
           price?: string
           sizes?: string
           slug: string
@@ -197,6 +199,7 @@ export type Database = {
           inspiration?: string
           is_active?: boolean
           name?: string
+          old_price?: string
           price?: string
           sizes?: string
           slug?: string
