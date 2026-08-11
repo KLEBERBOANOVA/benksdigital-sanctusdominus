@@ -30,14 +30,8 @@ function ContatoPage() {
       form.assunto || "Contato pelo site"
     )}&body=${body}`;
 
-    // Abre o cliente de e-mail do usuário (funciona também dentro de iframes)
-    const a = document.createElement("a");
-    a.href = href;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    // Abre o cliente de e-mail do usuário de forma direta
+    window.location.href = href;
 
     setSent(true);
   };
